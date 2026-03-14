@@ -1,0 +1,29 @@
+---
+import '../../styles/mercantile.css';
+import SensoryNav from '../../components/supermarket/SensoryNav.astro';
+import HeroSection from '../../components/supermarket/HeroSection.astro';
+import ProductGrid from '../../components/supermarket/ProductGrid.astro';
+import CartDrawer from '../../components/supermarket/CartDrawer.astro';
+import MercantileFooter from '../../components/supermarket/MercantileFooter.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Mercantile — Groceries, Curated with Care</title>
+  <meta name="description" content="Everyday essentials that feel anything but ordinary. Fresh produce, artisan pantry staples, and morning rituals." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main>
+    <HeroSection />
+    <ProductGrid />
+  </main>
+  <MercantileFooter />
+  <CartDrawer />
+</body>
+</html>

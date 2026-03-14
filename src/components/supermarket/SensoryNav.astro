@@ -1,0 +1,50 @@
+---
+import { collections } from '../../lib/products';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between"
+  style="background: rgba(250, 249, 246, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+
+  <!-- Brand -->
+  <a href="/supermarket" class="flex items-center gap-2 group">
+    <span class="font-display text-xl text-charcoal">The Mercantile</span>
+  </a>
+
+  <!-- Nav -->
+  <nav class="hidden md:flex items-center gap-8">
+    {Object.entries(collections).map(([slug, col]) => (
+      <a
+        href={`/supermarket#${slug}`}
+        class="soft-underline text-sm text-charcoal-muted hover:text-charcoal transition-colors duration-300"
+      >
+        {col.name}
+      </a>
+    ))}
+  </nav>
+
+  <!-- Cart Toggle -->
+  <button
+    id="cart-toggle"
+    class="relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-border-soft hover:shadow-md transition-all duration-300 group"
+  >
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-charcoal-muted group-hover:text-charcoal transition-colors">
+      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+      <line x1="3" y1="6" x2="21" y2="6"/>
+      <path d="M16 10a4 4 0 01-8 0"/>
+    </svg>
+    <span id="cart-count" class="text-sm text-charcoal-muted group-hover:text-charcoal transition-colors">0</span>
+  </button>
+</header>
+
+<script>
+  import { $cartCount, toggleCart } from '../../lib/cartStore';
+
+  const countEl = document.getElementById('cart-count');
+  const toggleBtn = document.getElementById('cart-toggle');
+
+  $cartCount.subscribe((count) => {
+    if (countEl) countEl.textContent = String(count);
+  });
+
+  toggleBtn?.addEventListener('click', () => toggleCart());
+</script>

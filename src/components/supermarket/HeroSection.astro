@@ -1,0 +1,89 @@
+---
+import { products } from '../../lib/products';
+
+const heroProduct = products.find((p) => p.hero)!;
+---
+
+<section class="relative min-h-[90vh] flex items-center overflow-hidden px-6 lg:px-16 bg-peach-soft">
+
+  <!-- Content Grid -->
+  <div class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-28 pb-16 lg:pt-0 lg:pb-0">
+
+    <!-- Left Column — Copy -->
+    <div class="space-y-6 z-10">
+      <!-- Logo / Brand -->
+      <div class="animate-fade-up delay-100">
+        <h1 class="font-display text-5xl sm:text-6xl xl:text-7xl leading-[1.1] tracking-tight text-charcoal">
+          The<br/>Mercantile
+        </h1>
+        <p class="text-charcoal-muted text-lg mt-3">Groceries, curated with care.</p>
+      </div>
+
+      <!-- Divider -->
+      <div class="w-12 h-0.5 bg-charcoal/10 animate-fade-up delay-200"></div>
+
+      <!-- Featured Product -->
+      <div class="animate-fade-up delay-300">
+        <span class="text-xs tracking-widest uppercase text-charcoal-muted">Featured Today</span>
+        <h2 class="font-display text-3xl sm:text-4xl text-charcoal mt-2">{heroProduct.name}</h2>
+      </div>
+
+      <!-- Description -->
+      <p class="text-base leading-relaxed text-charcoal-light max-w-md animate-fade-up delay-400">
+        {heroProduct.description}
+      </p>
+
+      <!-- Price + CTA -->
+      <div class="flex items-center gap-6 animate-fade-up delay-500">
+        <div>
+          <span class="font-mono-price text-2xl font-semibold text-charcoal">${heroProduct.price.toFixed(2)}</span>
+          <span class="text-sm text-charcoal-muted ml-2">{heroProduct.unit}</span>
+        </div>
+        <button
+          data-add-hero
+          data-product-id={heroProduct.id}
+          data-product-name={heroProduct.name}
+          data-product-price={heroProduct.price}
+          data-product-unit={heroProduct.unit}
+          data-product-image={heroProduct.image}
+          class="btn-primary px-7 py-3 text-sm font-medium"
+        >
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column — Hero Image -->
+    <div class="relative animate-slide-right delay-300">
+      <div class="aspect-square w-full max-w-lg mx-auto rounded-card overflow-hidden shadow-lg">
+        <img
+          src={heroProduct.image}
+          alt={heroProduct.name}
+          class="w-full h-full object-cover product-image"
+          loading="eager"
+        />
+      </div>
+
+      <!-- Floating badge -->
+      <div class="absolute -bottom-3 -left-3 lg:-left-6 bg-white rounded-card px-5 py-3 shadow-md animate-fade-up delay-600">
+        <span class="text-xs font-medium text-charcoal block">Fresh today</span>
+        <span class="text-xs text-charcoal-muted">Locally sourced</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { addToCart } from '../../lib/cartStore';
+
+  document.querySelector('[data-add-hero]')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget as HTMLElement;
+    addToCart({
+      id: btn.dataset.productId!,
+      name: btn.dataset.productName!,
+      price: parseFloat(btn.dataset.productPrice!),
+      unit: btn.dataset.productUnit!,
+      image: btn.dataset.productImage!,
+    });
+  });
+</script>
