@@ -1,4 +1,4 @@
-/* THE MERCANTILE — Iteration 12.2: Brand Identity Refinements */
+/* THE MERCANTILE — Iteration 12.3: Global Color & Typography Overhaul */
 
 @import "tailwindcss";
 
@@ -20,21 +20,21 @@
 }
 
 @theme {
-  --color-bone: #F5F5F0;
+  --color-bone: #F5F7F5;
   --color-bone-dark: #EEEDEA;
-  --color-forest: #228B22;
-  --color-forest-dark: #1B6E1B;
-  --color-forest-muted: #5DAA5D;
-  --color-obsidian: #228B22;
-  --color-obsidian-light: #2EA32E;
-  --color-obsidian-muted: #5DAA5D;
-  --color-stone: #228B22;
-  --color-stone-light: #5DAA5D;
-  --color-warm-grey: #C8DFC8;
-  --color-warm-grey-light: #E0EFE0;
+  --color-forest: #1B3022;
+  --color-forest-dark: #0F1F15;
+  --color-forest-muted: #3D5C49;
+  --color-obsidian: #1B3022;
+  --color-obsidian-light: #2A4A35;
+  --color-obsidian-muted: #3D5C49;
+  --color-stone: #1B3022;
+  --color-stone-light: #3D5C49;
+  --color-warm-grey: #C8D5CC;
+  --color-warm-grey-light: #E0EAE3;
   --color-surface: #FFFFFF;
-  --color-detail-bg: #EEF5EE;
-  --color-hairline: rgba(34, 139, 34, 0.15);
+  --color-detail-bg: #EEF2EF;
+  --color-hairline: rgba(27, 48, 34, 0.15);
 }
 
 html {
@@ -72,31 +72,30 @@ html {
 .splash-logo {
   font-family: "Things", Georgia, serif;
   font-style: italic;
-  font-weight: 400;
+  font-weight: 700;
   font-size: 3.5rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   text-transform: none;
   color: transparent;
-  -webkit-text-stroke: 1.5px #1B3022;
-  background: linear-gradient(to right, #1B3022 0%, #1B3022 0%, transparent 0%);
+  background: linear-gradient(to right, #1B3022 50%, rgba(27, 48, 34, 0.15) 50%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
   -webkit-background-clip: text;
   background-clip: text;
   opacity: 0;
-  animation: splashReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards,
-             splashFill 2s ease-in-out 0.6s forwards;
+  animation: splashReveal 0.6s ease-out 0.2s forwards,
+             splashFill 2.2s ease-in-out 0.5s forwards;
 }
 
 @media (min-width: 640px) {
   .splash-logo {
     font-size: 5rem;
-    -webkit-text-stroke: 2px #1B3022;
   }
 }
 
 @media (min-width: 1024px) {
   .splash-logo {
     font-size: 7rem;
-    -webkit-text-stroke: 2.5px #1B3022;
   }
 }
 
@@ -106,8 +105,8 @@ html {
 }
 
 @keyframes splashFill {
-  0% { background: linear-gradient(to right, #1B3022 0%, #1B3022 0%, transparent 0%); -webkit-background-clip: text; background-clip: text; }
-  100% { background: linear-gradient(to right, #1B3022 0%, #1B3022 100%, transparent 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-stroke: 0px transparent; }
+  0% { background-position: 100% 0; }
+  100% { background-position: 0% 0; }
 }
 
 /* ── Base ── */
@@ -124,10 +123,12 @@ html {
   box-sizing: border-box;
 }
 
-/* ── Global Title Style: Sentence case + Italic ── */
+/* ── Global Title Style: Bold + Italic ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: none;
 }
 
@@ -157,7 +158,7 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   inset: 0;
   z-index: 55;
-  background: rgba(34, 139, 34, 0.3);
+  background: rgba(27, 48, 34, 0.3);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -190,9 +191,10 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   padding: 0.875rem 1.75rem;
   font-size: 1.125rem;
-  font-weight: 400;
+  font-weight: 700;
   font-style: italic;
   text-transform: none;
+  letter-spacing: 0.02em;
   font-family: "Things", Georgia, serif;
   color: var(--color-bone);
   transition: background 0.2s ease;
@@ -286,9 +288,9 @@ h1, h2, h3, h4, h5, h6 {
 .btn-add {
   font-family: "Things", Georgia, serif;
   font-size: 0.6875rem;
-  font-weight: 400;
+  font-weight: 700;
   font-style: italic;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   text-transform: none;
   color: var(--color-forest-muted);
   cursor: pointer;
@@ -352,7 +354,7 @@ h1, h2, h3, h4, h5, h6 {
   height: 40px;
   border-radius: 50%;
   background: var(--color-surface);
-  box-shadow: 0 2px 8px rgba(34, 139, 34, 0.15);
+  box-shadow: 0 2px 8px rgba(27, 48, 34, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -431,8 +433,10 @@ h1, h2, h3, h4, h5, h6 {
 .product-title {
   font-family: "Things", Georgia, serif;
   font-style: italic;
-  font-size: 0.8125rem;
+  font-weight: 700;
+  font-size: 1rem;
   line-height: 1.2;
+  letter-spacing: 0.02em;
   color: var(--color-forest);
 }
 
@@ -449,8 +453,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .macro-label {
   font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--color-forest-muted);
   margin-bottom: 0.125rem;
@@ -482,7 +486,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 1.5rem;
   }
   .product-title {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
   .product-price {
     font-size: 1rem;
@@ -514,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 3rem;
   }
   .product-title {
-    font-size: 1.875rem;
+    font-size: 2.25rem;
   }
   .product-price {
     font-size: 1.125rem;
@@ -602,8 +606,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.875rem 0;
   margin-right: 1.75rem;
   font-size: 0.6875rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: none;
   color: var(--color-forest-muted);
   white-space: nowrap;
@@ -632,7 +636,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Things", Georgia, serif;
   font-size: 0.6875rem;
   font-weight: 400;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--color-forest-muted);
 }
@@ -657,7 +661,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.625rem;
   font-weight: 400;
   font-family: "Things", Georgia, serif;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   border: 1px solid var(--color-forest);
   color: var(--color-forest);
@@ -688,8 +692,9 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
   background: #1B3022;
-  color: var(--color-bone);
-  font-weight: 400;
+  color: #F5F7F5;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   text-transform: none;
   transition: opacity 0.2s ease;
 }
@@ -704,13 +709,13 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(80px);
-  background: var(--color-forest);
-  color: var(--color-surface);
+  background: #1B3022;
+  color: #F5F7F5;
   padding: 0.75rem 1.5rem;
   font-family: "Things", Georgia, serif;
   font-style: italic;
   font-size: 0.8125rem;
-  font-weight: 400;
+  font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: none;
   z-index: 100;
@@ -736,7 +741,9 @@ h1, h2, h3, h4, h5, h6 {
 .hero-banner-card h2 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
-  text-transform: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
   color: white;
 }
 
@@ -806,7 +813,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
   font-size: 1rem;
-  font-weight: 400;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--color-forest);
   background: none;
   border: none;
@@ -860,8 +868,8 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Category Page Title ── */
 .category-page-title {
   font-family: "Things", Georgia, serif;
-  font-size: 2.25rem;
-  font-weight: 400;
+  font-size: 2.7rem;
+  font-weight: 700;
   font-style: italic;
   letter-spacing: 0.02em;
   text-transform: none;
@@ -871,7 +879,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 1024px) {
   .category-page-title {
-    font-size: 3rem;
+    font-size: 3.6rem;
   }
 }
 
@@ -904,8 +912,9 @@ h1, h2, h3, h4, h5, h6 {
 .brand-wordmark {
   font-family: "Things", Georgia, serif;
   font-style: italic;
+  font-weight: 700;
   font-size: 1.125rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.02em;
   text-transform: none;
   color: white;
 }
@@ -988,8 +997,9 @@ h1, h2, h3, h4, h5, h6 {
 .qty-label {
   font-family: "Things", Georgia, serif;
   font-style: italic;
+  font-weight: 700;
   font-size: 0.5625rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.02em;
   color: #1B3022;
   opacity: 0.6;
   margin-bottom: 0.25rem;

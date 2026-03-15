@@ -110,7 +110,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
               data-product-price={product.price}
               data-product-unit={product.size}
               data-product-image={product.image}
-              class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.1em] text-center"
+              class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.02em] text-center"
             >
               + Add to Bag
             </button>
@@ -166,16 +166,16 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
       <div class="detail-box">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <div>
-            <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Origin</p>
+            <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted mb-1">Origin</p>
             <p class="text-sm text-obsidian leading-[1.7]">{product.origin.region}</p>
           </div>
           <div>
-            <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Altitude / Climate</p>
+            <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted mb-1">Altitude / Climate</p>
             <p class="text-sm text-obsidian leading-[1.7]">{product.origin.altitude}</p>
           </div>
         </div>
         <div class="hairline-h my-5"></div>
-        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-3">Details</p>
+        <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted mb-3">Details</p>
         <p class="text-sm text-obsidian leading-[1.7]">{product.description}</p>
       </div>
     </div>
@@ -184,7 +184,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
     {pairings.length > 0 && (
       <div class="px-6 lg:px-12 pb-10">
         <div class="hairline-h mb-6"></div>
-        <h3 class="text-[10px] font-black tracking-[0.1em] uppercase text-obsidian mb-4">Pairs Well With</h3>
+        <h3 class="text-[10px] font-black tracking-[0.02em] uppercase text-obsidian mb-4">Pairs Well With</h3>
         <div class="carousel-wrap">
           <div class="carousel-track" id="carousel-pairings">
             {pairings.map((p, i) => (
@@ -195,7 +195,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
                   </div>
                 </a>
                 <div class="pt-3">
-                  <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{p.label}</p>
+                  <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{p.label}</p>
                   <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{p.name}</h4>
                   <div class="flex items-baseline justify-between mt-1">
                     <span class="text-sm font-medium text-obsidian">${p.price.toFixed(2)}</span>

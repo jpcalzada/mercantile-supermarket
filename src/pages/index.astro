@@ -51,7 +51,7 @@ const heroBanners = [
                 loading="eager"
               />
               <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
-                <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">{b.subtitle}</p>
+                <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-white/70 mb-1">{b.subtitle}</p>
                 <h2 class="text-2xl lg:text-4xl tracking-tight text-white">{b.title}</h2>
               </div>
             </a>
@@ -66,8 +66,8 @@ const heroBanners = [
     {/* ── PRODUCE GRID ── */}
     <section id="produce" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Fresh Produce</h3>
-        <a href="/garden" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">Fresh Produce</h3>
+        <a href="/garden" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {produce.slice(0, 6).map((product) => (
@@ -78,7 +78,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -93,8 +93,8 @@ const heroBanners = [
     {/* ── TONIC BAR GRID ── */}
     <section id="juice-bar" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Tonic Bar</h3>
-        <a href="/tonic-bar" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">Tonic Bar</h3>
+        <a href="/tonic-bar" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {tonicBar.slice(0, 6).map((product) => (
@@ -105,7 +105,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -120,8 +120,8 @@ const heroBanners = [
     {/* ── CAFE GRID ── */}
     <section id="cafe" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Cafe</h3>
-        <a href="/cafe" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">Cafe</h3>
+        <a href="/cafe" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {cafe.slice(0, 6).map((product) => (
@@ -132,7 +132,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -147,8 +147,8 @@ const heroBanners = [
     {/* ── BAKERY GRID ── */}
     <section id="bakery" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">The Bakery</h3>
-        <a href="/bakery" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">The Bakery</h3>
+        <a href="/bakery" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {bakery.slice(0, 6).map((product) => (
@@ -159,7 +159,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -174,8 +174,8 @@ const heroBanners = [
     {/* ── THE DELI GRID ── */}
     <section id="deli" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">The Deli</h3>
-        <a href="/deli" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">The Deli</h3>
+        <a href="/deli" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {deli.slice(0, 6).map((product) => (
@@ -186,7 +186,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -201,8 +201,8 @@ const heroBanners = [
     {/* ── PANTRY GRID ── */}
     <section id="pantry" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">The Pantry</h3>
-        <a href="/pantry" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">The Pantry</h3>
+        <a href="/pantry" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {pantry.slice(0, 6).map((product) => (
@@ -213,7 +213,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -228,8 +228,8 @@ const heroBanners = [
     {/* ── DAIRY ALT GRID ── */}
     <section id="dairy-alt" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Dairy Alt</h3>
-        <a href="/dairy-alt" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">Dairy Alt</h3>
+        <a href="/dairy-alt" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {dairyAlt.slice(0, 6).map((product) => (
@@ -240,7 +240,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
@@ -255,8 +255,8 @@ const heroBanners = [
     {/* ── SWEET TREATS GRID ── */}
     <section id="sweet-treats" class="px-4 lg:px-6 py-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
-        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Sweet Treats</h3>
-        <a href="/sweet-treats" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+        <h3 class="text-[13px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">Sweet Treats</h3>
+        <a href="/sweet-treats" class="text-[12px] font-bold tracking-[0.02em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {sweetTreats.slice(0, 6).map((product) => (
@@ -267,7 +267,7 @@ const heroBanners = [
               </div>
             </a>
             <div class="pt-3">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{product.label}</p>
               <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
               <div class="flex items-baseline justify-between mt-1">
                 <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
