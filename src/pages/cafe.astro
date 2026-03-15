@@ -91,4 +91,20 @@ const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-be
       showToast('Added to bag');
     });
   });
+
+  // Product card fade-in on scroll
+  const cards = document.querySelectorAll('.product-card');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach((card, i) => {
+    (card as HTMLElement).style.transitionDelay = `${i % 6 * 0.08}s`;
+    cardObserver.observe(card);
+  });
 </script>

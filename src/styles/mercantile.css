@@ -1,4 +1,4 @@
-/* THE MERCANTILE — Iteration 12.3: Global Color & Typography Overhaul */
+/* THE MERCANTILE — Iteration 12.4: Category Fix + Martian Mono */
 
 @import "tailwindcss";
 
@@ -16,6 +16,15 @@
   src: url("/fonts/things-italic.otf") format("opentype");
   font-weight: 400;
   font-style: italic;
+  font-display: swap;
+}
+
+/* ── @font-face: Martian Mono ── */
+@font-face {
+  font-family: "Martian Mono";
+  src: url("/fonts/MartianMono.ttf") format("truetype");
+  font-weight: 100 800;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -111,7 +120,8 @@ html {
 
 /* ── Base ── */
 .mercantile-page {
-  font-family: "Things", Georgia, "Times New Roman", serif;
+  font-family: "Martian Mono", "SF Mono", "Menlo", monospace;
+  font-size: 0.8125rem;
   background: var(--color-bone);
   color: var(--color-forest);
   min-height: 100vh;
@@ -190,12 +200,12 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-link {
   display: block;
   padding: 0.875rem 1.75rem;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   font-style: italic;
   text-transform: none;
   letter-spacing: 0.02em;
-  font-family: "Things", Georgia, serif;
+  font-family: "Martian Mono", monospace;
   color: var(--color-bone);
   transition: background 0.2s ease;
 }
@@ -286,10 +296,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-add {
-  font-family: "Things", Georgia, serif;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  font-style: italic;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  font-style: normal;
   letter-spacing: 0.02em;
   text-transform: none;
   color: var(--color-forest-muted);
@@ -441,18 +451,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .product-price {
-  font-size: 0.8125rem;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.75rem;
   margin-top: 0.25rem;
   color: var(--color-forest);
 }
 
 .product-price-label {
-  font-size: 0.5625rem;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.5rem;
   color: var(--color-forest-muted);
 }
 
 .macro-label {
-  font-size: 0.5rem;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.4375rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -461,9 +474,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .macro-value {
-  font-family: "Things", Georgia, serif;
-  font-size: 0.6875rem;
-  font-weight: 400;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.625rem;
+  font-weight: 500;
   color: var(--color-forest);
 }
 
@@ -489,24 +502,24 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 1.5rem;
   }
   .product-price {
-    font-size: 1rem;
+    font-size: 0.875rem;
     margin-top: 0.5rem;
   }
   .product-price-label {
-    font-size: 0.75rem;
-  }
-  .macro-label {
     font-size: 0.625rem;
   }
+  .macro-label {
+    font-size: 0.5rem;
+  }
   .macro-value {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
   .product-split-info .breadcrumbs {
-    font-size: 0.6875rem;
+    font-size: 0.5625rem;
   }
   .product-split-info .badge {
     padding: 0.25rem 0.625rem;
-    font-size: 0.625rem;
+    font-size: 0.5rem;
   }
 }
 
@@ -521,11 +534,11 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 2.25rem;
   }
   .product-price {
-    font-size: 1.125rem;
+    font-size: 1rem;
     margin-top: 0.75rem;
   }
   .product-price-label {
-    font-size: 0.875rem;
+    font-size: 0.75rem;
   }
   .macro-label {
     font-size: 0.625rem;
@@ -601,12 +614,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .category-nav-btn {
-  font-family: "Things", Georgia, serif;
-  font-style: italic;
+  font-family: "Martian Mono", monospace;
+  font-style: normal;
   padding: 0.875rem 0;
   margin-right: 1.75rem;
-  font-size: 0.6875rem;
-  font-weight: 700;
+  font-size: 0.5625rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: none;
   color: var(--color-forest-muted);
@@ -633,8 +646,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Breadcrumbs ── */
 .breadcrumbs {
-  font-family: "Things", Georgia, serif;
-  font-size: 0.6875rem;
+  font-family: "Martian Mono", monospace;
+  font-size: 0.5625rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -660,7 +673,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.25rem 0.625rem;
   font-size: 0.625rem;
   font-weight: 400;
-  font-family: "Things", Georgia, serif;
+  font-family: "Martian Mono", monospace;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   border: 1px solid var(--color-forest);
@@ -689,11 +702,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Buttons ── */
 .btn-primary {
-  font-family: "Things", Georgia, serif;
-  font-style: italic;
+  font-family: "Martian Mono", monospace;
+  font-style: normal;
   background: #1B3022;
   color: #F5F7F5;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 0.6875rem;
   letter-spacing: 0.02em;
   text-transform: none;
   transition: opacity 0.2s ease;
@@ -712,10 +726,10 @@ h1, h2, h3, h4, h5, h6 {
   background: #1B3022;
   color: #F5F7F5;
   padding: 0.75rem 1.5rem;
-  font-family: "Things", Georgia, serif;
-  font-style: italic;
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-family: "Martian Mono", monospace;
+  font-style: normal;
+  font-size: 0.6875rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: none;
   z-index: 100;
@@ -810,10 +824,10 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 0;
-  font-family: "Things", Georgia, serif;
-  font-style: italic;
-  font-size: 1rem;
-  font-weight: 700;
+  font-family: "Martian Mono", monospace;
+  font-style: normal;
+  font-size: 0.8125rem;
+  font-weight: 600;
   letter-spacing: 0.02em;
   color: var(--color-forest);
   background: none;
@@ -845,7 +859,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Shopper Notes ── */
 .shopper-notes {
   width: 100%;
-  font-family: "Things", Georgia, serif;
+  font-family: "Martian Mono", monospace;
   background: transparent;
   border: 1px solid var(--color-hairline);
   padding: 0.75rem;
@@ -934,7 +948,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .qty-selector button {
-  font-family: "Things", Georgia, serif;
+  font-family: "Martian Mono", monospace;
   font-size: 0.875rem;
   font-weight: 400;
   width: 2rem;
@@ -954,7 +968,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .qty-selector .qty-value {
-  font-family: "Things", Georgia, serif;
+  font-family: "Martian Mono", monospace;
   font-size: 0.8125rem;
   font-weight: 400;
   color: #1B3022;
@@ -995,9 +1009,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .qty-label {
-  font-family: "Things", Georgia, serif;
-  font-style: italic;
-  font-weight: 700;
+  font-family: "Martian Mono", monospace;
+  font-style: normal;
+  font-weight: 600;
   font-size: 0.5625rem;
   letter-spacing: 0.02em;
   color: #1B3022;
