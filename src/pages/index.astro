@@ -5,9 +5,13 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
 
 const produce = products.filter((p) => p.category === 'produce');
-const pantry = products.filter((p) => ['pantry', 'sweet-treats', 'deli'].includes(p.category));
-const drinks = products.filter((p) => ['juice-bar', 'dairy-alt'].includes(p.category));
 const bakery = products.filter((p) => p.category === 'bakery');
+const tonicBar = products.filter((p) => p.category === 'juice-bar' && ['vitality-juice', 'matcha-tonic', 'immunity-shot', 'charcoal-cleanse', 'aloe-water'].includes(p.id));
+const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-beans', 'ceremonial-matcha', 'cold-brew', 'oat-latte', 'earl-grey-tea'].includes(p.id));
+const pantry = products.filter((p) => p.category === 'pantry');
+const deli = products.filter((p) => p.category === 'deli');
+const dairyAlt = products.filter((p) => p.category === 'dairy-alt');
+const sweetTreats = products.filter((p) => p.category === 'sweet-treats');
 
 const heroBanners = [
   { href: '/garden', image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80', alt: 'Fresh produce', subtitle: 'Fresh Daily', title: 'The Garden' },
@@ -61,7 +65,7 @@ const heroBanners = [
     </section>
 
     {/* ── PRODUCE GRID ── */}
-    <section class="px-4 lg:px-6 pt-10 scroll-reveal">
+    <section id="produce" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
         <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Fresh Produce</h3>
         <a href="/garden" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
@@ -88,13 +92,40 @@ const heroBanners = [
     </section>
 
     {/* ── TONIC BAR GRID ── */}
-    <section class="px-4 lg:px-6 pt-10 scroll-reveal">
+    <section id="juice-bar" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
         <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Tonic Bar</h3>
         <a href="/tonic-bar" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
-        {drinks.slice(0, 6).map((product) => (
+        {tonicBar.slice(0, 6).map((product) => (
+          <div class="product-card group" data-category={product.category}>
+            <a href={`/supermarket/${product.id}`} class="block">
+              <div class="card-image-wrap aspect-square w-full">
+                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+              </div>
+            </a>
+            <div class="pt-3">
+              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
+                <button data-add-product data-product-id={product.id} data-product-name={product.name} data-product-price={product.price} data-product-unit={product.size} data-product-image={product.image} class="btn-add">+ Add</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ── CAFE GRID ── */}
+    <section id="cafe" class="px-4 lg:px-6 pt-10 scroll-reveal">
+      <div class="flex items-baseline justify-between mb-4">
+        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Cafe</h3>
+        <a href="/cafe" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+      </div>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+        {cafe.slice(0, 6).map((product) => (
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
@@ -115,7 +146,7 @@ const heroBanners = [
     </section>
 
     {/* ── BAKERY GRID ── */}
-    <section class="px-4 lg:px-6 pt-10 scroll-reveal">
+    <section id="bakery" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
         <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">The Bakery</h3>
         <a href="/bakery" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
@@ -141,14 +172,95 @@ const heroBanners = [
       </div>
     </section>
 
+    {/* ── THE DELI GRID ── */}
+    <section id="deli" class="px-4 lg:px-6 pt-10 scroll-reveal">
+      <div class="flex items-baseline justify-between mb-4">
+        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">The Deli</h3>
+        <a href="/deli" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+      </div>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+        {deli.slice(0, 6).map((product) => (
+          <div class="product-card group" data-category={product.category}>
+            <a href={`/supermarket/${product.id}`} class="block">
+              <div class="card-image-wrap aspect-square w-full">
+                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+              </div>
+            </a>
+            <div class="pt-3">
+              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
+                <button data-add-product data-product-id={product.id} data-product-name={product.name} data-product-price={product.price} data-product-unit={product.size} data-product-image={product.image} class="btn-add">+ Add</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
     {/* ── PANTRY GRID ── */}
-    <section class="px-4 lg:px-6 py-10 scroll-reveal">
+    <section id="pantry" class="px-4 lg:px-6 pt-10 scroll-reveal">
       <div class="flex items-baseline justify-between mb-4">
         <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">The Pantry</h3>
         <a href="/pantry" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
       </div>
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
         {pantry.slice(0, 6).map((product) => (
+          <div class="product-card group" data-category={product.category}>
+            <a href={`/supermarket/${product.id}`} class="block">
+              <div class="card-image-wrap aspect-square w-full">
+                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+              </div>
+            </a>
+            <div class="pt-3">
+              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
+                <button data-add-product data-product-id={product.id} data-product-name={product.name} data-product-price={product.price} data-product-unit={product.size} data-product-image={product.image} class="btn-add">+ Add</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ── DAIRY ALT GRID ── */}
+    <section id="dairy-alt" class="px-4 lg:px-6 pt-10 scroll-reveal">
+      <div class="flex items-baseline justify-between mb-4">
+        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Dairy Alt</h3>
+        <a href="/dairy-alt" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+      </div>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+        {dairyAlt.slice(0, 6).map((product) => (
+          <div class="product-card group" data-category={product.category}>
+            <a href={`/supermarket/${product.id}`} class="block">
+              <div class="card-image-wrap aspect-square w-full">
+                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+              </div>
+            </a>
+            <div class="pt-3">
+              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
+                <button data-add-product data-product-id={product.id} data-product-name={product.name} data-product-price={product.price} data-product-unit={product.size} data-product-image={product.image} class="btn-add">+ Add</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* ── SWEET TREATS GRID ── */}
+    <section id="sweet-treats" class="px-4 lg:px-6 py-10 scroll-reveal">
+      <div class="flex items-baseline justify-between mb-4">
+        <h3 class="text-[11px] font-bold tracking-[0.12em] uppercase text-obsidian-muted">Sweet Treats</h3>
+        <a href="/sweet-treats" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">View All</a>
+      </div>
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+        {sweetTreats.slice(0, 6).map((product) => (
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">

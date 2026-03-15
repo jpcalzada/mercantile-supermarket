@@ -4,7 +4,7 @@ import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
 
-const pantry = products.filter((p) => ['pantry', 'sweet-treats', 'deli'].includes(p.category));
+const pantry = products.filter((p) => p.category === 'pantry');
 ---
 
 <html lang="en">
@@ -32,7 +32,7 @@ const pantry = products.filter((p) => ['pantry', 'sweet-treats', 'deli'].include
         <div class="absolute inset-0 bg-obsidian/25"></div>
         <div class="absolute bottom-8 left-8">
           <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">Staples & Essentials</p>
-          <h1 class="text-4xl lg:text-5xl font-black tracking-tight text-white uppercase">The Pantry</h1>
+          <h1 class="category-page-title">The Pantry</h1>
         </div>
       </div>
     </section>

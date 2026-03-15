@@ -4,7 +4,7 @@ import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
 
-const drinks = products.filter((p) => ['juice-bar', 'dairy-alt'].includes(p.category));
+const tonicBar = products.filter((p) => p.category === 'juice-bar' && ['vitality-juice', 'matcha-tonic', 'immunity-shot', 'charcoal-cleanse', 'aloe-water'].includes(p.id));
 ---
 
 <html lang="en">
@@ -12,8 +12,8 @@ const drinks = products.filter((p) => ['juice-bar', 'dairy-alt'].includes(p.cate
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="view-transition" content="same-origin" />
-  <title>The Tonic Bar — The Mercantile</title>
-  <meta name="description" content="Cold-pressed juices and plant-based drinks. The Tonic Bar at The Mercantile." />
+  <title>Tonic Bar — The Mercantile</title>
+  <meta name="description" content="Cold-pressed juices and wellness tonics. The Tonic Bar at The Mercantile." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -25,21 +25,21 @@ const drinks = products.filter((p) => ['juice-bar', 'dairy-alt'].includes(p.cate
       <div class="relative aspect-[3/1] overflow-hidden rounded-[12px] bg-surface mb-8">
         <img
           src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=1600&q=80"
-          alt="The Tonic Bar"
+          alt="Tonic Bar"
           class="w-full h-full object-cover"
           loading="eager"
         />
         <div class="absolute inset-0 bg-obsidian/25"></div>
         <div class="absolute bottom-8 left-8">
           <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">Cold-Pressed Daily</p>
-          <h1 class="text-4xl lg:text-5xl font-black tracking-tight text-white uppercase">The Tonic Bar</h1>
+          <h1 class="category-page-title">Tonic Bar</h1>
         </div>
       </div>
     </section>
 
     <section class="px-4 lg:px-6 pb-10">
       <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
-        {drinks.map((product) => (
+        {tonicBar.map((product) => (
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">

@@ -47,11 +47,13 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
   <SensoryNav />
 
   <main class="pt-[64px]">
-    <div class="lg:grid lg:grid-cols-2 lg:min-h-[calc(100vh-64px)]">
 
-      {/* ── LEFT: Square product image on white ── */}
-      <div class="relative lg:sticky lg:top-[64px] lg:h-[calc(100vh-64px)] flex items-center justify-center bg-surface p-8 lg:p-12">
-        <div class="aspect-square w-full max-w-lg overflow-hidden rounded-[12px]">
+    {/* ══ PART 1: Persistent Split — Image Left, Info Right ══ */}
+    <div class="product-split">
+
+      {/* ── LEFT: Product Image ── */}
+      <div class="product-split-image">
+        <div class="product-image-frame">
           <img
             src={product.image}
             alt={product.name}
@@ -62,47 +64,35 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
         </div>
       </div>
 
-      {/* ── RIGHT: Product info ── */}
-      <div class="px-6 lg:px-12 py-8 lg:py-10 lg:overflow-y-auto bg-bone">
+      {/* ── RIGHT: Product Info ── */}
+      <div class="product-split-info">
 
         {/* Breadcrumbs */}
-        <nav class="breadcrumbs mb-6">
+        <nav class="breadcrumbs mb-2 lg:mb-6">
           <a href="/">Home</a>
-          <span class="mx-1.5">/</span>
-          <a href={`/shop#${product.category}`}>{categoryLabel.toUpperCase()}</a>
-          <span class="mx-1.5">/</span>
-          <a href={`/shop#${product.category}`}>{product.label}</a>
-          <span class="mx-1.5">/</span>
+          <span class="mx-1">/</span>
+          <a href={`/#${product.category}`}>{categoryLabel.toUpperCase()}</a>
+          <span class="mx-1">/</span>
           <span>{product.name}</span>
         </nav>
 
-        {/* Title & Price */}
+        {/* Title */}
         <div class="animate-fade-up">
-          <h1 class="text-2xl lg:text-3xl font-black tracking-tight text-obsidian leading-tight uppercase">
+          <h1 class="product-title font-black tracking-tight text-obsidian leading-tight uppercase">
             {product.name}
           </h1>
-          <p class="text-lg font-medium text-obsidian mt-2">${product.price.toFixed(2)} <span class="text-sm text-obsidian-muted font-normal">est.</span></p>
 
-          {/* Badges */}
-          <div class="flex gap-2 mt-4">
+          {/* Price */}
+          <p class="product-price font-medium text-obsidian">${product.price.toFixed(2)} <span class="product-price-label text-obsidian-muted font-normal">est.</span></p>
+
+          {/* Category + Unit badges */}
+          <div class="flex flex-wrap gap-1 lg:gap-2 mt-1.5 lg:mt-4">
             <span class="badge">{product.label}</span>
             <span class="badge">{product.size}</span>
           </div>
 
-          {/* Qty Input + Add */}
-          <div class="flex items-center gap-4 mt-6">
-            <div class="qty-selector" id="detail-qty">
-              <button id="qty-minus">-</button>
-              <input
-                type="number"
-                id="qty-input"
-                class="qty-input"
-                value="1"
-                min="1"
-                max="99"
-              />
-              <button id="qty-plus">+</button>
-            </div>
+          {/* Add to Bag */}
+          <div class="mt-2.5 lg:mt-6">
             <button
               id="add-to-bag"
               data-product-id={product.id}
@@ -110,14 +100,14 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
               data-product-price={product.price}
               data-product-unit={product.size}
               data-product-image={product.image}
-              class="btn-primary flex-1 py-3 text-[11px] font-bold tracking-[0.1em] uppercase text-center"
+              class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.1em] uppercase text-center"
             >
-              Add to Bag
+              + Add to Bag
             </button>
           </div>
 
-          {/* Shopper Notes */}
-          <div class="mt-4">
+          {/* Shopper Notes — hidden on small mobile */}
+          <div class="mt-2 lg:mt-4 hidden sm:block">
             <textarea
               id="shopper-notes"
               class="shopper-notes"
@@ -127,97 +117,101 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
           </div>
         </div>
 
-        {/* Macro layout */}
-        <div class="mt-8 animate-fade-up delay-100">
+        {/* Nutrition Stats */}
+        <div class="mt-3 lg:mt-8 animate-fade-up delay-100">
           <div class="macro-grid">
             <div class="text-center">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Fat</p>
-              <p class="text-lg font-black text-obsidian">{product.macros?.fat ?? '—'}</p>
+              <p class="macro-label">Fat</p>
+              <p class="macro-value">{product.macros?.fat ?? '—'}</p>
             </div>
             <div class="macro-divider"></div>
             <div class="text-center">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Carbs</p>
-              <p class="text-lg font-black text-obsidian">{product.macros?.carbs ?? '—'}</p>
+              <p class="macro-label">Carbs</p>
+              <p class="macro-value">{product.macros?.carbs ?? '—'}</p>
             </div>
             <div class="macro-divider"></div>
             <div class="text-center">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Protein</p>
-              <p class="text-lg font-black text-obsidian">{product.macros?.protein ?? '—'}</p>
+              <p class="macro-label">Protein</p>
+              <p class="macro-value">{product.macros?.protein ?? '—'}</p>
             </div>
           </div>
-        </div>
-
-        <div class="hairline-h my-6"></div>
-
-        {/* Info Section */}
-        <div class="animate-fade-up delay-200">
-          <div class="py-6 space-y-5">
-            <div class="grid grid-cols-1 gap-4">
-              <div>
-                <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Origin</p>
-                <p class="text-sm text-obsidian">{product.origin.region}</p>
-              </div>
-              <div>
-                <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Altitude / Climate</p>
-                <p class="text-sm text-obsidian">{product.origin.altitude}</p>
-              </div>
-              <div>
-                <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Harvest</p>
-                <p class="text-sm text-obsidian">{product.origin.harvest}</p>
-              </div>
-            </div>
-
-            {/* Detail box */}
-            <div class="detail-box mt-6">
-              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-3">Details</p>
-              <p class="text-sm text-obsidian leading-[1.7]">{product.description}</p>
-            </div>
-          </div>
-
-          {/* Pairs Well With — horizontal scroll */}
-          {pairings.length > 0 && (
-            <div class="mt-4">
-              <div class="hairline-h mb-6"></div>
-              <h3 class="text-[10px] font-black tracking-[0.1em] uppercase text-obsidian mb-4">Pairs Well With</h3>
-              <div class="carousel-wrap">
-                <div class="carousel-track" id="carousel-pairings">
-                  {pairings.map((p, i) => (
-                    <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={p.category}>
-                      <a href={`/supermarket/${p.id}`} class="block">
-                        <div class="card-image-wrap aspect-square w-full">
-                          <img src={p.image} alt={p.name} class="w-full h-full object-cover product-image" loading="lazy" />
-                        </div>
-                      </a>
-                      <div class="pt-3">
-                        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{p.label}</p>
-                        <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{p.name}</h4>
-                        <div class="flex items-baseline justify-between mt-1">
-                          <span class="text-sm font-medium text-obsidian">${p.price.toFixed(2)}</span>
-                          <button
-                            data-add-pairing
-                            data-product-id={p.id}
-                            data-product-name={p.name}
-                            data-product-price={p.price}
-                            data-product-unit={p.size}
-                            data-product-image={p.image}
-                            class="btn-add"
-                          >
-                            + Add
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <button class="carousel-arrow right" data-scroll-target="carousel-pairings" aria-label="Scroll right">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                </button>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </div>
+
+    {/* Mobile-only: Shopper Notes below the split */}
+    <div class="px-4 py-3 bg-bone sm:hidden">
+      <textarea
+        id="shopper-notes-mobile"
+        class="shopper-notes"
+        placeholder="Add a note (e.g., 'ripe please', 'slice thin')"
+        rows="2"
+      ></textarea>
+    </div>
+
+    {/* ══ PART 2: Bottom Section — Full Width ══ */}
+
+    {/* Details / Description */}
+    <div class="px-6 lg:px-12 py-10 animate-fade-up delay-200">
+      <div class="detail-box">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Origin</p>
+            <p class="text-sm text-obsidian leading-[1.7]">{product.origin.region}</p>
+          </div>
+          <div>
+            <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-1">Altitude / Climate</p>
+            <p class="text-sm text-obsidian leading-[1.7]">{product.origin.altitude}</p>
+          </div>
+        </div>
+        <div class="hairline-h my-5"></div>
+        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-3">Details</p>
+        <p class="text-sm text-obsidian leading-[1.7]">{product.description}</p>
+      </div>
+    </div>
+
+    {/* Pairs Well With — full width */}
+    {pairings.length > 0 && (
+      <div class="px-6 lg:px-12 pb-10">
+        <div class="hairline-h mb-6"></div>
+        <h3 class="text-[10px] font-black tracking-[0.1em] uppercase text-obsidian mb-4">Pairs Well With</h3>
+        <div class="carousel-wrap">
+          <div class="carousel-track" id="carousel-pairings">
+            {pairings.map((p, i) => (
+              <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={p.category}>
+                <a href={`/supermarket/${p.id}`} class="block">
+                  <div class="card-image-wrap aspect-square w-full">
+                    <img src={p.image} alt={p.name} class="w-full h-full object-cover product-image" loading="lazy" />
+                  </div>
+                </a>
+                <div class="pt-3">
+                  <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{p.label}</p>
+                  <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{p.name}</h4>
+                  <div class="flex items-baseline justify-between mt-1">
+                    <span class="text-sm font-medium text-obsidian">${p.price.toFixed(2)}</span>
+                    <button
+                      data-add-pairing
+                      data-product-id={p.id}
+                      data-product-name={p.name}
+                      data-product-price={p.price}
+                      data-product-unit={p.size}
+                      data-product-image={p.image}
+                      class="btn-add"
+                    >
+                      + Add
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <button class="carousel-arrow right" data-scroll-target="carousel-pairings" aria-label="Scroll right">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    )}
+
   </main>
 
   <MercantileFooter />
@@ -225,7 +219,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
 </html>
 
 <script>
-  import { addToCart, updateNotes, $cartItems } from '../../lib/cartStore';
+  import { addToCart, updateNotes } from '../../lib/cartStore';
 
   function showToast(message: string) {
     const toast = document.getElementById('toast');
@@ -235,52 +229,25 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
     setTimeout(() => toast.classList.remove('visible'), 2500);
   }
 
-  // Qty input
-  const qtyInput = document.getElementById('qty-input') as HTMLInputElement;
-
-  function getQty(): number {
-    const val = parseInt(qtyInput.value, 10);
-    return isNaN(val) || val < 1 ? 1 : val;
-  }
-
-  document.getElementById('qty-minus')?.addEventListener('click', () => {
-    const current = getQty();
-    if (current > 1) {
-      qtyInput.value = String(current - 1);
-    }
-  });
-
-  document.getElementById('qty-plus')?.addEventListener('click', () => {
-    qtyInput.value = String(getQty() + 1);
-  });
-
-  // Clamp on blur
-  qtyInput?.addEventListener('blur', () => {
-    const val = getQty();
-    qtyInput.value = String(val);
-  });
-
-  // Add to bag (with qty + notes)
+  // Add to bag (single unit)
   const notesEl = document.getElementById('shopper-notes') as HTMLTextAreaElement;
+  const notesMobileEl = document.getElementById('shopper-notes-mobile') as HTMLTextAreaElement;
 
   document.getElementById('add-to-bag')?.addEventListener('click', (e) => {
     const btn = e.currentTarget as HTMLElement;
-    const qty = getQty();
-    for (let i = 0; i < qty; i++) {
-      addToCart({
-        id: btn.dataset.productId!,
-        name: btn.dataset.productName!,
-        price: parseFloat(btn.dataset.productPrice!),
-        unit: btn.dataset.productUnit!,
-        image: btn.dataset.productImage!,
-      });
-    }
-    // Save notes if provided
-    const notes = notesEl?.value.trim();
+    addToCart({
+      id: btn.dataset.productId!,
+      name: btn.dataset.productName!,
+      price: parseFloat(btn.dataset.productPrice!),
+      unit: btn.dataset.productUnit!,
+      image: btn.dataset.productImage!,
+    });
+    // Save notes if provided (check both desktop and mobile textareas)
+    const notes = notesEl?.value.trim() || notesMobileEl?.value.trim();
     if (notes) {
       updateNotes(btn.dataset.productId!, notes);
     }
-    showToast(`Added ${qty} to bag`);
+    showToast('Added to bag');
   });
 
   // Pairing add buttons
