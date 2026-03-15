@@ -1,20 +1,40 @@
-/* THE MERCANTILE — Unified Grid & Membership System */
+/* THE MERCANTILE — Iteration 12: The Grand Rebrand */
 
 @import "tailwindcss";
+
+/* ── @font-face: Things Modern Serif ── */
+@font-face {
+  font-family: "Things";
+  src: url("/fonts/things.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Things";
+  src: url("/fonts/things-italic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 
 @theme {
   --color-bone: #F5F5F0;
   --color-bone-dark: #EEEDEA;
-  --color-obsidian: #1A1A1A;
-  --color-obsidian-light: #3D3D3D;
-  --color-obsidian-muted: #999590;
-  --color-stone: #8C7E6A;
-  --color-stone-light: #A89B87;
-  --color-warm-grey: #E5E2D8;
-  --color-warm-grey-light: #EDEBE4;
+  --color-forest: #228B22;
+  --color-forest-dark: #1B6E1B;
+  --color-forest-muted: #5DAA5D;
+  --color-obsidian: #228B22;
+  --color-obsidian-light: #2EA32E;
+  --color-obsidian-muted: #5DAA5D;
+  --color-stone: #228B22;
+  --color-stone-light: #5DAA5D;
+  --color-warm-grey: #C8DFC8;
+  --color-warm-grey-light: #E0EFE0;
   --color-surface: #FFFFFF;
-  --color-detail-bg: #EEEEEE;
-  --color-hairline: rgba(140, 126, 106, 0.15);
+  --color-detail-bg: #EEF5EE;
+  --color-hairline: rgba(34, 139, 34, 0.15);
 }
 
 html {
@@ -24,14 +44,14 @@ html {
 /* ── FOUC Prevention ── */
 .mercantile-page .main-content {
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease;
 }
 
 .mercantile-page.loaded .main-content {
   opacity: 1;
 }
 
-/* ── Splash / Logo Loader ── */
+/* ── Grand Splash Screen ── */
 .splash-screen {
   position: fixed;
   inset: 0;
@@ -40,7 +60,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 .splash-screen.done {
@@ -50,29 +70,39 @@ html {
 }
 
 .splash-logo {
-  font-family: "Satoshi", "General Sans", system-ui, sans-serif;
-  font-weight: 900;
-  font-size: 2rem;
-  letter-spacing: 0.2em;
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 3.5rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: transparent;
-  background: linear-gradient(90deg, var(--color-obsidian) 50%, transparent 50%);
-  background-size: 200% 100%;
-  background-position: 100% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: logoFill 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+  color: var(--color-forest);
+  opacity: 0;
+  animation: splashReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
 }
 
-@keyframes logoFill {
-  to { background-position: 0 0; }
+@media (min-width: 640px) {
+  .splash-logo {
+    font-size: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .splash-logo {
+    font-size: 7rem;
+  }
+}
+
+@keyframes splashReveal {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Base ── */
 .mercantile-page {
-  font-family: "Biotif Pro", "Satoshi", "General Sans", "Helvetica Neue", system-ui, sans-serif;
+  font-family: "Things", Georgia, "Times New Roman", serif;
   background: var(--color-bone);
-  color: var(--color-obsidian);
+  color: var(--color-forest);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -82,7 +112,14 @@ html {
   box-sizing: border-box;
 }
 
-/* ── 64px Obsidian Top Bar ── */
+/* ── Global Title Style: Uppercase + Italic ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+/* ── 64px Forest Green Top Bar ── */
 .site-header {
   position: fixed;
   top: 0;
@@ -90,7 +127,7 @@ html {
   right: 0;
   z-index: 50;
   height: 64px;
-  background: var(--color-obsidian);
+  background: var(--color-forest);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -103,12 +140,12 @@ html {
   }
 }
 
-/* ── Vertical Sidebar (Inverted: Obsidian bg, Bone text) ── */
+/* ── Vertical Sidebar ── */
 .sidebar-backdrop {
   position: fixed;
   inset: 0;
   z-index: 55;
-  background: rgba(26, 26, 26, 0.4);
+  background: rgba(34, 139, 34, 0.3);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -127,7 +164,7 @@ html {
   width: 340px;
   max-width: 85vw;
   height: 100%;
-  background: var(--color-obsidian);
+  background: var(--color-forest);
   transform: translateX(-100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow-y: auto;
@@ -141,16 +178,19 @@ html {
   display: block;
   padding: 0.875rem 1.75rem;
   font-size: 1.125rem;
-  font-weight: 600;
+  font-weight: 400;
+  font-style: italic;
+  text-transform: uppercase;
+  font-family: "Things", Georgia, serif;
   color: var(--color-bone);
   transition: background 0.2s ease;
 }
 
 .sidebar-link:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.1);
 }
 
-/* ── Search Overlay (Inverted: Obsidian bg) ── */
+/* ── Search Overlay ── */
 .search-overlay {
   position: fixed;
   top: 64px;
@@ -158,7 +198,7 @@ html {
   right: 0;
   bottom: 0;
   z-index: 45;
-  background: var(--color-obsidian);
+  background: var(--color-forest);
   transform: translateY(-100%);
   opacity: 0;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -192,6 +232,14 @@ html {
 /* ── Product card ── */
 .product-card {
   background: transparent;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.product-card.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .product-card .card-image-wrap {
@@ -224,11 +272,13 @@ html {
 }
 
 .btn-add {
+  font-family: "Things", Georgia, serif;
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 400;
+  font-style: italic;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-obsidian-muted);
+  color: var(--color-forest-muted);
   cursor: pointer;
   background: none;
   border: none;
@@ -236,7 +286,7 @@ html {
 }
 
 .btn-add:hover {
-  color: var(--color-obsidian);
+  color: var(--color-forest);
 }
 
 /* ── Staggered entry animation ── */
@@ -247,7 +297,7 @@ html {
 
 .stagger-item {
   opacity: 0;
-  animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: slideUp 0.8s ease-out forwards;
 }
 
 /* ── Carousel ── */
@@ -272,6 +322,8 @@ html {
 .carousel-track .product-card {
   flex: 0 0 auto;
   width: 200px;
+  opacity: 1;
+  transform: none;
 }
 
 @media (min-width: 768px) {
@@ -288,7 +340,7 @@ html {
   height: 40px;
   border-radius: 50%;
   background: var(--color-surface);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(34, 139, 34, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -296,6 +348,7 @@ html {
   border: none;
   z-index: 10;
   transition: opacity 0.2s ease;
+  color: var(--color-forest);
 }
 
 .carousel-arrow:hover {
@@ -364,32 +417,38 @@ html {
 
 /* Product detail responsive typography */
 .product-title {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
   font-size: 0.8125rem;
   line-height: 1.2;
+  color: var(--color-forest);
 }
 
 .product-price {
   font-size: 0.8125rem;
   margin-top: 0.25rem;
+  color: var(--color-forest);
 }
 
 .product-price-label {
   font-size: 0.5625rem;
+  color: var(--color-forest-muted);
 }
 
 .macro-label {
   font-size: 0.5rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-obsidian-muted);
+  color: var(--color-forest-muted);
   margin-bottom: 0.125rem;
 }
 
 .macro-value {
+  font-family: "Things", Georgia, serif;
   font-size: 0.6875rem;
-  font-weight: 900;
-  color: var(--color-obsidian);
+  font-weight: 400;
+  color: var(--color-forest);
 }
 
 /* Mobile breadcrumbs tighter */
@@ -488,7 +547,7 @@ html {
 
 /* ── Animations ── */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -498,11 +557,11 @@ html {
 }
 
 .animate-fade-up {
-  animation: fadeUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: fadeUp 0.8s ease-out both;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.4s ease both;
+  animation: fadeIn 0.8s ease-out both;
 }
 
 .delay-100 { animation-delay: 0.1s; }
@@ -526,13 +585,15 @@ html {
 }
 
 .category-nav-btn {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
   padding: 0.875rem 0;
   margin-right: 1.75rem;
   font-size: 0.6875rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--color-obsidian-muted);
+  color: var(--color-forest-muted);
   white-space: nowrap;
   transition: color 0.2s ease;
   cursor: pointer;
@@ -541,11 +602,11 @@ html {
 }
 
 .category-nav-btn:hover {
-  color: var(--color-obsidian);
+  color: var(--color-forest);
 }
 
 .category-nav-btn.active {
-  color: var(--color-obsidian);
+  color: var(--color-forest);
 }
 
 /* ── Hairline ── */
@@ -556,79 +617,25 @@ html {
 
 /* ── Breadcrumbs ── */
 .breadcrumbs {
+  font-family: "Things", Georgia, serif;
   font-size: 0.6875rem;
-  font-weight: 500;
+  font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--color-obsidian-muted);
+  color: var(--color-forest-muted);
 }
 
 .breadcrumbs a {
-  color: var(--color-obsidian-muted);
+  color: var(--color-forest-muted);
   transition: color 0.2s ease;
 }
 
 .breadcrumbs a:hover {
-  color: var(--color-obsidian);
+  color: var(--color-forest);
 }
 
 .breadcrumbs span {
-  color: var(--color-obsidian);
-}
-
-/* ── Qty Selector ── */
-.qty-selector {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid var(--color-hairline);
-}
-
-.qty-selector button {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  color: var(--color-obsidian);
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.qty-selector button:hover {
-  background: var(--color-bone-dark);
-}
-
-.qty-selector .qty-value {
-  width: 40px;
-  text-align: center;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--color-obsidian);
-  border-left: 1px solid var(--color-hairline);
-  border-right: 1px solid var(--color-hairline);
-  height: 36px;
-  line-height: 36px;
-}
-
-/* ── Qty manual input ── */
-.qty-input {
-  width: 56px;
-  text-align: center;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--color-obsidian);
-  border: 1px solid var(--color-hairline);
-  background: transparent;
-  height: 36px;
-  outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.qty-input:focus {
-  border-color: var(--color-obsidian);
+  color: var(--color-forest);
 }
 
 /* ── Badge ── */
@@ -636,11 +643,12 @@ html {
   display: inline-block;
   padding: 0.25rem 0.625rem;
   font-size: 0.625rem;
-  font-weight: 700;
+  font-weight: 400;
+  font-family: "Things", Georgia, serif;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border: 1px solid var(--color-obsidian);
-  color: var(--color-obsidian);
+  border: 1px solid var(--color-forest);
+  color: var(--color-forest);
 }
 
 /* ── Detail box ── */
@@ -665,9 +673,12 @@ html {
 
 /* ── Buttons ── */
 .btn-primary {
-  background: var(--color-obsidian);
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  background: var(--color-forest);
   color: var(--color-bone);
-  font-weight: 700;
+  font-weight: 400;
+  text-transform: uppercase;
   transition: opacity 0.2s ease;
 }
 
@@ -681,12 +692,15 @@ html {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%) translateY(80px);
-  background: var(--color-obsidian);
+  background: var(--color-forest);
   color: var(--color-surface);
   padding: 0.75rem 1.5rem;
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.02em;
+  text-transform: uppercase;
   z-index: 100;
   opacity: 0;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -707,6 +721,13 @@ html {
   min-width: 300px;
 }
 
+.hero-banner-card h2 {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  text-transform: uppercase;
+  color: white;
+}
+
 @media (max-width: 767px) {
   .hero-banner-card {
     width: 85vw;
@@ -717,8 +738,8 @@ html {
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.8s ease-out,
+              transform 0.8s ease-out;
 }
 
 .scroll-reveal.revealed {
@@ -770,13 +791,16 @@ html {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 0;
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
   font-size: 1rem;
-  font-weight: 700;
-  color: var(--color-obsidian);
+  font-weight: 400;
+  color: var(--color-forest);
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
+  text-transform: uppercase;
 }
 
 .accordion-trigger .accordion-icon {
@@ -801,11 +825,12 @@ html {
 /* ── Shopper Notes ── */
 .shopper-notes {
   width: 100%;
+  font-family: "Things", Georgia, serif;
   background: transparent;
   border: 1px solid var(--color-hairline);
   padding: 0.75rem;
   font-size: 0.8125rem;
-  color: var(--color-obsidian);
+  color: var(--color-forest);
   resize: vertical;
   min-height: 60px;
   outline: none;
@@ -813,19 +838,20 @@ html {
 }
 
 .shopper-notes::placeholder {
-  color: var(--color-obsidian-muted);
+  color: var(--color-forest-muted);
 }
 
 .shopper-notes:focus {
-  border-color: var(--color-obsidian);
+  border-color: var(--color-forest);
 }
 
 /* ── Category Page Title ── */
 .category-page-title {
-  font-family: "Biotif Pro", "Satoshi", "General Sans", "Helvetica Neue", system-ui, sans-serif;
+  font-family: "Things", Georgia, serif;
   font-size: 2.25rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   color: white;
   line-height: 1.1;
@@ -834,6 +860,47 @@ html {
 @media (min-width: 1024px) {
   .category-page-title {
     font-size: 3rem;
+  }
+}
+
+/* ── Category Rectangle: Centered titles ── */
+.hero-banner-card .absolute.bottom-6 {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ── Product card fade-in on scroll ── */
+@keyframes cardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Brand Wordmark (Nav) ── */
+.brand-wordmark {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: white;
+}
+
+@media (min-width: 1024px) {
+  .brand-wordmark {
+    font-size: 1.25rem;
   }
 }
 

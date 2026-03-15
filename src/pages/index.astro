@@ -50,10 +50,10 @@ const heroBanners = [
                 style="transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
                 loading="eager"
               />
-              <div class="absolute inset-0 bg-obsidian/20"></div>
-              <div class="absolute bottom-6 left-6">
+              <div class="absolute inset-0 bg-forest/20"></div>
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
                 <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">{b.subtitle}</p>
-                <h2 class="text-2xl lg:text-3xl font-black tracking-tight text-white uppercase">{b.title}</h2>
+                <h2 class="text-2xl lg:text-4xl tracking-tight text-white">{b.title}</h2>
               </div>
             </a>
           ))}
@@ -322,14 +322,30 @@ const heroBanners = [
 
   // Scroll-reveal: IntersectionObserver fade-up animation
   const revealSections = document.querySelectorAll('.scroll-reveal');
-  const observer = new IntersectionObserver((entries) => {
+  const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
-        observer.unobserve(entry.target);
+        sectionObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.1 });
 
-  revealSections.forEach((section) => observer.observe(section));
+  revealSections.forEach((section) => sectionObserver.observe(section));
+
+  // Product card fade-up on scroll
+  const cards = document.querySelectorAll('.product-card');
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  cards.forEach((card, i) => {
+    (card as HTMLElement).style.transitionDelay = `${i % 6 * 0.08}s`;
+    cardObserver.observe(card);
+  });
 </script>
