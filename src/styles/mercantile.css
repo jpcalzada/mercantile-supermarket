@@ -991,6 +991,10 @@ h1, h2, h3, h4, h5, h6 {
   background: transparent;
   outline: none;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
 }
 
 @media (min-width: 640px) {

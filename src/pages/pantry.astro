@@ -47,7 +47,7 @@ const pantry = products.filter((p) => p.category === 'pantry');
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">

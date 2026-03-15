@@ -54,7 +54,8 @@ const heroBanners = [
                 width="1200"
                 height="600"
                 decoding="async"
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
+                style="transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
                 loading="eager"
               />
               <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
@@ -81,7 +82,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -108,7 +109,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -135,7 +136,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -162,7 +163,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -189,7 +190,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -216,7 +217,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -243,7 +244,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
@@ -270,7 +271,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">
