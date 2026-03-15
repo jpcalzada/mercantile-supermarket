@@ -55,7 +55,7 @@ export function addToCart(product: {
     $cartItems.set(
       current.map((item) =>
         item.id === product.id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: Math.min(item.quantity + 1, 100) }
           : item
       )
     );
@@ -73,9 +73,10 @@ export function updateQuantity(id: string, quantity: number) {
     removeFromCart(id);
     return;
   }
+  const capped = Math.min(quantity, 100);
   $cartItems.set(
     $cartItems.get().map((item) =>
-      item.id === id ? { ...item, quantity } : item
+      item.id === id ? { ...item, quantity: capped } : item
     )
   );
 }

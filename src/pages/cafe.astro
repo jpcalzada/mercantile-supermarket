@@ -4,6 +4,7 @@ import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
+import { resolveImage } from '../lib/images';
 
 const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-beans', 'ceremonial-matcha', 'cold-brew', 'oat-latte', 'earl-grey-tea'].includes(p.id));
 ---
@@ -28,10 +29,10 @@ const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-be
   <main class="main-content pt-[64px]">
     <section class="px-4 lg:px-6 pt-4">
       <div class="relative aspect-[3/1] overflow-hidden rounded-[12px] bg-surface mb-8">
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1600&q=80"
           alt="Cafe"
-          width="1600" height="533" decoding="async" class="w-full h-full object-cover"
+          width={1600} height={533} decoding="async" class="w-full h-full object-cover"
           loading="eager"
         />
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
@@ -47,7 +48,7 @@ const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-be
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
+                <Image src={resolveImage(product.image)} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
               </div>
             </a>
             <div class="pt-3">

@@ -5,6 +5,7 @@ import SensoryNav from '../../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../../components/supermarket/MercantileFooter.astro';
 import { products, getPairings } from '../../lib/products';
 import type { Product } from '../../lib/products';
+import { resolveImage } from '../../lib/images';
 
 export function getStaticPaths() {
   return products.map((product) => ({
@@ -77,7 +78,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
       <div class="product-detail-image">
         <div class="product-image-frame">
           <Image
-            src={product.image}
+            src={resolveImage(product.image)}
             alt={product.name}
             width={800}
             height={800}
@@ -208,7 +209,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
               <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={p.category}>
                 <a href={`/supermarket/${p.id}`} class="block">
                   <div class="card-image-wrap aspect-square w-full">
-                    <Image src={p.image} alt={p.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
+                    <Image src={resolveImage(p.image)} alt={p.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
                   </div>
                 </a>
                 <div class="pt-3">

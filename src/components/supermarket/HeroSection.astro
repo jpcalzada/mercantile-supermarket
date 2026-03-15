@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { products } from '../../lib/products';
+import { resolveImage } from '../../lib/images';
 
 const heroProduct = products.find((p) => p.hero)!;
 ---
@@ -56,7 +57,7 @@ const heroProduct = products.find((p) => p.hero)!;
       <a href={`/supermarket/${heroProduct.id}`} class="block">
         <div class="aspect-[3/4] w-full max-w-md mx-auto rounded-card overflow-hidden bg-bone-dark">
           <Image
-            src={heroProduct.image}
+            src={resolveImage(heroProduct.image)}
             alt={heroProduct.name}
             width={600}
             height={800}

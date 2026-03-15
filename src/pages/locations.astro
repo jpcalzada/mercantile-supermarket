@@ -6,7 +6,7 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 
 const locations = [
   { name: 'West Village', address: '72 Perry Street, New York, NY 10014', hours: 'Daily 7am – 10pm', phone: '(212) 555-0142', image: 'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=800&q=80' },
-  { name: 'Williamsburg', address: '218 Bedford Ave, Brooklyn, NY 11211', hours: 'Daily 7am – 10pm', phone: '(718) 555-0198', image: 'https://images.unsplash.com/photo-1567449303078-57ad995bd329?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Williamsburg', address: '218 Bedford Ave, Brooklyn, NY 11211', hours: 'Daily 7am – 10pm', phone: '(718) 555-0198', image: 'https://images.unsplash.com/photo-1582037928769-181f2644ecb7?auto=format&fit=crop&w=800&q=80' },
   { name: 'Silver Lake', address: '2801 Sunset Blvd, Los Angeles, CA 90026', hours: 'Daily 8am – 9pm', phone: '(323) 555-0267', image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=800&q=80' },
   { name: 'Hayes Valley', address: '432 Hayes Street, San Francisco, CA 94102', hours: 'Daily 7am – 9pm', phone: '(415) 555-0331', image: 'https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=800&q=80' },
   { name: 'Lincoln Park', address: '1841 N Clybourn Ave, Chicago, IL 60614', hours: 'Daily 7am – 9pm', phone: '(312) 555-0415', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80' },
@@ -40,11 +40,11 @@ const locations = [
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
           {locations.map((loc) => (
             <div class="relative aspect-[2/1] overflow-hidden rounded-[12px] bg-detail-bg group">
-              <img
+              <Image
                 src={loc.image}
                 alt={loc.name}
-                width="800"
-                height="400"
+                width={800}
+                height={400}
                 decoding="async"
                 class="w-full h-full object-cover"
                 loading="lazy"

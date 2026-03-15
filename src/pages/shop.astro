@@ -4,6 +4,7 @@ import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
+import { resolveImage } from '../lib/images';
 
 const categories = [
   { label: 'All', slug: 'all' },
@@ -41,11 +42,11 @@ const categories = [
     <section class="px-4 lg:px-6 pt-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a href="#bakery" class="relative aspect-[2/1] overflow-hidden rounded-[12px] bg-surface group">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80"
             alt="Cafe"
-            width="1200"
-            height="600"
+            width={1200}
+            height={600}
             decoding="async"
             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="eager"
@@ -57,11 +58,11 @@ const categories = [
           </div>
         </a>
         <a href="#juice-bar" class="relative aspect-[2/1] overflow-hidden rounded-[12px] bg-surface group">
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=1200&q=80"
             alt="Tonic Bar"
-            width="1200"
-            height="600"
+            width={1200}
+            height={600}
             decoding="async"
             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="eager"
@@ -97,7 +98,7 @@ const categories = [
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
                 <Image
-                  src={product.image}
+                  src={resolveImage(product.image)}
                   alt={product.name}
                   width={800}
                   height={800}

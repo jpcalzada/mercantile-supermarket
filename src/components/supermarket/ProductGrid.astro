@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { products } from '../../lib/products';
+import { resolveImage } from '../../lib/images';
 
 const gridProducts = products.filter((p) => !p.hero);
 ---
@@ -17,7 +18,7 @@ const gridProducts = products.filter((p) => !p.hero);
         <a href={`/supermarket/${product.id}`} class="block">
           <div class="aspect-[4/3] w-full overflow-hidden rounded-card bg-bone-dark">
             <Image
-              src={product.image}
+              src={resolveImage(product.image)}
               alt={product.name}
               width={800}
               height={600}
