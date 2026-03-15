@@ -78,7 +78,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
 
         {/* Title */}
         <div class="animate-fade-up">
-          <h1 class="product-title font-black tracking-tight text-obsidian leading-tight uppercase">
+          <h1 class="product-title font-black tracking-tight text-obsidian leading-tight">
             {product.name}
           </h1>
 
@@ -91,8 +91,18 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
             <span class="badge">{product.size}</span>
           </div>
 
-          {/* Add to Bag */}
+          {/* Quantity Selector */}
           <div class="mt-2.5 lg:mt-6">
+            <p class="qty-label">Select Amount</p>
+            <div class="qty-selector" id="qty-selector">
+              <button type="button" id="qty-minus" aria-label="Decrease quantity">&minus;</button>
+              <span class="qty-value" id="qty-value">1</span>
+              <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          {/* Add to Bag */}
+          <div class="mt-2 lg:mt-4">
             <button
               id="add-to-bag"
               data-product-id={product.id}
@@ -100,7 +110,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
               data-product-price={product.price}
               data-product-unit={product.size}
               data-product-image={product.image}
-              class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.1em] uppercase text-center"
+              class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.1em] text-center"
             >
               + Add to Bag
             </button>
@@ -229,25 +239,41 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
     setTimeout(() => toast.classList.remove('visible'), 2500);
   }
 
-  // Add to bag (single unit)
+  // Quantity selector
+  let qty = 1;
+  const qtyValue = document.getElementById('qty-value')!;
+  document.getElementById('qty-minus')?.addEventListener('click', () => {
+    if (qty > 1) {
+      qty--;
+      qtyValue.textContent = String(qty);
+    }
+  });
+  document.getElementById('qty-plus')?.addEventListener('click', () => {
+    qty++;
+    qtyValue.textContent = String(qty);
+  });
+
+  // Add to bag
   const notesEl = document.getElementById('shopper-notes') as HTMLTextAreaElement;
   const notesMobileEl = document.getElementById('shopper-notes-mobile') as HTMLTextAreaElement;
 
   document.getElementById('add-to-bag')?.addEventListener('click', (e) => {
     const btn = e.currentTarget as HTMLElement;
-    addToCart({
-      id: btn.dataset.productId!,
-      name: btn.dataset.productName!,
-      price: parseFloat(btn.dataset.productPrice!),
-      unit: btn.dataset.productUnit!,
-      image: btn.dataset.productImage!,
-    });
+    for (let i = 0; i < qty; i++) {
+      addToCart({
+        id: btn.dataset.productId!,
+        name: btn.dataset.productName!,
+        price: parseFloat(btn.dataset.productPrice!),
+        unit: btn.dataset.productUnit!,
+        image: btn.dataset.productImage!,
+      });
+    }
     // Save notes if provided (check both desktop and mobile textareas)
     const notes = notesEl?.value.trim() || notesMobileEl?.value.trim();
     if (notes) {
       updateNotes(btn.dataset.productId!, notes);
     }
-    showToast('Added to bag');
+    showToast(`Added ${qty} to bag`);
   });
 
   // Pairing add buttons

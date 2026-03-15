@@ -1,4 +1,4 @@
-/* THE MERCANTILE — Iteration 12: The Grand Rebrand */
+/* THE MERCANTILE — Iteration 12.2: Brand Identity Refinements */
 
 @import "tailwindcss";
 
@@ -75,27 +75,39 @@ html {
   font-weight: 400;
   font-size: 3.5rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-forest);
+  text-transform: none;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #1B3022;
+  background: linear-gradient(to right, #1B3022 0%, #1B3022 0%, transparent 0%);
+  -webkit-background-clip: text;
+  background-clip: text;
   opacity: 0;
-  animation: splashReveal 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+  animation: splashReveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards,
+             splashFill 2s ease-in-out 0.6s forwards;
 }
 
 @media (min-width: 640px) {
   .splash-logo {
     font-size: 5rem;
+    -webkit-text-stroke: 2px #1B3022;
   }
 }
 
 @media (min-width: 1024px) {
   .splash-logo {
     font-size: 7rem;
+    -webkit-text-stroke: 2.5px #1B3022;
   }
 }
 
 @keyframes splashReveal {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes splashFill {
+  0% { background: linear-gradient(to right, #1B3022 0%, #1B3022 0%, transparent 0%); -webkit-background-clip: text; background-clip: text; }
+  100% { background: linear-gradient(to right, #1B3022 0%, #1B3022 100%, transparent 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-stroke: 0px transparent; }
 }
 
 /* ── Base ── */
@@ -112,11 +124,11 @@ html {
   box-sizing: border-box;
 }
 
-/* ── Global Title Style: Uppercase + Italic ── */
+/* ── Global Title Style: Sentence case + Italic ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 /* ── 64px Forest Green Top Bar ── */
@@ -180,7 +192,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.125rem;
   font-weight: 400;
   font-style: italic;
-  text-transform: uppercase;
+  text-transform: none;
   font-family: "Things", Georgia, serif;
   color: var(--color-bone);
   transition: background 0.2s ease;
@@ -277,7 +289,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   font-style: italic;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--color-forest-muted);
   cursor: pointer;
   background: none;
@@ -592,7 +604,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.6875rem;
   font-weight: 400;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
+  text-transform: none;
   color: var(--color-forest-muted);
   white-space: nowrap;
   transition: color 0.2s ease;
@@ -675,10 +687,10 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary {
   font-family: "Things", Georgia, serif;
   font-style: italic;
-  background: var(--color-forest);
+  background: #1B3022;
   color: var(--color-bone);
   font-weight: 400;
-  text-transform: uppercase;
+  text-transform: none;
   transition: opacity 0.2s ease;
 }
 
@@ -700,7 +712,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 0.8125rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
+  text-transform: none;
   z-index: 100;
   opacity: 0;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
@@ -724,7 +736,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-banner-card h2 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
-  text-transform: uppercase;
+  text-transform: none;
   color: white;
 }
 
@@ -800,7 +812,7 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
   cursor: pointer;
   text-align: left;
-  text-transform: uppercase;
+  text-transform: none;
 }
 
 .accordion-trigger .accordion-icon {
@@ -852,7 +864,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400;
   font-style: italic;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
+  text-transform: none;
   color: white;
   line-height: 1.1;
 }
@@ -894,13 +906,104 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
   font-size: 1.125rem;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
+  text-transform: none;
   color: white;
 }
 
 @media (min-width: 1024px) {
   .brand-wordmark {
     font-size: 1.25rem;
+  }
+}
+
+/* ── Quantity Selector ── */
+.qty-selector {
+  display: flex;
+  align-items: center;
+  border: 1px solid #1B3022;
+  overflow: hidden;
+}
+
+.qty-selector button {
+  font-family: "Things", Georgia, serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #1B3022;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.qty-selector button:hover {
+  background: rgba(27, 48, 34, 0.08);
+}
+
+.qty-selector .qty-value {
+  font-family: "Things", Georgia, serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #1B3022;
+  min-width: 2rem;
+  text-align: center;
+  border-left: 1px solid rgba(27, 48, 34, 0.2);
+  border-right: 1px solid rgba(27, 48, 34, 0.2);
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .qty-selector button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+  }
+  .qty-selector .qty-value {
+    font-size: 0.9375rem;
+    min-width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .qty-selector button {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.125rem;
+  }
+  .qty-selector .qty-value {
+    font-size: 1rem;
+    min-width: 3rem;
+    height: 3rem;
+  }
+}
+
+.qty-label {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  color: #1B3022;
+  opacity: 0.6;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .qty-label {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .qty-label {
+    font-size: 0.75rem;
   }
 }
 
