@@ -103,7 +103,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
             <p class="qty-label">Select Amount</p>
             <div class="qty-selector" id="qty-selector">
               <button type="button" id="qty-minus" aria-label="Decrease quantity">&minus;</button>
-              <span class="qty-value" id="qty-value">1</span>
+              <input type="number" class="qty-value" id="qty-value" value="1" min="1" max="100" />
               <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
             </div>
           </div>
@@ -248,16 +248,25 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
 
   // Quantity selector
   let qty = 1;
-  const qtyValue = document.getElementById('qty-value')!;
+  const qtyInput = document.getElementById('qty-value') as HTMLInputElement;
   document.getElementById('qty-minus')?.addEventListener('click', () => {
     if (qty > 1) {
       qty--;
-      qtyValue.textContent = String(qty);
+      qtyInput.value = String(qty);
     }
   });
   document.getElementById('qty-plus')?.addEventListener('click', () => {
-    qty++;
-    qtyValue.textContent = String(qty);
+    if (qty < 100) {
+      qty++;
+      qtyInput.value = String(qty);
+    }
+  });
+  qtyInput?.addEventListener('change', () => {
+    let val = parseInt(qtyInput.value, 10);
+    if (isNaN(val) || val < 1) val = 1;
+    if (val > 100) val = 100;
+    qty = val;
+    qtyInput.value = String(qty);
   });
 
   // Add to bag

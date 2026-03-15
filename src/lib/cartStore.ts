@@ -39,9 +39,7 @@ export const $cartTotal = computed($cartItems, (items) =>
   items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 );
 
-export const $cartCount = computed($cartItems, (items) =>
-  items.reduce((sum, item) => sum + item.quantity, 0)
-);
+export const $cartCount = computed($cartItems, (items) => items.length);
 
 export function addToCart(product: {
   id: string;
