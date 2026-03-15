@@ -1,0 +1,284 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Checkout — The Mercantile</title>
+  <meta name="description" content="Complete your order at The Mercantile." />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="pt-[64px] px-4 lg:px-12 py-8">
+    <div class="max-w-4xl mx-auto">
+      <nav class="breadcrumbs mb-6 mt-[60px]">
+        <a href="/">Home</a> <span class="mx-2">/</span> <a href="/cart">Cart</a> <span class="mx-2">/</span> <span>Checkout</span>
+      </nav>
+
+      <h1 class="checkout-heading mb-8">Checkout</h1>
+
+      <div class="lg:grid lg:grid-cols-5 lg:gap-10">
+
+        {/* ── LEFT: Form (3 cols) ── */}
+        <div class="lg:col-span-3">
+
+          {/* ── Cart Summary ── */}
+          <section class="checkout-section mb-6">
+            <h2 class="checkout-section-title">Order Items</h2>
+            <div class="hairline-h mb-4"></div>
+            <div id="checkout-items">
+              <p class="text-sm text-obsidian-muted">Loading cart...</p>
+            </div>
+          </section>
+
+          {/* ── Contact ── */}
+          <section class="checkout-section mb-6">
+            <h2 class="checkout-section-title">Contact</h2>
+            <div class="hairline-h mb-4"></div>
+            <div class="checkout-field">
+              <label for="checkout-email" class="checkout-label">Email</label>
+              <input type="email" id="checkout-email" class="checkout-input" placeholder="you@email.com" required />
+            </div>
+            <div class="checkout-field">
+              <label for="checkout-phone" class="checkout-label">Phone</label>
+              <input type="tel" id="checkout-phone" class="checkout-input" placeholder="(555) 000-0000" />
+            </div>
+          </section>
+
+          {/* ── Shipping Address ── */}
+          <section class="checkout-section mb-6">
+            <h2 class="checkout-section-title">Shipping Address</h2>
+            <div class="hairline-h mb-4"></div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="checkout-field">
+                <label for="checkout-first" class="checkout-label">First Name</label>
+                <input type="text" id="checkout-first" class="checkout-input" required />
+              </div>
+              <div class="checkout-field">
+                <label for="checkout-last" class="checkout-label">Last Name</label>
+                <input type="text" id="checkout-last" class="checkout-input" required />
+              </div>
+            </div>
+            <div class="checkout-field">
+              <label for="checkout-address" class="checkout-label">Address</label>
+              <input type="text" id="checkout-address" class="checkout-input" required />
+            </div>
+            <div class="checkout-field">
+              <label for="checkout-apt" class="checkout-label">Apt / Suite</label>
+              <input type="text" id="checkout-apt" class="checkout-input" />
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="checkout-field">
+                <label for="checkout-city" class="checkout-label">City</label>
+                <input type="text" id="checkout-city" class="checkout-input" required />
+              </div>
+              <div class="checkout-field">
+                <label for="checkout-state" class="checkout-label">State</label>
+                <input type="text" id="checkout-state" class="checkout-input" required />
+              </div>
+              <div class="checkout-field">
+                <label for="checkout-zip" class="checkout-label">ZIP</label>
+                <input type="text" id="checkout-zip" class="checkout-input" required />
+              </div>
+            </div>
+          </section>
+
+          {/* ── Payment (Stripe) ── */}
+          <section class="checkout-section mb-6">
+            <h2 class="checkout-section-title">Payment</h2>
+            <div class="hairline-h mb-4"></div>
+            <div id="stripe-element" class="min-h-[80px]">
+              <p class="text-sm text-obsidian-muted">Loading payment form...</p>
+            </div>
+            <p id="stripe-error" class="text-[11px] text-red-600 mt-2 hidden"></p>
+          </section>
+        </div>
+
+        {/* ── RIGHT: Price Breakdown (2 cols) ── */}
+        <div class="lg:col-span-2">
+          <div class="lg:sticky lg:top-[88px] checkout-summary">
+            <h2 class="checkout-section-title mb-4">Summary</h2>
+            <div class="hairline-h mb-4"></div>
+            <div class="checkout-line">
+              <span>Subtotal</span>
+              <span id="checkout-subtotal" class="font-bold">$0.00</span>
+            </div>
+            <div class="checkout-line">
+              <span>Tax (10%)</span>
+              <span id="checkout-tax">$0.00</span>
+            </div>
+            <div class="checkout-line">
+              <span>Shipping</span>
+              <span id="checkout-shipping">$5.00</span>
+            </div>
+            <div class="hairline-h my-4"></div>
+            <div class="checkout-total">
+              <span>Total</span>
+              <span id="checkout-total">$0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Sticky Pay Button (mobile) ── */}
+      <div class="checkout-pay-wrap">
+        <button id="checkout-pay" class="btn-primary w-full py-4 text-[11px] font-bold tracking-[0.04em] uppercase text-center" disabled>
+          Pay Now
+        </button>
+      </div>
+
+    </div>
+  </main>
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  import { $cartItems, $cartTotal } from '../lib/cartStore';
+  import { loadStripe } from '@stripe/stripe-js';
+
+  const SHIPPING_FEE = 5.00;
+  const TAX_RATE = 0.10;
+
+  const itemsContainer = document.getElementById('checkout-items')!;
+  const subtotalEl = document.getElementById('checkout-subtotal')!;
+  const taxEl = document.getElementById('checkout-tax')!;
+  const shippingEl = document.getElementById('checkout-shipping')!;
+  const totalEl = document.getElementById('checkout-total')!;
+  const payBtn = document.getElementById('checkout-pay') as HTMLButtonElement;
+  const stripeContainer = document.getElementById('stripe-element')!;
+  const stripeError = document.getElementById('stripe-error')!;
+
+  function escapeHtml(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  // ── Render cart items ──
+  function renderItems(items: typeof $cartItems extends { get(): infer T } ? T : never) {
+    if (items.length === 0) {
+      itemsContainer.innerHTML = '<p class="text-sm text-obsidian-muted">Your cart is empty. <a href="/" class="underline">Continue shopping</a></p>';
+      payBtn.disabled = true;
+      return;
+    }
+
+    itemsContainer.innerHTML = items.map((item) => `
+      <div class="flex items-center gap-3 py-3 border-b border-[rgba(27,48,34,0.1)]">
+        <div class="w-12 h-12 rounded-[8px] overflow-hidden bg-detail-bg flex-shrink-0">
+          <img src="${item.image}" alt="${escapeHtml(item.name)}" class="w-full h-full object-cover" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-bold text-obsidian leading-tight">${escapeHtml(item.name)}</p>
+          <p class="checkout-item-meta">Qty: ${item.quantity} · ${escapeHtml(item.unit)}</p>
+        </div>
+        <span class="checkout-item-price">$${(item.price * item.quantity).toFixed(2)}</span>
+      </div>
+    `).join('');
+  }
+
+  // ── Calculate totals ──
+  function calculateTotals(subtotal: number) {
+    const tax = subtotal * TAX_RATE;
+    const shipping = subtotal > 0 ? SHIPPING_FEE : 0;
+    const total = subtotal + tax + shipping;
+
+    subtotalEl.textContent = '$' + subtotal.toFixed(2);
+    taxEl.textContent = '$' + tax.toFixed(2);
+    shippingEl.textContent = subtotal > 0 ? '$' + shipping.toFixed(2) : '$0.00';
+    totalEl.textContent = '$' + total.toFixed(2);
+    payBtn.textContent = `Pay $${total.toFixed(2)}`;
+  }
+
+  // ── Subscribe to cart ──
+  $cartItems.subscribe(renderItems);
+  $cartTotal.subscribe((total) => {
+    calculateTotals(total);
+    payBtn.disabled = total === 0;
+  });
+
+  // ── Stripe initialization ──
+  async function initStripe() {
+    const publishableKey = (import.meta as any).env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
+
+    if (!publishableKey || publishableKey.includes('REPLACE')) {
+      stripeContainer.innerHTML = `
+        <div class="border border-dashed border-[rgba(27,48,34,0.3)] rounded-[8px] p-6 text-center">
+          <p class="text-[11px] font-bold tracking-[0.04em] uppercase text-obsidian-muted mb-1">Stripe Payment Element</p>
+          <p class="text-[10px] text-obsidian-muted">Add your Stripe keys to .env to activate</p>
+          <div class="mt-4 h-10 rounded-[6px] bg-detail-bg"></div>
+          <div class="mt-2 grid grid-cols-2 gap-2">
+            <div class="h-10 rounded-[6px] bg-detail-bg"></div>
+            <div class="h-10 rounded-[6px] bg-detail-bg"></div>
+          </div>
+        </div>
+      `;
+      payBtn.disabled = false;
+      return;
+    }
+
+    try {
+      const stripe = await loadStripe(publishableKey);
+      if (!stripe) throw new Error('Stripe failed to load');
+
+      const elements = stripe.elements({
+        appearance: {
+          theme: 'flat',
+          variables: {
+            colorPrimary: '#1B3022',
+            colorBackground: '#F5F7F5',
+            colorText: '#1B3022',
+            fontFamily: '"Martian Mono", monospace',
+            borderRadius: '6px',
+            fontSizeBase: '13px',
+          },
+        },
+      });
+
+      const paymentElement = elements.create('payment');
+      stripeContainer.innerHTML = '';
+      paymentElement.mount(stripeContainer);
+
+      paymentElement.on('ready', () => {
+        payBtn.disabled = false;
+      });
+
+      payBtn.addEventListener('click', async () => {
+        payBtn.disabled = true;
+        payBtn.textContent = 'Processing...';
+        stripeError.classList.add('hidden');
+
+        // In production, create a PaymentIntent on your server and confirm here
+        // const { error } = await stripe.confirmPayment({ elements, confirmParams: { return_url: window.location.origin + '/order-confirmation' } });
+        // For now, simulate:
+        setTimeout(() => {
+          payBtn.textContent = 'Payment requires server-side setup';
+          payBtn.disabled = false;
+        }, 1500);
+      });
+    } catch (err) {
+      stripeContainer.innerHTML = `<p class="text-sm text-obsidian-muted">Could not load payment form.</p>`;
+    }
+  }
+
+  // Handle pay click for placeholder mode
+  payBtn.addEventListener('click', () => {
+    const publishableKey = (import.meta as any).env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    if (!publishableKey || publishableKey.includes('REPLACE')) {
+      payBtn.textContent = 'Order Placed (Demo)';
+      payBtn.disabled = true;
+      setTimeout(() => {
+        payBtn.textContent = 'Pay Now';
+        payBtn.disabled = false;
+      }, 2000);
+    }
+  });
+
+  initStripe();
+</script>

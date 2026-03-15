@@ -275,6 +275,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 12px;
 }
 
+.product-card .card-image-wrap:empty {
+  display: none;
+}
+
 .product-card .product-image {
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -448,6 +452,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 12px;
   overflow: hidden;
   aspect-ratio: 1;
+}
+
+.product-image-frame:empty {
+  display: none;
 }
 
 .product-image-frame img {
@@ -989,7 +997,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Things", Georgia, serif;
   font-style: italic;
   font-weight: 700;
-  font-size: 1.125rem;
+  font-size: 1.4rem;
   letter-spacing: 0.02em;
   text-transform: none;
   color: white;
@@ -997,7 +1005,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media (min-width: 1024px) {
   .brand-wordmark {
-    font-size: 1.25rem;
+    font-size: 1.75rem;
   }
 }
 
@@ -1105,6 +1113,133 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 1024px) {
   .qty-label {
     font-size: 0.75rem;
+  }
+}
+
+/* ── Checkout Page ── */
+.checkout-heading {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  color: #1B3022;
+}
+
+@media (min-width: 1024px) {
+  .checkout-heading {
+    font-size: 2.5rem;
+  }
+}
+
+.checkout-section {
+  background: var(--color-bone);
+}
+
+.checkout-section-title {
+  font-family: "Things", Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 1.125rem;
+  letter-spacing: 0.02em;
+  color: #1B3022;
+  margin-bottom: 0.75rem;
+}
+
+.checkout-label {
+  font-family: "Martian Mono", monospace;
+  font-size: 0.5625rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(27, 48, 34, 0.6);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.checkout-input {
+  font-family: "Martian Mono", monospace;
+  font-size: 0.8125rem;
+  color: #1B3022;
+  background: var(--color-surface);
+  border: 1px solid rgba(27, 48, 34, 0.15);
+  border-radius: 6px;
+  padding: 0.625rem 0.75rem;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.checkout-input:focus {
+  border-color: #1B3022;
+}
+
+.checkout-field {
+  margin-bottom: 0.75rem;
+}
+
+.checkout-item-meta {
+  font-family: "Martian Mono", monospace;
+  font-size: 0.5625rem;
+  color: rgba(27, 48, 34, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 0.125rem;
+}
+
+.checkout-item-price {
+  font-family: "Martian Mono", monospace;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1B3022;
+  flex-shrink: 0;
+}
+
+.checkout-summary {
+  background: var(--color-surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.checkout-line {
+  font-family: "Martian Mono", monospace;
+  font-size: 0.75rem;
+  color: #1B3022;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.checkout-total {
+  font-family: "Martian Mono", monospace;
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: #1B3022;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Sticky pay button on mobile */
+.checkout-pay-wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: var(--color-bone);
+  border-top: 1px solid rgba(27, 48, 34, 0.1);
+  z-index: 40;
+}
+
+@media (min-width: 1024px) {
+  .checkout-pay-wrap {
+    position: static;
+    padding: 2rem 0 0;
+    background: transparent;
+    border-top: none;
+    max-width: 100%;
   }
 }
 
