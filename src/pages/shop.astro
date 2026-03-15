@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
@@ -43,6 +44,9 @@ const categories = [
           <img
             src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80"
             alt="Cafe"
+            width="1200"
+            height="600"
+            decoding="async"
             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="eager"
           />
@@ -56,6 +60,9 @@ const categories = [
           <img
             src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=1200&q=80"
             alt="Tonic Bar"
+            width="1200"
+            height="600"
+            decoding="async"
             class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="eager"
           />
@@ -89,9 +96,11 @@ const categories = [
           <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
+                  width={800}
+                  height={800}
                   class="w-full h-full object-cover product-image"
                   loading="lazy"
                   style={`view-transition-name: product-${product.id}`}

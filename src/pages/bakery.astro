@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
@@ -30,7 +31,7 @@ const bakery = products.filter((p) => p.category === 'bakery');
         <img
           src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=80"
           alt="The Bakery"
-          class="w-full h-full object-cover"
+          width="1600" height="533" decoding="async" class="w-full h-full object-cover"
           loading="eager"
         />
         <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
@@ -46,7 +47,7 @@ const bakery = products.filter((p) => p.category === 'bakery');
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">

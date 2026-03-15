@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import '../../styles/mercantile.css';
 import SensoryNav from '../../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../../components/supermarket/MercantileFooter.astro';
@@ -58,9 +59,11 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
       {/* ── LEFT: Product Image ── */}
       <div class="product-split-image">
         <div class="product-image-frame">
-          <img
+          <Image
             src={product.image}
             alt={product.name}
+            width={800}
+            height={800}
             class="w-full h-full object-cover animate-fade-in"
             style={`view-transition-name: product-${product.id}`}
             loading="eager"
@@ -195,7 +198,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
               <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={p.category}>
                 <a href={`/supermarket/${p.id}`} class="block">
                   <div class="card-image-wrap aspect-square w-full">
-                    <img src={p.image} alt={p.name} class="w-full h-full object-cover product-image" loading="lazy" />
+                    <Image src={p.image} alt={p.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
                   </div>
                 </a>
                 <div class="pt-3">

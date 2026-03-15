@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
@@ -50,6 +51,9 @@ const heroBanners = [
               <img
                 src={b.image}
                 alt={b.alt}
+                width="1200"
+                height="600"
+                decoding="async"
                 class="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
                 style="transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
                 loading="eager"
@@ -78,7 +82,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -105,7 +109,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -132,7 +136,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -159,7 +163,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -186,7 +190,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -213,7 +217,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -240,7 +244,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">
@@ -267,7 +271,7 @@ const heroBanners = [
           <div class="product-card group" data-category={product.category}>
             <a href={`/supermarket/${product.id}`} class="block">
               <div class="card-image-wrap aspect-square w-full">
-                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+                <Image src={product.image} alt={product.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
               </div>
             </a>
             <div class="pt-3">

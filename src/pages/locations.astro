@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
@@ -42,6 +43,9 @@ const locations = [
               <img
                 src={loc.image}
                 alt={loc.name}
+                width="800"
+                height="400"
+                decoding="async"
                 class="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
                 style="transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
                 loading="lazy"
