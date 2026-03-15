@@ -1,0 +1,39 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign In — The Mercantile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="pt-[64px] min-h-[calc(100vh-64px)] flex items-center justify-center px-6">
+    <div class="w-full max-w-md text-center">
+      <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-obsidian leading-tight">
+        Enter your<br/>Phone Number
+      </h1>
+      <p class="text-obsidian-muted mt-4 text-sm">We'll text you a code to sign in or create an account.</p>
+      <form class="mt-8" onsubmit="event.preventDefault()">
+        <input
+          type="tel"
+          placeholder="(555) 000-0000"
+          class="w-full text-center text-2xl font-bold text-obsidian bg-transparent py-4 outline-none"
+          style="border-bottom: 2px solid #1A1A1A;"
+        />
+        <button type="submit" class="btn-primary w-full py-4 mt-8 text-[11px] font-bold tracking-[0.1em] uppercase">
+          Continue
+        </button>
+      </form>
+    </div>
+  </main>
+  <MercantileFooter />
+</body>
+</html>

@@ -1,0 +1,90 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+import { products } from '../lib/products';
+
+const bakery = products.filter((p) => p.category === 'bakery');
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="view-transition" content="same-origin" />
+  <title>The Bakery — The Mercantile</title>
+  <meta name="description" content="Artisan bread and pastries, baked today. The Bakery at The Mercantile." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="main-content pt-[64px]">
+    <section class="px-4 lg:px-6 pt-4">
+      <div class="relative aspect-[3/1] overflow-hidden rounded-[12px] bg-surface mb-8">
+        <img
+          src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=80"
+          alt="The Bakery"
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-obsidian/25"></div>
+        <div class="absolute bottom-8 left-8">
+          <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">Baked Today</p>
+          <h1 class="text-4xl lg:text-5xl font-black tracking-tight text-white uppercase">The Bakery</h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 lg:px-6 pb-10">
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4">
+        {bakery.map((product) => (
+          <div class="product-card group" data-category={product.category}>
+            <a href={`/supermarket/${product.id}`} class="block">
+              <div class="card-image-wrap aspect-square w-full">
+                <img src={product.image} alt={product.name} class="w-full h-full object-cover product-image" loading="lazy" style={`view-transition-name: product-${product.id}`} />
+              </div>
+            </a>
+            <div class="pt-3">
+              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <h4 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h4>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
+                <button data-add-product data-product-id={product.id} data-product-name={product.name} data-product-price={product.price} data-product-unit={product.size} data-product-image={product.image} class="btn-add">+ Add</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  import { addToCart } from '../lib/cartStore';
+
+  function showToast(message: string) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2500);
+  }
+
+  document.querySelectorAll('[data-add-product]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const el = btn as HTMLElement;
+      addToCart({
+        id: el.dataset.productId!,
+        name: el.dataset.productName!,
+        price: parseFloat(el.dataset.productPrice!),
+        unit: el.dataset.productUnit!,
+        image: el.dataset.productImage!,
+      });
+      showToast('Added to bag');
+    });
+  });
+</script>

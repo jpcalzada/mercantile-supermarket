@@ -1,0 +1,77 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+
+const faqs = [
+  { q: 'What are your delivery hours?', a: 'We deliver 7 days a week from 7am to 10pm. Same-day delivery is available on orders placed before 2pm. Members enjoy free delivery on orders over $75.' },
+  { q: 'How does the Membership program work?', a: 'Join for free and start earning 1 point per dollar spent. Reach Gold status at 1,000 points for exclusive pricing, early access to new products, and a free weekly Tonic Bar drink. Platinum unlocks at 3,000 points with premium perks.' },
+  { q: 'Where do you source your products?', a: 'We partner directly with over 200 local farms, artisan producers, and ethical importers. Every product page includes full origin details — region, altitude, harvest season, and producer story.' },
+  { q: 'Can I return or exchange items?', a: 'Absolutely. If you\'re not satisfied with any product, contact us within 48 hours of delivery for a full refund or replacement. Perishable items are assessed case by case.' },
+  { q: 'Do you offer catering?', a: 'Yes. Our catering team can build custom menus for events of any size — from intimate dinners to corporate functions. Contact us at catering@themercantile.com or visit the Catering page.' },
+  { q: 'How do Shopper Notes work?', a: 'When adding items to your bag, use the Shopper Notes field to leave instructions like "ripe please" or "slice thin." Our team reads every note and fulfills requests wherever possible.' },
+  { q: 'What payment methods do you accept?', a: 'We accept all major credit and debit cards, Apple Pay, Google Pay, and Mercantile gift cards. Members can also pay with points at checkout.' },
+  { q: 'Do you have a physical store?', a: 'Yes — we have locations in New York, Los Angeles, San Francisco, Chicago, and Houston. Visit our Locations page for addresses and hours.' },
+];
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="view-transition" content="same-origin" />
+  <title>FAQ — The Mercantile</title>
+  <meta name="description" content="Frequently asked questions about The Mercantile." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="main-content pt-[64px]">
+    <section class="px-6 lg:px-12 py-12">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-2">Support</p>
+        <h1 class="text-3xl lg:text-4xl font-black tracking-tight uppercase text-obsidian">Frequently Asked Questions</h1>
+
+        <div class="mt-10 space-y-0">
+          {faqs.map((faq, i) => (
+            <div class="accordion-item">
+              <button class="accordion-trigger" data-accordion={`faq-${i}`}>
+                <span>{faq.q}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="accordion-icon flex-shrink-0">
+                  <path d="M6 9l6 6 6-6"/>
+                </svg>
+              </button>
+              <div class="accordion-content" id={`faq-${i}`}>
+                <p class="text-sm text-obsidian-muted leading-[1.7]">{faq.a}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const targetId = (trigger as HTMLElement).dataset.accordion!;
+      const content = document.getElementById(targetId);
+      const isOpen = trigger.classList.contains('active');
+
+      // Close all
+      document.querySelectorAll('.accordion-trigger').forEach((t) => t.classList.remove('active'));
+      document.querySelectorAll('.accordion-content').forEach((c) => (c as HTMLElement).style.maxHeight = '0');
+
+      // Toggle current
+      if (!isOpen && content) {
+        trigger.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>

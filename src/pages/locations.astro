@@ -1,0 +1,62 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+
+const locations = [
+  { name: 'West Village', address: '72 Perry Street, New York, NY 10014', hours: 'Daily 7am – 10pm', phone: '(212) 555-0142', image: 'https://images.unsplash.com/photo-1604328698692-f76ea9498e76?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Williamsburg', address: '218 Bedford Ave, Brooklyn, NY 11211', hours: 'Daily 7am – 10pm', phone: '(718) 555-0198', image: 'https://images.unsplash.com/photo-1567449303078-57ad995bd329?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Silver Lake', address: '2801 Sunset Blvd, Los Angeles, CA 90026', hours: 'Daily 8am – 9pm', phone: '(323) 555-0267', image: 'https://images.unsplash.com/photo-1578916171728-46686eac8d58?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Hayes Valley', address: '432 Hayes Street, San Francisco, CA 94102', hours: 'Daily 7am – 9pm', phone: '(415) 555-0331', image: 'https://images.unsplash.com/photo-1568254183919-78a4f43a2877?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Lincoln Park', address: '1841 N Clybourn Ave, Chicago, IL 60614', hours: 'Daily 7am – 9pm', phone: '(312) 555-0415', image: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80' },
+  { name: 'Montrose', address: '1520 Westheimer Rd, Houston, TX 77006', hours: 'Daily 8am – 9pm', phone: '(713) 555-0522', image: 'https://images.unsplash.com/photo-1534723452862-4c874018d66d?auto=format&fit=crop&w=800&q=80' },
+];
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="view-transition" content="same-origin" />
+  <title>Locations — The Mercantile</title>
+  <meta name="description" content="Find a Mercantile location near you." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="main-content pt-[64px]">
+    <section class="px-6 lg:px-12 py-12">
+      <div class="max-w-6xl mx-auto">
+        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-2">Find Us</p>
+        <h1 class="text-3xl lg:text-4xl font-black tracking-tight uppercase text-obsidian">Locations</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+          {locations.map((loc) => (
+            <div class="relative aspect-[2/1] overflow-hidden rounded-[12px] bg-detail-bg group">
+              <img
+                src={loc.image}
+                alt={loc.name}
+                class="w-full h-full object-cover transition-transform duration-600 group-hover:scale-105"
+                style="transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-obsidian/40"></div>
+              <div class="absolute bottom-6 left-6 right-6">
+                <h2 class="text-xl font-black tracking-tight text-white uppercase">{loc.name}</h2>
+                <p class="text-sm text-white/70 mt-1">{loc.address}</p>
+                <div class="flex items-center gap-4 mt-2">
+                  <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/50">{loc.hours}</span>
+                  <span class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/50">{loc.phone}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <MercantileFooter />
+</body>
+</html>

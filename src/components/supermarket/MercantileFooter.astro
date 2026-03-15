@@ -1,32 +1,52 @@
 ---
 ---
 
-<footer class="bg-stone px-6 lg:px-16 py-16 mt-8">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+<footer class="px-4 lg:px-6 pt-16 pb-10 bg-obsidian">
+  <div class="hairline-h max-w-6xl mx-auto mb-12" style="border-color: rgba(245,245,240,0.1);"></div>
+  <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-10">
     <div>
-      <span class="font-display text-2xl text-charcoal">The Mercantile</span>
-      <p class="text-sm text-charcoal-muted mt-4 leading-relaxed max-w-xs">
-        Groceries, curated with care. We believe everyday essentials should feel anything but ordinary.
-      </p>
-    </div>
-    <div>
-      <span class="text-xs font-medium tracking-widest uppercase text-charcoal-muted block mb-4">Shop</span>
-      <nav class="space-y-2.5">
-        <a href="/supermarket" class="block text-sm text-charcoal-light hover:text-charcoal transition-colors">All Products</a>
-        <a href="/supermarket#daily-fresh" class="block text-sm text-charcoal-light hover:text-charcoal transition-colors">Daily Fresh</a>
-        <a href="/supermarket#the-pantry" class="block text-sm text-charcoal-light hover:text-charcoal transition-colors">The Pantry</a>
-        <a href="/supermarket#morning-rituals" class="block text-sm text-charcoal-light hover:text-charcoal transition-colors">Morning Rituals</a>
+      <span class="text-[10px] font-black tracking-[0.1em] uppercase text-bone block mb-5">Company</span>
+      <nav class="space-y-3">
+        <a href="/mission" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">Our Mission</a>
+        <a href="/faq" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">FAQ</a>
+        <a href="/contact" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">Contact</a>
+        <a href="/shipping" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">Shipping</a>
       </nav>
     </div>
     <div>
-      <span class="text-xs font-medium tracking-widest uppercase text-charcoal-muted block mb-4">About</span>
-      <p class="text-sm text-charcoal-light leading-relaxed">
-        Every item is hand-picked. We partner with local farms and artisan producers to bring you the best.
-      </p>
+      <span class="text-[10px] font-black tracking-[0.1em] uppercase text-bone block mb-5">Social</span>
+      <nav class="space-y-3">
+        <a href="https://instagram.com/the.mercantile" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">Instagram</a>
+        <a href="https://twitter.com" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">Twitter</a>
+        <a href="https://pinterest.com" class="block text-sm font-medium text-bone/60 hover:text-bone transition-colors">Pinterest</a>
+      </nav>
+    </div>
+    <div>
+      <span class="text-[10px] font-black tracking-[0.1em] uppercase text-bone block mb-5">Legal</span>
+      <nav class="space-y-3">
+        <span class="block text-sm font-medium text-bone/60">Privacy Policy</span>
+        <span class="block text-sm font-medium text-bone/60">Terms of Service</span>
+        <span class="block text-sm font-medium text-bone/60">Shipping Policy</span>
+      </nav>
+    </div>
+    <div>
+      <span class="text-[10px] font-black tracking-[0.1em] uppercase text-bone block mb-5">Newsletter</span>
+      <p class="text-sm font-medium text-bone/60 mb-4">Join the Mercantile list</p>
+      <form class="flex" onsubmit="event.preventDefault()">
+        <input
+          type="email"
+          placeholder="Email"
+          class="flex-1 bg-transparent text-sm text-bone placeholder:text-bone/30 py-2 outline-none"
+          style="border-bottom: 1px solid rgba(245,245,240,0.15);"
+        />
+        <button type="submit" class="text-[10px] font-bold tracking-[0.1em] uppercase text-bone/60 hover:text-bone transition-colors ml-3">
+          Join
+        </button>
+      </form>
     </div>
   </div>
-  <div class="max-w-6xl mx-auto mt-12 pt-6 border-t border-border-soft flex items-center justify-between">
-    <span class="text-xs text-charcoal-muted">&copy; 2026 The Mercantile</span>
-    <span class="text-xs text-charcoal-muted">Made with care</span>
+  <div class="max-w-6xl mx-auto mt-12 flex items-center justify-between">
+    <span class="text-[10px] text-bone/40 tracking-wide">&copy; 2026 The Mercantile</span>
+    <span class="text-[10px] text-bone/40 tracking-wide">All rights reserved</span>
   </div>
 </footer>

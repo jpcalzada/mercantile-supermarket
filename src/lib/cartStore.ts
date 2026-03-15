@@ -7,10 +7,33 @@ export interface CartItem {
   quantity: number;
   unit: string;
   image: string;
+  notes?: string;
 }
 
-export const $cartItems = atom<CartItem[]>([]);
-export const $cartOpen = atom(false);
+// Hydrate from localStorage on init
+function loadCart(): CartItem[] {
+  if (typeof window === 'undefined') return [];
+  try {
+    const stored = localStorage.getItem('mercantile-cart');
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveCart(items: CartItem[]) {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.setItem('mercantile-cart', JSON.stringify(items));
+  } catch {
+    // storage full or unavailable
+  }
+}
+
+export const $cartItems = atom<CartItem[]>(loadCart());
+
+// Persist on every change
+$cartItems.listen((items) => saveCart(items));
 
 export const $cartTotal = computed($cartItems, (items) =>
   items.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -41,8 +64,6 @@ export function addToCart(product: {
   } else {
     $cartItems.set([...current, { ...product, quantity: 1 }]);
   }
-
-  $cartOpen.set(true);
 }
 
 export function removeFromCart(id: string) {
@@ -61,6 +82,10 @@ export function updateQuantity(id: string, quantity: number) {
   );
 }
 
-export function toggleCart() {
-  $cartOpen.set(!$cartOpen.get());
+export function updateNotes(id: string, notes: string) {
+  $cartItems.set(
+    $cartItems.get().map((item) =>
+      item.id === id ? { ...item, notes } : item
+    )
+  );
 }

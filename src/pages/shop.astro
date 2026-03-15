@@ -1,0 +1,174 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+import { products } from '../lib/products';
+
+const categories = [
+  { label: 'All', slug: 'all' },
+  { label: 'Produce', slug: 'produce' },
+  { label: 'Bakery', slug: 'bakery' },
+  { label: 'Pantry', slug: 'pantry' },
+  { label: 'Dairy Alt', slug: 'dairy-alt' },
+  { label: 'Tonic Bar', slug: 'juice-bar' },
+  { label: 'Sweet Treats', slug: 'sweet-treats' },
+  { label: 'Deli', slug: 'deli' },
+];
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="view-transition" content="same-origin" />
+  <title>Shop — The Mercantile</title>
+  <meta name="description" content="Browse the full collection. Ingredients with provenance." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+
+  <main class="pt-[64px]">
+
+    {/* ── 2 Large Rectangle Features ── */}
+    <section class="px-4 lg:px-6 pt-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="#bakery" class="relative aspect-[2/1] overflow-hidden rounded-[12px] bg-surface group">
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80"
+            alt="Cafe"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-obsidian/25"></div>
+          <div class="absolute bottom-6 left-6">
+            <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">Morning Ritual</p>
+            <h2 class="text-2xl lg:text-3xl font-black tracking-tight text-white uppercase">Cafe</h2>
+          </div>
+        </a>
+        <a href="#juice-bar" class="relative aspect-[2/1] overflow-hidden rounded-[12px] bg-surface group">
+          <img
+            src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=1200&q=80"
+            alt="Tonic Bar"
+            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="eager"
+          />
+          <div class="absolute inset-0 bg-obsidian/25"></div>
+          <div class="absolute bottom-6 left-6">
+            <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-white/70 mb-1">Cold-Pressed Daily</p>
+            <h2 class="text-2xl lg:text-3xl font-black tracking-tight text-white uppercase">Tonic Bar</h2>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    {/* ── Category Sub-Nav ── */}
+    <nav class="category-nav px-4 lg:px-6 mt-4">
+      <div class="flex items-center">
+        {categories.map((cat, i) => (
+          <button
+            data-filter={cat.slug}
+            class={`category-nav-btn ${i === 0 ? 'active' : ''}`}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+    </nav>
+
+    {/* ── 3-Column Product Grid ── */}
+    <section class="px-4 lg:px-6 py-6">
+      <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {products.map((product, i) => (
+          <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={product.category}>
+            <a href={`/supermarket/${product.id}`} class="block">
+              <div class="card-image-wrap aspect-square w-full">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  class="w-full h-full object-cover product-image"
+                  loading="lazy"
+                  style={`view-transition-name: product-${product.id}`}
+                />
+              </div>
+            </a>
+            <div class="pt-3">
+              <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted">{product.label}</p>
+              <h3 class="text-sm font-bold text-obsidian mt-0.5 leading-tight">{product.name}</h3>
+              <div class="flex items-baseline justify-between mt-1">
+                <span class="text-sm font-medium text-obsidian">${product.price.toFixed(2)}</span>
+                <button
+                  data-add-product
+                  data-product-id={product.id}
+                  data-product-name={product.name}
+                  data-product-price={product.price}
+                  data-product-unit={product.size}
+                  data-product-image={product.image}
+                  class="btn-add"
+                >
+                  + Add
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </main>
+
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  import { addToCart } from '../lib/cartStore';
+
+  function showToast(message: string) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2500);
+  }
+
+  document.querySelectorAll('[data-add-product]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const el = btn as HTMLElement;
+      addToCart({
+        id: el.dataset.productId!,
+        name: el.dataset.productName!,
+        price: parseFloat(el.dataset.productPrice!),
+        unit: el.dataset.productUnit!,
+        image: el.dataset.productImage!,
+      });
+      showToast('Added to bag');
+    });
+  });
+
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+  const cards = document.querySelectorAll<HTMLElement>('[data-category]');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const slug = btn.dataset.filter!;
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      cards.forEach((card) => {
+        card.style.display = (slug === 'all' || card.dataset.category === slug) ? '' : 'none';
+      });
+    });
+  });
+
+  function filterByParam() {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    if (!cat) return;
+    const match = Array.from(filterBtns).find((b) => b.dataset.filter === cat);
+    if (match) match.click();
+  }
+
+  filterByParam();
+</script>

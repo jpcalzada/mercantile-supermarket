@@ -1,0 +1,127 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cart — The Mercantile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="pt-[64px] px-4 lg:px-12 py-8">
+    <div class="max-w-6xl mx-auto">
+      <nav class="breadcrumbs mb-6 mt-[60px]">
+        <a href="/">Home</a> <span class="mx-2">/</span> <span>Cart</span>
+      </nav>
+
+      <h1 class="text-3xl font-black tracking-tight uppercase text-obsidian mb-8">Your Bag</h1>
+
+      <div class="lg:grid lg:grid-cols-3 lg:gap-12">
+        <div class="lg:col-span-2" id="cart-page-items">
+          <p class="text-obsidian-muted text-sm">Your bag is empty.</p>
+        </div>
+
+        <div class="lg:col-span-1 mt-8 lg:mt-0">
+          <div class="lg:sticky lg:top-[88px] bg-surface p-6">
+            <h3 class="text-[11px] font-bold tracking-[0.1em] uppercase text-obsidian mb-4">Order Summary</h3>
+            <div class="hairline-h mb-4"></div>
+            <div class="flex justify-between mb-2">
+              <span class="text-sm text-obsidian-muted">Subtotal</span>
+              <span id="cart-page-total" class="text-sm font-bold text-obsidian">$0.00</span>
+            </div>
+            <div class="flex justify-between mb-4">
+              <span class="text-sm text-obsidian-muted">Shipping</span>
+              <span class="text-sm text-obsidian-muted">Calculated at checkout</span>
+            </div>
+            <div class="hairline-h mb-4"></div>
+            <div class="flex justify-between mb-6">
+              <span class="text-base font-black text-obsidian uppercase">Total</span>
+              <span id="cart-page-grand" class="text-base font-black text-obsidian">$0.00</span>
+            </div>
+            <a href="/auth" class="btn-primary block w-full py-4 text-[11px] font-bold tracking-[0.1em] uppercase text-center">
+              Proceed to Checkout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  import { $cartItems, $cartTotal, updateQuantity, removeFromCart } from '../lib/cartStore';
+
+  const container = document.getElementById('cart-page-items')!;
+  const totalEl = document.getElementById('cart-page-total')!;
+  const grandEl = document.getElementById('cart-page-grand')!;
+
+  function escapeHtml(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function render(items: typeof $cartItems extends { get(): infer T } ? T : never) {
+    if (items.length === 0) {
+      container.innerHTML = '<p class="text-obsidian-muted text-sm">Your bag is empty.</p>';
+      totalEl.textContent = '$0.00';
+      grandEl.textContent = '$0.00';
+      return;
+    }
+
+    container.innerHTML = items.map((item) => `
+      <div class="flex gap-4 py-5 border-b border-[rgba(140,126,106,0.15)]">
+        <a href="/supermarket/${item.id}" class="w-20 h-20 rounded-[12px] overflow-hidden bg-white flex-shrink-0 block">
+          <img src="${item.image}" alt="${escapeHtml(item.name)}" class="w-full h-full object-cover" />
+        </a>
+        <div class="flex-1 min-w-0">
+          <a href="/supermarket/${item.id}" class="text-sm font-bold text-obsidian hover:text-obsidian-light transition-colors">${escapeHtml(item.name)}</a>
+          ${item.notes ? `<p class="text-[11px] text-obsidian-muted/70 mt-0.5 italic leading-snug">"${escapeHtml(item.notes)}"</p>` : ''}
+          <p class="text-[10px] text-obsidian-muted mt-0.5 uppercase tracking-[0.05em]">${escapeHtml(item.unit)}</p>
+          <div class="flex items-center gap-4 mt-3">
+            <div class="qty-selector">
+              <button data-page-minus="${item.id}">-</button>
+              <span class="qty-value">${item.quantity}</span>
+              <button data-page-plus="${item.id}">+</button>
+            </div>
+            <button data-page-remove="${item.id}" class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted hover:text-obsidian transition-colors">Remove</button>
+          </div>
+        </div>
+        <span class="text-sm font-bold text-obsidian flex-shrink-0">$${(item.price * item.quantity).toFixed(2)}</span>
+      </div>
+    `).join('');
+
+    container.querySelectorAll('[data-page-minus]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = (btn as HTMLElement).dataset.pageMinus!;
+        const item = items.find((i) => i.id === id);
+        if (item) updateQuantity(id, item.quantity - 1);
+      });
+    });
+    container.querySelectorAll('[data-page-plus]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = (btn as HTMLElement).dataset.pagePlus!;
+        const item = items.find((i) => i.id === id);
+        if (item) updateQuantity(id, item.quantity + 1);
+      });
+    });
+    container.querySelectorAll('[data-page-remove]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        removeFromCart((btn as HTMLElement).dataset.pageRemove!);
+      });
+    });
+  }
+
+  $cartItems.subscribe(render);
+  $cartTotal.subscribe((total) => {
+    totalEl.textContent = '$' + total.toFixed(2);
+    grandEl.textContent = '$' + total.toFixed(2);
+  });
+</script>

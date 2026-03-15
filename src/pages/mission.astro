@@ -1,0 +1,66 @@
+---
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="view-transition" content="same-origin" />
+  <title>Our DNA — The Mercantile</title>
+  <meta name="description" content="The philosophy behind The Mercantile — provenance, craft, and intention." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="main-content pt-[64px]">
+    <section class="px-6 lg:px-12 py-16">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-obsidian-muted mb-2">Our DNA</p>
+        <h1 class="text-3xl lg:text-5xl font-black tracking-tight uppercase text-obsidian leading-tight">Ingredients with provenance.</h1>
+
+        <div class="mt-12 space-y-10">
+          <div>
+            <h2 class="text-sm font-black tracking-[0.1em] uppercase text-obsidian mb-3">The Standard</h2>
+            <p class="text-base text-obsidian-muted leading-[1.8]">
+              We believe a grocery store should be edited, not exhaustive. Every item on our shelves has been vetted for origin, process, and integrity. We work directly with producers — visiting farms, tasting harvests, and understanding supply chains — so you don't have to decode a label.
+            </p>
+          </div>
+
+          <div class="hairline-h"></div>
+
+          <div>
+            <h2 class="text-sm font-black tracking-[0.1em] uppercase text-obsidian mb-3">Provenance Over Price</h2>
+            <p class="text-base text-obsidian-muted leading-[1.8]">
+              We don't compete on volume. We compete on trust. Our produce comes from farms that practice regenerative agriculture. Our pantry staples are single-origin, small-batch, or heritage-milled. Our proteins are pasture-raised, wild-caught, or ethically farmed. If we can't trace it, we don't stock it.
+            </p>
+          </div>
+
+          <div class="hairline-h"></div>
+
+          <div>
+            <h2 class="text-sm font-black tracking-[0.1em] uppercase text-obsidian mb-3">The Mercantile Experience</h2>
+            <p class="text-base text-obsidian-muted leading-[1.8]">
+              Shopping here should feel like visiting a market you trust — one where the person behind the counter knows the farmer, the harvest date, and the best way to prepare what you're buying. Whether you're browsing in-store or ordering online, we bring that level of care to every interaction.
+            </p>
+          </div>
+
+          <div class="hairline-h"></div>
+
+          <div>
+            <h2 class="text-sm font-black tracking-[0.1em] uppercase text-obsidian mb-3">Sustainability as Practice</h2>
+            <p class="text-base text-obsidian-muted leading-[1.8]">
+              We measure our impact not by pledges, but by practice. Compostable packaging where possible. Carbon-offset delivery. 1% of member spend goes directly to local farm partnerships. Zero-waste prep in our Bakery and Tonic Bar. These aren't marketing lines — they're operating decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <MercantileFooter />
+</body>
+</html>

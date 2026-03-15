@@ -1,50 +1,262 @@
 ---
-import { collections } from '../../lib/products';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 px-6 py-4 flex items-center justify-between"
-  style="background: rgba(250, 249, 246, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);">
+{/* ── Splash Screen / Logo Loader ── */}
+<div id="splash" class="splash-screen">
+  <span class="splash-logo">The Mercantile</span>
+</div>
 
-  <!-- Brand -->
-  <a href="/supermarket" class="flex items-center gap-2 group">
-    <span class="font-display text-xl text-charcoal">The Mercantile</span>
+{/* ── 64px Obsidian Top Bar ── */}
+<header class="site-header">
+  {/* Left: Hamburger */}
+  <button id="sidebar-open" class="flex flex-col justify-center gap-[5px] p-2 -ml-2" aria-label="Menu">
+    <span class="block w-[20px] h-[2px] bg-white"></span>
+    <span class="block w-[20px] h-[2px] bg-white"></span>
+    <span class="block w-[20px] h-[2px] bg-white"></span>
+  </button>
+
+  {/* Center: Brand */}
+  <a href="/" class="absolute left-1/2 -translate-x-1/2 hidden lg:block">
+    <span class="text-[17px] lg:text-[20px] font-black tracking-[0.2em] uppercase text-white">The Mercantile</span>
   </a>
 
-  <!-- Nav -->
-  <nav class="hidden md:flex items-center gap-8">
-    {Object.entries(collections).map(([slug, col]) => (
-      <a
-        href={`/supermarket#${slug}`}
-        class="soft-underline text-sm text-charcoal-muted hover:text-charcoal transition-colors duration-300"
-      >
-        {col.name}
-      </a>
-    ))}
-  </nav>
-
-  <!-- Cart Toggle -->
-  <button
-    id="cart-toggle"
-    class="relative flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-border-soft hover:shadow-md transition-all duration-300 group"
-  >
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-charcoal-muted group-hover:text-charcoal transition-colors">
-      <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-      <line x1="3" y1="6" x2="21" y2="6"/>
-      <path d="M16 10a4 4 0 01-8 0"/>
-    </svg>
-    <span id="cart-count" class="text-sm text-charcoal-muted group-hover:text-charcoal transition-colors">0</span>
-  </button>
+  {/* Right: Search + Bag (departments) + Account + Cart */}
+  <div class="flex items-center gap-4">
+    <button id="search-toggle" class="p-1" aria-label="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+    </button>
+    <a href="/departments" class="p-1" aria-label="Departments">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 018 0v2"/>
+      </svg>
+    </a>
+    <a href="/auth" class="p-1" aria-label="Account">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/>
+      </svg>
+    </a>
+    <a href="/cart" class="p-1 relative" aria-label="Cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a1 1 0 001 .61h9.72a1 1 0 001-.76L23 6H6"/>
+      </svg>
+      <span id="cart-count" class="absolute -top-1.5 -right-1.5 w-[18px] h-[18px] bg-white text-obsidian text-[9px] font-black rounded-full flex items-center justify-center hidden">0</span>
+    </a>
+  </div>
 </header>
 
+{/* ── Vertical Sidebar (Inverted: Obsidian bg, Bone text) ── */}
+<div id="sidebar-backdrop" class="sidebar-backdrop"></div>
+<nav id="sidebar" class="sidebar">
+  <div class="flex items-center justify-between px-7 py-6">
+    <span class="text-sm font-black tracking-[0.2em] uppercase text-bone">Menu</span>
+    <button id="sidebar-close" class="p-1 text-bone" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <a href="/auth" class="block px-7 py-4 bg-white/5 mx-5 mb-4 transition-opacity hover:opacity-80">
+    <p class="text-sm font-black tracking-[0.1em] uppercase text-bone">Welcome</p>
+    <p class="text-sm text-obsidian-muted mt-1">Sign in or Join</p>
+  </a>
+
+  <div class="flex flex-col flex-1" style="margin-top: 20px;">
+    <a href="/member" class="sidebar-link">Member</a>
+    <a href="/departments" class="sidebar-link">Browse</a>
+    <a href="/shipping" class="sidebar-link">Shipping</a>
+    <a href="/lifestyle" class="sidebar-link">Lifestyle Collective</a>
+    <a href="/catering" class="sidebar-link">Catering</a>
+    <a href="/locations" class="sidebar-link">Locations</a>
+    <a href="/faq" class="sidebar-link">FAQs</a>
+    <a href="/mission" class="sidebar-link">Our Mission</a>
+    <a href="/contact" class="sidebar-link">Contact Us</a>
+  </div>
+</nav>
+
+{/* ── Search Overlay (Inverted: Obsidian bg, Bone text) ── */}
+<div id="search-overlay" class="search-overlay">
+  <div class="max-w-4xl mx-auto px-6 py-6">
+    <div class="flex items-center gap-3 mb-6">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-bone/50 flex-shrink-0">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search products..."
+        class="flex-1 bg-transparent text-lg text-bone placeholder:text-bone/40 outline-none"
+        autocomplete="off"
+      />
+      <button id="search-close" class="text-bone/50 hover:text-bone p-1">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    {/* Autocomplete results */}
+    <div id="search-results" class="mb-6 hidden">
+      <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-bone/60 mb-3">Results</p>
+      <div id="search-results-list" class="space-y-1"></div>
+    </div>
+
+    {/* Default content */}
+    <div id="search-defaults" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div>
+        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-bone/60 mb-4">Trending Searches</p>
+        <div class="space-y-3">
+          <a href="/supermarket/green-juice" class="block text-sm text-bone/50 hover:text-bone transition-colors">Cold-pressed juice</a>
+          <a href="/supermarket/oat-milk" class="block text-sm text-bone/50 hover:text-bone transition-colors">Oat milk</a>
+          <a href="/supermarket/manuka-honey" class="block text-sm text-bone/50 hover:text-bone transition-colors">Manuka honey</a>
+        </div>
+        <p class="text-[10px] font-bold tracking-[0.1em] uppercase text-bone/60 mb-4 mt-8">Trending Categories</p>
+        <div class="space-y-3">
+          <a href="/shop?category=produce" class="block text-sm text-bone/50 hover:text-bone transition-colors">Produce</a>
+          <a href="/shop?category=pantry" class="block text-sm text-bone/50 hover:text-bone transition-colors">Pantry</a>
+          <a href="/shop?category=juice-bar" class="block text-sm text-bone/50 hover:text-bone transition-colors">Tonic Bar</a>
+        </div>
+      </div>
+      <div class="md:col-span-2">
+        <p class="text-[11px] font-bold tracking-[0.1em] uppercase text-bone/60 mb-5">Popular Items</p>
+        <div id="popular-items" class="grid grid-cols-2 sm:grid-cols-3 gap-5"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{/* Toast */}
+<div id="toast" class="toast"></div>
+
+{/* ── Inline FOUC prevention: hide main content until splash done ── */}
+<script is:inline>
+  document.body.style.overflow = 'hidden';
+</script>
+
 <script>
-  import { $cartCount, toggleCart } from '../../lib/cartStore';
+  import { $cartCount } from '../../lib/cartStore';
+  import { products } from '../../lib/products';
 
-  const countEl = document.getElementById('cart-count');
-  const toggleBtn = document.getElementById('cart-toggle');
-
-  $cartCount.subscribe((count) => {
-    if (countEl) countEl.textContent = String(count);
+  // Splash screen — lock body scroll until animation completes, then reveal content
+  const splash = document.getElementById('splash');
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      splash?.classList.add('done');
+      document.body.style.overflow = '';
+      document.body.classList.add('loaded');
+    }, 1400);
   });
 
-  toggleBtn?.addEventListener('click', () => toggleCart());
+  // Cart count badge
+  const countEl = document.getElementById('cart-count');
+  $cartCount.subscribe((count) => {
+    if (!countEl) return;
+    if (count > 0) {
+      countEl.textContent = String(count);
+      countEl.classList.remove('hidden');
+    } else {
+      countEl.classList.add('hidden');
+    }
+  });
+
+  // Sidebar
+  const sidebar = document.getElementById('sidebar')!;
+  const sidebarBackdrop = document.getElementById('sidebar-backdrop')!;
+
+  document.getElementById('sidebar-open')?.addEventListener('click', () => {
+    sidebar.classList.add('open');
+    sidebarBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  function closeSidebar() {
+    sidebar.classList.remove('open');
+    sidebarBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('sidebar-close')?.addEventListener('click', closeSidebar);
+  sidebarBackdrop.addEventListener('click', closeSidebar);
+  sidebar.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeSidebar));
+
+  // Search overlay
+  const searchOverlay = document.getElementById('search-overlay')!;
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results')!;
+  const searchResultsList = document.getElementById('search-results-list')!;
+  const searchDefaults = document.getElementById('search-defaults')!;
+
+  // Populate popular items with thumbnails (12 items)
+  const popularItems = document.getElementById('popular-items')!;
+  const popular = products.slice(0, 12);
+  popularItems.innerHTML = popular.map((p) => `
+    <a href="/supermarket/${p.id}" class="block rounded-[10px] overflow-hidden bg-white/5 hover:bg-white/10 transition-colors p-3">
+      <div class="w-full aspect-square rounded-[8px] overflow-hidden bg-white/10 mb-3">
+        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" />
+      </div>
+      <p class="text-sm font-bold text-bone leading-tight">${p.name}</p>
+      <p class="text-[11px] text-bone/50 mt-1">$${p.price.toFixed(2)}</p>
+    </a>
+  `).join('');
+
+  // Open search overlay
+  document.getElementById('search-toggle')?.addEventListener('click', () => {
+    searchOverlay.classList.add('open');
+    setTimeout(() => searchInput?.focus(), 100);
+  });
+
+  document.getElementById('search-close')?.addEventListener('click', () => {
+    searchOverlay.classList.remove('open');
+    searchInput.value = '';
+    searchResults.classList.add('hidden');
+    searchDefaults.classList.remove('hidden');
+  });
+
+  // Autocomplete
+  searchInput?.addEventListener('input', () => {
+    const q = searchInput.value.trim().toLowerCase();
+    if (q.length < 2) {
+      searchResults.classList.add('hidden');
+      searchDefaults.classList.remove('hidden');
+      return;
+    }
+
+    const matches = products.filter((p) =>
+      p.name.toLowerCase().includes(q) || p.label.toLowerCase().includes(q) || p.category.includes(q)
+    ).slice(0, 8);
+
+    if (matches.length === 0) {
+      searchResults.classList.add('hidden');
+      searchDefaults.classList.remove('hidden');
+      return;
+    }
+
+    searchDefaults.classList.add('hidden');
+    searchResults.classList.remove('hidden');
+
+    searchResultsList.innerHTML = matches.map((p) => {
+      const idx = p.name.toLowerCase().indexOf(q);
+      let nameHtml = p.name;
+      if (idx >= 0) {
+        const before = p.name.slice(0, idx);
+        const match = p.name.slice(idx, idx + q.length);
+        const after = p.name.slice(idx + q.length);
+        nameHtml = `${before}<span class="search-highlight">${match}</span>${after}`;
+      }
+      return `
+        <a href="/supermarket/${p.id}" class="search-suggestion py-2">
+          <div class="w-10 h-10 rounded-[6px] overflow-hidden bg-white/10 flex-shrink-0">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" />
+          </div>
+          <div class="flex-1">
+            <p class="text-sm text-bone">${nameHtml}</p>
+            <p class="text-[10px] text-bone/50 uppercase tracking-[0.05em]">${p.label} / ${p.size}</p>
+          </div>
+          <span class="text-sm font-bold text-bone">$${p.price.toFixed(2)}</span>
+        </a>
+      `;
+    }).join('');
+  });
 </script>

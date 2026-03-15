@@ -4,77 +4,79 @@ import { products } from '../../lib/products';
 const heroProduct = products.find((p) => p.hero)!;
 ---
 
-<section class="relative min-h-[90vh] flex items-center overflow-hidden px-6 lg:px-16 bg-peach-soft">
+<section class="min-h-[90vh] flex items-center px-6 lg:px-12 bg-bone">
+  <div class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center pt-28 pb-16 lg:pt-0 lg:pb-0">
 
-  <!-- Content Grid -->
-  <div class="w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-28 pb-16 lg:pt-0 lg:pb-0">
-
-    <!-- Left Column — Copy -->
-    <div class="space-y-6 z-10">
-      <!-- Logo / Brand -->
+    <!-- Copy -->
+    <div class="space-y-8 z-10">
       <div class="animate-fade-up delay-100">
-        <h1 class="font-display text-5xl sm:text-6xl xl:text-7xl leading-[1.1] tracking-tight text-charcoal">
+        <p class="text-[11px] tracking-[0.2em] uppercase text-obsidian-muted mb-6">Curated Grocery</p>
+        <h1 class="text-5xl sm:text-6xl xl:text-7xl font-bold tracking-tighter leading-[0.95] text-obsidian">
           The<br/>Mercantile
         </h1>
-        <p class="text-charcoal-muted text-lg mt-3">Groceries, curated with care.</p>
+        <p class="text-obsidian-muted text-[15px] mt-5 max-w-sm leading-relaxed font-light">
+          Ingredients with provenance. A supermarket for people who read the label.
+        </p>
       </div>
 
-      <!-- Divider -->
-      <div class="w-12 h-0.5 bg-charcoal/10 animate-fade-up delay-200"></div>
+      <div class="w-12 hairline-h animate-fade-up delay-200"></div>
 
-      <!-- Featured Product -->
       <div class="animate-fade-up delay-300">
-        <span class="text-xs tracking-widest uppercase text-charcoal-muted">Featured Today</span>
-        <h2 class="font-display text-3xl sm:text-4xl text-charcoal mt-2">{heroProduct.name}</h2>
+        <p class="text-[11px] tracking-[0.15em] uppercase text-obsidian-muted">{heroProduct.label} / {heroProduct.name} / {heroProduct.size}</p>
+        <p class="text-[15px] text-obsidian-light leading-relaxed mt-3 max-w-md font-light">
+          {heroProduct.description}
+        </p>
       </div>
 
-      <!-- Description -->
-      <p class="text-base leading-relaxed text-charcoal-light max-w-md animate-fade-up delay-400">
-        {heroProduct.description}
-      </p>
-
-      <!-- Price + CTA -->
-      <div class="flex items-center gap-6 animate-fade-up delay-500">
-        <div>
-          <span class="font-mono-price text-2xl font-semibold text-charcoal">${heroProduct.price.toFixed(2)}</span>
-          <span class="text-sm text-charcoal-muted ml-2">{heroProduct.unit}</span>
-        </div>
+      <div class="flex items-center gap-6 animate-fade-up delay-400">
+        <span class="font-mono text-xl text-obsidian">${heroProduct.price.toFixed(2)}</span>
         <button
           data-add-hero
           data-product-id={heroProduct.id}
           data-product-name={heroProduct.name}
           data-product-price={heroProduct.price}
-          data-product-unit={heroProduct.unit}
+          data-product-unit={heroProduct.size}
           data-product-image={heroProduct.image}
-          class="btn-primary px-7 py-3 text-sm font-medium"
+          class="btn-primary px-7 py-3 text-[11px] tracking-[0.12em] uppercase"
         >
-          Add to Cart
+          Add to Curation
         </button>
+        <a
+          href={`/supermarket/${heroProduct.id}`}
+          class="text-[11px] tracking-[0.12em] uppercase text-obsidian-muted hover:text-obsidian transition-colors"
+        >
+          View Details
+        </a>
       </div>
     </div>
 
-    <!-- Right Column — Hero Image -->
-    <div class="relative animate-slide-right delay-300">
-      <div class="aspect-square w-full max-w-lg mx-auto rounded-card overflow-hidden shadow-lg">
-        <img
-          src={heroProduct.image}
-          alt={heroProduct.name}
-          class="w-full h-full object-cover product-image"
-          loading="eager"
-        />
-      </div>
-
-      <!-- Floating badge -->
-      <div class="absolute -bottom-3 -left-3 lg:-left-6 bg-white rounded-card px-5 py-3 shadow-md animate-fade-up delay-600">
-        <span class="text-xs font-medium text-charcoal block">Fresh today</span>
-        <span class="text-xs text-charcoal-muted">Locally sourced</span>
-      </div>
+    <!-- Image -->
+    <div class="animate-fade-up delay-300">
+      <a href={`/supermarket/${heroProduct.id}`} class="block">
+        <div class="aspect-[3/4] w-full max-w-md mx-auto rounded-card overflow-hidden bg-bone-dark">
+          <img
+            src={heroProduct.image}
+            alt={heroProduct.name}
+            class="w-full h-full object-cover product-image"
+            loading="eager"
+            style={`view-transition-name: product-${heroProduct.id}`}
+          />
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
 <script>
   import { addToCart } from '../../lib/cartStore';
+
+  function showToast(message: string) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('visible');
+    setTimeout(() => toast.classList.remove('visible'), 2500);
+  }
 
   document.querySelector('[data-add-hero]')?.addEventListener('click', (e) => {
     const btn = e.currentTarget as HTMLElement;
@@ -85,5 +87,6 @@ const heroProduct = products.find((p) => p.hero)!;
       unit: btn.dataset.productUnit!,
       image: btn.dataset.productImage!,
     });
+    showToast('Added to Curation');
   });
 </script>
