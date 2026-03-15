@@ -40,7 +40,7 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="view-transition" content="same-origin" />
   <title>{product.name} — The Mercantile</title>
   <meta name="description" content={product.description} />
@@ -53,11 +53,28 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
 
   <main class="pt-[64px]">
 
-    {/* ══ PART 1: Persistent Split — Image Left, Info Right ══ */}
-    <div class="product-split">
+    {/* ══ PART 1: Product Detail — Mobile stacked / Desktop split ══ */}
+    <div class="product-detail">
 
-      {/* ── LEFT: Product Image ── */}
-      <div class="product-split-image">
+      {/* ── Mobile Header (breadcrumbs, title, price, badges) ── */}
+      <div class="product-detail-header">
+        <nav class="breadcrumbs">
+          <a href="/">Home</a>
+          <span class="mx-1">/</span>
+          <a href={`/#${product.category}`}>{categoryLabel.toUpperCase()}</a>
+          <span class="mx-1">/</span>
+          <span>{product.name.toUpperCase()}</span>
+        </nav>
+        <h1 class="product-title">{product.name}</h1>
+        <p class="product-price">${product.price.toFixed(2)} <span class="product-price-label">est.</span></p>
+        <div class="flex flex-wrap gap-1">
+          <span class="badge">{product.label}</span>
+          <span class="badge">{product.size}</span>
+        </div>
+      </div>
+
+      {/* ── Product Image ── */}
+      <div class="product-detail-image">
         <div class="product-image-frame">
           <Image
             src={product.image}
@@ -70,71 +87,65 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
         </div>
       </div>
 
-      {/* ── RIGHT: Product Info ── */}
-      <div class="product-split-info">
+      {/* ── Product Info (desktop: right column) ── */}
+      <div class="product-detail-info">
 
-        {/* Breadcrumbs */}
-        <nav class="breadcrumbs mb-2 lg:mb-6">
-          <a href="/">Home</a>
-          <span class="mx-1">/</span>
-          <a href={`/#${product.category}`}>{categoryLabel.toUpperCase()}</a>
-          <span class="mx-1">/</span>
-          <span>{product.name}</span>
-        </nav>
-
-        {/* Title */}
-        <div class="animate-fade-up">
+        {/* Desktop-only breadcrumbs/title/price/badges (hidden on mobile) */}
+        <div class="product-info-desktop-meta">
+          <nav class="breadcrumbs mb-6">
+            <a href="/">Home</a>
+            <span class="mx-1">/</span>
+            <a href={`/#${product.category}`}>{categoryLabel.toUpperCase()}</a>
+            <span class="mx-1">/</span>
+            <span>{product.name}</span>
+          </nav>
           <h1 class="product-title font-black tracking-tight text-obsidian leading-tight">
             {product.name}
           </h1>
-
-          {/* Price */}
           <p class="product-price font-medium text-obsidian">${product.price.toFixed(2)} <span class="product-price-label text-obsidian-muted font-normal">est.</span></p>
-
-          {/* Category + Unit badges */}
-          <div class="flex flex-wrap gap-1 lg:gap-2 mt-1.5 lg:mt-4">
+          <div class="flex flex-wrap gap-2 mt-4">
             <span class="badge">{product.label}</span>
             <span class="badge">{product.size}</span>
           </div>
+        </div>
 
-          {/* Quantity Selector */}
-          <div class="mt-2.5 lg:mt-6">
-            <p class="qty-label">Select Amount</p>
-            <div class="qty-selector" id="qty-selector">
-              <button type="button" id="qty-minus" aria-label="Decrease quantity">&minus;</button>
-              <input type="number" class="qty-value" id="qty-value" value="1" min="1" max="100" />
-              <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
-            </div>
-          </div>
-
-          {/* Add to Bag */}
-          <div class="mt-2 lg:mt-4">
-            <button
-              id="add-to-bag"
-              data-product-id={product.id}
-              data-product-name={product.name}
-              data-product-price={product.price}
-              data-product-unit={product.size}
-              data-product-image={product.image}
-              class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.02em] text-center"
-            >
-              + Add to Bag
-            </button>
-          </div>
-
-          {/* Shopper Notes — hidden on small mobile */}
-          <div class="mt-2 lg:mt-4 hidden sm:block">
-            <textarea
-              id="shopper-notes"
-              class="shopper-notes"
-              placeholder="Add a note (e.g., 'ripe please', 'slice thin')"
-              rows="2"
-            ></textarea>
+        {/* Quantity Selector */}
+        <div class="mt-2.5 lg:mt-6">
+          <p class="qty-label">Select Amount</p>
+          <div class="qty-selector" id="qty-selector">
+            <button type="button" id="qty-minus" aria-label="Decrease quantity">&minus;</button>
+            <input type="number" class="qty-value" id="qty-value" value="1" min="1" max="100" />
+            <button type="button" id="qty-plus" aria-label="Increase quantity">+</button>
           </div>
         </div>
 
+        {/* Add to Bag */}
+        <div class="mt-2 lg:mt-4">
+          <button
+            id="add-to-bag"
+            data-product-id={product.id}
+            data-product-name={product.name}
+            data-product-price={product.price}
+            data-product-unit={product.size}
+            data-product-image={product.image}
+            class="btn-primary w-full py-2 lg:py-3.5 text-[9px] lg:text-[11px] font-bold tracking-[0.02em] text-center"
+          >
+            + Add to Bag
+          </button>
+        </div>
+
+        {/* Shopper Notes — hidden on small mobile */}
+        <div class="mt-2 lg:mt-4 hidden sm:block">
+          <textarea
+            id="shopper-notes"
+            class="shopper-notes"
+            placeholder="Add a note (e.g., 'ripe please', 'slice thin')"
+            rows="2"
+          ></textarea>
+        </div>
+
         {/* Nutrition Stats */}
-        <div class="mt-3 lg:mt-8 animate-fade-up delay-100">
+        <div class="mt-3 lg:mt-8">
           <div class="macro-grid">
             <div class="text-center">
               <p class="macro-label">Fat</p>

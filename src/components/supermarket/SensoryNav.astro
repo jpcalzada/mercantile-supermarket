@@ -8,17 +8,17 @@
 
 {/* ── 64px Obsidian Top Bar ── */}
 <header class="site-header">
-  {/* Left: Hamburger */}
-  <button id="sidebar-open" class="flex flex-col justify-center gap-[5px] p-2 -ml-2" aria-label="Menu">
-    <span class="block w-[20px] h-[2px] bg-white"></span>
-    <span class="block w-[20px] h-[2px] bg-white"></span>
-    <span class="block w-[20px] h-[2px] bg-white"></span>
-  </button>
-
-  {/* Center: Brand */}
-  <a href="/" class="absolute left-1/2 -translate-x-1/2 hidden lg:block">
-    <span class="brand-wordmark">The Mercantile</span>
-  </a>
+  {/* Left: Hamburger + Brand */}
+  <div class="flex items-center gap-3">
+    <button id="sidebar-open" class="flex flex-col justify-center gap-[5px] p-2 -ml-2" aria-label="Menu">
+      <span class="block w-[20px] h-[2px] bg-white"></span>
+      <span class="block w-[20px] h-[2px] bg-white"></span>
+      <span class="block w-[20px] h-[2px] bg-white"></span>
+    </button>
+    <a href="/" class="lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+      <span class="brand-wordmark">The Mercantile</span>
+    </a>
+  </div>
 
   {/* Right: Search + Bag (departments) + Account + Cart */}
   <div class="flex items-center gap-4">
