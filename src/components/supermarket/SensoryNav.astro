@@ -1,4 +1,9 @@
 ---
+import { Image } from 'astro:assets';
+import { products } from '../../lib/products';
+import { resolveImage } from '../../lib/images';
+
+const popularItems = products.slice(0, 12);
 ---
 
 {/* ── Splash Screen / Logo Loader ── */}
@@ -48,7 +53,7 @@
 
 {/* ── Vertical Sidebar (Inverted: Obsidian bg, Bone text) ── */}
 <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
-<nav id="sidebar" class="sidebar">
+<nav id="sidebar" class="sidebar" data-lenis-prevent>
   <div class="flex items-center justify-between px-7 py-6">
     <span class="text-sm font-black tracking-[0.02em] uppercase text-bone">Menu</span>
     <button id="sidebar-close" class="p-1 text-bone" aria-label="Close menu">
@@ -58,26 +63,37 @@
     </button>
   </div>
 
-  <a href="/auth" class="block px-7 py-4 bg-white/5 mx-5 mb-4 transition-opacity hover:opacity-80">
-    <p class="text-sm font-black tracking-[0.02em] uppercase text-bone">Welcome</p>
-    <p class="text-sm text-obsidian-muted mt-1">Sign in or Join</p>
-  </a>
+  <div id="sidebar-auth" class="mx-5 mb-4">
+    {/* Default: not logged in */}
+    <a id="sidebar-welcome" href="/auth" class="block px-7 py-4 bg-white/5 transition-opacity hover:opacity-80">
+      <p class="text-sm font-black tracking-[0.02em] uppercase text-bone">Welcome</p>
+      <p class="text-[11px] tracking-[0.04em] text-bone/50 mt-1">Sign in or Join</p>
+    </a>
+    {/* Logged in: hidden by default, shown via JS */}
+    <div id="sidebar-account" class="hidden px-7 py-4 bg-white/5">
+      <p class="text-sm font-black tracking-[0.02em] uppercase text-bone">Account</p>
+      <p id="sidebar-phone" class="text-[11px] tracking-[0.04em] text-bone/50 mt-1" style="font-family: 'Martian Mono', monospace;"></p>
+    </div>
+  </div>
 
   <div class="flex flex-col flex-1" style="margin-top: 20px;">
     <a href="/member" class="sidebar-link">Member</a>
     <a href="/departments" class="sidebar-link">Browse</a>
-    <a href="/shipping" class="sidebar-link">Shipping</a>
-    <a href="/lifestyle" class="sidebar-link">Lifestyle Collective</a>
-    <a href="/catering" class="sidebar-link">Catering</a>
+    <a href="/track" class="sidebar-link">Track Order</a>
+    <a href="/history" class="sidebar-link">Order Again</a>
     <a href="/locations" class="sidebar-link">Locations</a>
     <a href="/faq" class="sidebar-link">FAQs</a>
     <a href="/mission" class="sidebar-link">Our Mission</a>
     <a href="/contact" class="sidebar-link">Contact Us</a>
   </div>
+
+  <div id="sidebar-signout" class="hidden px-7 py-5 border-t border-white/5">
+    <button id="sign-out-btn" class="text-[10px] tracking-[0.06em] uppercase text-bone/30 hover:text-bone/60 transition-colors" style="font-family: 'Martian Mono', monospace;">Sign Out</button>
+  </div>
 </nav>
 
 {/* ── Search Overlay (Inverted: Obsidian bg, Bone text) ── */}
-<div id="search-overlay" class="search-overlay">
+<div id="search-overlay" class="search-overlay" data-lenis-prevent>
   <div class="max-w-4xl mx-auto px-6 py-6">
     <div class="flex items-center gap-3 mb-6">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-bone/50 flex-shrink-0">
@@ -121,7 +137,17 @@
       </div>
       <div class="md:col-span-2">
         <p class="text-[11px] font-bold tracking-[0.02em] uppercase text-bone/60 mb-5">Popular Items</p>
-        <div id="popular-items" class="grid grid-cols-2 sm:grid-cols-3 gap-5"></div>
+        <div id="popular-items" class="grid grid-cols-2 sm:grid-cols-3 gap-5">
+          {popularItems.map((p) => (
+            <a href={`/supermarket/${p.id}`} class="block rounded-[10px] overflow-hidden bg-white/5 hover:bg-white/10 transition-colors p-3">
+              <div class="w-full aspect-square rounded-[8px] overflow-hidden bg-white/10 mb-3">
+                <Image src={resolveImage(p.image)} alt={p.name} width={400} height={400} class="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <p class="text-sm font-bold text-bone leading-tight">{p.name}</p>
+              <p class="text-[11px] text-bone/50 mt-1">${p.price.toFixed(2)}</p>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -139,14 +165,14 @@
   import { $cartCount } from '../../lib/cartStore';
   import { products } from '../../lib/products';
 
-  // Splash screen — lock body scroll until animation completes, then reveal content
+  // Splash screen — brief brand reveal then dismiss
   const splash = document.getElementById('splash');
   window.addEventListener('load', () => {
     setTimeout(() => {
       splash?.classList.add('done');
       document.body.style.overflow = '';
       document.body.classList.add('loaded');
-    }, 2800);
+    }, 1600);
   });
 
   // Cart count badge
@@ -159,6 +185,34 @@
     } else {
       countEl.classList.add('hidden');
     }
+  });
+
+  // Session check — update sidebar auth state
+  function maskPhone(phone: string): string {
+    if (phone.length <= 4) return phone;
+    return phone.slice(0, 3) + '····' + phone.slice(-4);
+  }
+
+  (async () => {
+    try {
+      const res = await fetch('/api/me');
+      const data = await res.json();
+      if (data.phone) {
+        document.getElementById('sidebar-welcome')?.classList.add('hidden');
+        const accountEl = document.getElementById('sidebar-account');
+        const phoneEl = document.getElementById('sidebar-phone');
+        const signoutEl = document.getElementById('sidebar-signout');
+        if (accountEl) accountEl.classList.remove('hidden');
+        if (phoneEl) phoneEl.textContent = maskPhone(data.phone);
+        if (signoutEl) signoutEl.classList.remove('hidden');
+      }
+    } catch {}
+  })();
+
+  // Sign out
+  document.getElementById('sign-out-btn')?.addEventListener('click', async () => {
+    await fetch('/api/sign-out', { method: 'POST' });
+    window.location.href = '/';
   });
 
   // Sidebar
@@ -188,34 +242,29 @@
   const searchResultsList = document.getElementById('search-results-list')!;
   const searchDefaults = document.getElementById('search-defaults')!;
 
-  // Populate popular items with thumbnails (12 items)
-  const popularItems = document.getElementById('popular-items')!;
-  const popular = products.slice(0, 12);
-  popularItems.innerHTML = popular.map((p) => `
-    <a href="/supermarket/${p.id}" class="block rounded-[10px] overflow-hidden bg-white/5 hover:bg-white/10 transition-colors p-3">
-      <div class="w-full aspect-square rounded-[8px] overflow-hidden bg-white/10 mb-3">
-        <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%22100%22 y=%22105%22 text-anchor=%22middle%22 fill=%22%23666%22 font-size=%2212%22%3ENo image%3C/text%3E%3C/svg%3E';" />
-      </div>
-      <p class="text-sm font-bold text-bone leading-tight">${p.name}</p>
-      <p class="text-[11px] text-bone/50 mt-1">$${p.price.toFixed(2)}</p>
-    </a>
-  `).join('');
-
-  // Open search overlay
-  document.getElementById('search-toggle')?.addEventListener('click', () => {
-    searchOverlay.classList.add('open');
-    setTimeout(() => searchInput?.focus(), 100);
-  });
-
-  document.getElementById('search-close')?.addEventListener('click', () => {
+  function closeSearch() {
     searchOverlay.classList.remove('open');
     searchInput.value = '';
     searchResults.classList.add('hidden');
     searchDefaults.classList.remove('hidden');
+  }
+
+  // Toggle search overlay with top bar icon
+  document.getElementById('search-toggle')?.addEventListener('click', () => {
+    if (searchOverlay.classList.contains('open')) {
+      closeSearch();
+    } else {
+      searchOverlay.classList.add('open');
+      setTimeout(() => searchInput?.focus(), 100);
+    }
   });
 
-  // Autocomplete
-  searchInput?.addEventListener('input', () => {
+  document.getElementById('search-close')?.addEventListener('click', closeSearch);
+
+  // Autocomplete (debounced)
+  let searchTimer: ReturnType<typeof setTimeout> | null = null;
+
+  function runSearch() {
     const q = searchInput.value.trim().toLowerCase();
     if (q.length < 2) {
       searchResults.classList.add('hidden');
@@ -258,5 +307,41 @@
         </a>
       `;
     }).join('');
+  }
+
+  searchInput?.addEventListener('input', () => {
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(runSearch, 150);
+  });
+</script>
+
+<script>
+  import Lenis from 'lenis';
+
+  const lenis = new Lenis({
+    lerp: 0.35,
+    wheelMultiplier: 1,
+    smoothWheel: true,
+    syncTouch: false,
+  });
+
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+
+  // Wait for splash to finish before starting Lenis
+  window.addEventListener('load', () => {
+    setTimeout(() => requestAnimationFrame(raf), 1700);
+  });
+
+  // Pause Lenis when overlays are open so they can scroll independently
+  const obsTarget = [document.getElementById('sidebar'), document.getElementById('search-overlay')];
+  const mo = new MutationObserver(() => {
+    const blocked = obsTarget.some((el) => el?.classList.contains('open'));
+    blocked ? lenis.stop() : lenis.start();
+  });
+  obsTarget.forEach((el) => {
+    if (el) mo.observe(el, { attributes: true, attributeFilter: ['class'] });
   });
 </script>

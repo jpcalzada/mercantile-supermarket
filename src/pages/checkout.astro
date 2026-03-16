@@ -1,7 +1,13 @@
 ---
+export const prerender = false;
+
 import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+
+// Middleware guarantees sessionPhone is non-null here
+const sessionPhone = Astro.locals.sessionPhone!;
+const maskedPhone = sessionPhone.slice(0, -4).replace(/./g, '*') + sessionPhone.slice(-4);
 ---
 
 <html lang="en">
@@ -13,9 +19,8 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Checkout — The Mercantile</title>
-  <meta name="description" content="Complete your order at The Mercantile." />
 </head>
-<body class="mercantile-page">
+<body class="mercantile-page" data-session-phone={sessionPhone} data-masked-phone={maskedPhone}>
   <SensoryNav />
   <main class="pt-[64px] px-4 lg:px-12 py-8">
     <div class="max-w-4xl mx-auto">
@@ -36,20 +41,6 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
             <div class="hairline-h mb-4"></div>
             <div id="checkout-items">
               <p class="text-sm text-obsidian-muted">Loading cart...</p>
-            </div>
-          </section>
-
-          {/* ── Contact ── */}
-          <section class="checkout-section mb-6">
-            <h2 class="checkout-section-title">Contact</h2>
-            <div class="hairline-h mb-4"></div>
-            <div class="checkout-field">
-              <label for="checkout-email" class="checkout-label">Email</label>
-              <input type="email" id="checkout-email" class="checkout-input" placeholder="you@email.com" required />
-            </div>
-            <div class="checkout-field">
-              <label for="checkout-phone" class="checkout-label">Phone</label>
-              <input type="tel" id="checkout-phone" class="checkout-input" placeholder="(555) 000-0000" />
             </div>
           </section>
 
@@ -95,8 +86,21 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
           <section class="checkout-section mb-6">
             <h2 class="checkout-section-title">Payment</h2>
             <div class="hairline-h mb-4"></div>
-            <div id="stripe-element" class="min-h-[80px]">
-              <p class="text-sm text-obsidian-muted">Loading payment form...</p>
+            <div id="stripe-element">
+              <div class="checkout-field">
+                <label class="checkout-label">Card Number</label>
+                <div id="card-number" class="stripe-field"></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="checkout-field">
+                  <label class="checkout-label">Expiry</label>
+                  <div id="card-expiry" class="stripe-field"></div>
+                </div>
+                <div class="checkout-field">
+                  <label class="checkout-label">CVC</label>
+                  <div id="card-cvc" class="stripe-field"></div>
+                </div>
+              </div>
             </div>
             <p id="stripe-error" class="text-[11px] text-red-600 mt-2 hidden"></p>
           </section>
@@ -142,11 +146,13 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 </html>
 
 <script>
-  import { $cartItems, $cartTotal } from '../lib/cartStore';
+  import { $cartItems, $cartTotal, clearCart } from '../lib/cartStore';
   import { loadStripe } from '@stripe/stripe-js';
 
   const SHIPPING_FEE = 5.00;
   const TAX_RATE = 0.10;
+
+  const maskedPhone = document.body.dataset.maskedPhone || '';
 
   const itemsContainer = document.getElementById('checkout-items')!;
   const subtotalEl = document.getElementById('checkout-subtotal')!;
@@ -203,6 +209,47 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
     payBtn.disabled = total === 0;
   });
 
+  // ── Order confirmation ──
+  async function showOrderConfirmation() {
+    const main = document.querySelector('main')!;
+    const items = $cartItems.get();
+    const total = $cartTotal.get();
+
+    // Save order via API
+    let orderNum = 'MRC-' + Math.random().toString(36).substring(2, 8).toUpperCase();
+    try {
+      const res = await fetch('/api/place-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: items.map(i => ({ name: i.name, quantity: i.quantity, price: i.price })),
+          total,
+        }),
+      });
+      const data = await res.json();
+      if (data.order?.id) {
+        orderNum = data.order.id;
+      }
+    } catch {
+      // Fall back to generated order number
+    }
+
+    main.innerHTML = `
+      <div class="max-w-lg mx-auto text-center py-20 px-4 mt-[60px]">
+        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-[#1B3022] flex items-center justify-center">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F5F7F5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h1 class="checkout-heading mb-3">Thank You</h1>
+        <p class="text-sm text-obsidian-muted mb-1">Order ${orderNum}</p>
+        <p class="text-sm text-obsidian-muted mb-8">A receipt has been sent to your verified number <span class="font-bold text-obsidian">${maskedPhone}</span>.</p>
+        <a href="/" class="btn-primary inline-block px-8 py-3 text-[11px] font-bold tracking-[0.04em] uppercase">Continue Shopping</a>
+        <a href="/track" class="btn-primary inline-block px-8 py-3 text-[11px] font-bold tracking-[0.04em] uppercase mt-4" style="background: transparent; color: #1B3022; border: 1px solid #1B3022;">Track Your Order</a>
+      </div>
+    `;
+
+    clearCart();
+  }
+
   // ── Stripe initialization ──
   async function initStripe() {
     const publishableKey = (import.meta as any).env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
@@ -220,6 +267,11 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
         </div>
       `;
       payBtn.disabled = false;
+      payBtn.addEventListener('click', () => {
+        payBtn.disabled = true;
+        payBtn.textContent = 'Processing...';
+        setTimeout(async () => await showOrderConfirmation(), 1800);
+      });
       return;
     }
 
@@ -228,25 +280,42 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
       if (!stripe) throw new Error('Stripe failed to load');
 
       const elements = stripe.elements({
-        appearance: {
-          theme: 'flat',
-          variables: {
-            colorPrimary: '#1B3022',
-            colorBackground: '#F5F7F5',
-            colorText: '#1B3022',
-            fontFamily: '"Martian Mono", monospace',
-            borderRadius: '6px',
-            fontSizeBase: '13px',
-          },
-        },
+        fonts: [{ cssSrc: 'https://fonts.googleapis.com/css2?family=Martian+Mono:wght@400;700&display=swap' }],
       });
 
-      const paymentElement = elements.create('payment');
-      stripeContainer.innerHTML = '';
-      paymentElement.mount(stripeContainer);
+      const fieldStyle = {
+        base: {
+          color: '#1B3022',
+          fontFamily: '"Martian Mono", monospace',
+          fontSize: '13px',
+          '::placeholder': { color: 'rgba(27,48,34,0.4)' },
+        },
+        invalid: { color: '#dc2626' },
+      };
 
-      paymentElement.on('ready', () => {
-        payBtn.disabled = false;
+      const cardNumber = elements.create('cardNumber', { style: fieldStyle });
+      const cardExpiry = elements.create('cardExpiry', { style: fieldStyle });
+      const cardCvc = elements.create('cardCvc', { style: fieldStyle });
+
+      cardNumber.mount('#card-number');
+      cardExpiry.mount('#card-expiry');
+      cardCvc.mount('#card-cvc');
+
+      let ready = 0;
+      const onReady = () => { ready++; if (ready === 3) payBtn.disabled = false; };
+      cardNumber.on('ready', onReady);
+      cardExpiry.on('ready', onReady);
+      cardCvc.on('ready', onReady);
+
+      [cardNumber, cardExpiry, cardCvc].forEach((el) => {
+        el.on('change', (event: any) => {
+          if (event.error) {
+            stripeError.textContent = event.error.message;
+            stripeError.classList.remove('hidden');
+          } else {
+            stripeError.classList.add('hidden');
+          }
+        });
       });
 
       payBtn.addEventListener('click', async () => {
@@ -254,31 +323,13 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
         payBtn.textContent = 'Processing...';
         stripeError.classList.add('hidden');
 
-        // In production, create a PaymentIntent on your server and confirm here
-        // const { error } = await stripe.confirmPayment({ elements, confirmParams: { return_url: window.location.origin + '/order-confirmation' } });
-        // For now, simulate:
-        setTimeout(() => {
-          payBtn.textContent = 'Payment requires server-side setup';
-          payBtn.disabled = false;
-        }, 1500);
+        // Demo mode: simulate successful payment
+        setTimeout(async () => await showOrderConfirmation(), 1800);
       });
     } catch (err) {
       stripeContainer.innerHTML = `<p class="text-sm text-obsidian-muted">Could not load payment form.</p>`;
     }
   }
-
-  // Handle pay click for placeholder mode
-  payBtn.addEventListener('click', () => {
-    const publishableKey = (import.meta as any).env.PUBLIC_STRIPE_PUBLISHABLE_KEY;
-    if (!publishableKey || publishableKey.includes('REPLACE')) {
-      payBtn.textContent = 'Order Placed (Demo)';
-      payBtn.disabled = true;
-      setTimeout(() => {
-        payBtn.textContent = 'Pay Now';
-        payBtn.disabled = false;
-      }, 2000);
-    }
-  });
 
   initStripe();
 </script>

@@ -1,0 +1,164 @@
+---
+export const prerender = false;
+
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+
+// Middleware guarantees sessionPhone is non-null here
+const sessionPhone = Astro.locals.sessionPhone!;
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Track Order — The Mercantile</title>
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="pt-[64px] px-4 lg:px-12 py-8">
+    <div class="max-w-2xl mx-auto mt-[60px]">
+      <nav class="breadcrumbs mb-6">
+        <a href="/">Home</a> <span class="mx-2">/</span> <span>Track Order</span>
+      </nav>
+
+      <h1 class="checkout-heading mb-10">Track Order</h1>
+
+      <div id="track-loading" style="font-family: 'Martian Mono', monospace; font-size: 0.75rem; color: rgba(27,48,34,0.5);">
+        Loading orders...
+      </div>
+
+      <div id="track-empty" class="hidden" style="font-family: 'Martian Mono', monospace; text-align: center; padding: 4rem 0;">
+        <p style="font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #1B3022; margin-bottom: 0.5rem;">All Orders Completed</p>
+        <p style="font-size: 0.75rem; color: rgba(27,48,34,0.4); margin-bottom: 2rem;">View history in Order Again.</p>
+        <a href="/history" class="btn-primary inline-block px-8 py-3 text-[11px] font-bold tracking-[0.04em] uppercase">Order Again</a>
+      </div>
+
+      <div id="track-orders" class="hidden"></div>
+    </div>
+  </main>
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  interface OrderItem {
+    name: string;
+    quantity: number;
+    price: number;
+  }
+
+  interface Order {
+    id: string;
+    items: OrderItem[];
+    total: number;
+    status: string;
+    createdAt: string;
+  }
+
+  function escapeHtml(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function renderStatusBar(order: Order, index: number): string {
+    const steps = ['received', 'baking', 'ready'];
+    const labels = ['Order Received', 'Baking', 'Ready for Pickup'];
+    const currentIndex = steps.indexOf(order.status);
+
+    return steps.map((step, i) => {
+      let stepClass = 'track-step';
+      if (i < currentIndex) stepClass += ' completed';
+      else if (i === currentIndex) stepClass += ' active';
+
+      const connector = i < steps.length - 1
+        ? `<div class="track-connector${i < currentIndex ? ' completed' : ''}"></div>`
+        : '';
+
+      return `
+        <div class="${stepClass}">
+          <span style="font-size: 0.625rem; opacity: 0.6;">[0${i + 1}]</span>
+          <span>${labels[i]}</span>
+        </div>
+        ${connector}
+      `;
+    }).join('');
+  }
+
+  function renderOrderCard(order: Order, index: number, total: number): string {
+    const itemsHtml = order.items.map((item) => `
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 0.5px solid rgba(27,48,34,0.08); font-family: 'Martian Mono', monospace;">
+        <div style="flex: 1;">
+          <span style="font-size: 0.8125rem; font-weight: 600; color: #1B3022;">${escapeHtml(item.name)}</span>
+          <span style="font-size: 0.625rem; color: rgba(27,48,34,0.4); margin-left: 0.5rem;">x${item.quantity}</span>
+        </div>
+        <span style="font-size: 0.8125rem; font-weight: 700; color: #1B3022;">$${(item.price * item.quantity).toFixed(2)}</span>
+      </div>
+    `).join('');
+
+    const divider = index < total - 1
+      ? '<div style="border-top: 0.5px solid rgba(27,48,34,0.12); margin: 3rem 0;"></div>'
+      : '';
+
+    return `
+      <div style="font-family: 'Martian Mono', monospace;">
+        {/* Order Header */}
+        <div style="margin-bottom: 2rem;">
+          <p style="font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(27,48,34,0.4); margin-bottom: 0.375rem;">Active Order</p>
+          <p style="font-size: 1.125rem; font-weight: 800; color: #1B3022; letter-spacing: 0.04em;">${escapeHtml(order.id)}</p>
+        </div>
+
+        {/* Items */}
+        <div style="margin-bottom: 2rem;">
+          <p style="font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(27,48,34,0.4); margin-bottom: 0.75rem;">Items</p>
+          <div style="border-top: 0.5px solid rgba(27,48,34,0.12);">
+            ${itemsHtml}
+          </div>
+          <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; font-size: 0.875rem; font-weight: 800; color: #1B3022; text-transform: uppercase; letter-spacing: 0.04em;">
+            <span>Total</span>
+            <span>$${order.total.toFixed(2)}</span>
+          </div>
+        </div>
+
+        {/* Status */}
+        <div style="margin-bottom: 1rem;">
+          <p style="font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(27,48,34,0.4); margin-bottom: 1rem;">Status</p>
+          <div>${renderStatusBar(order, index)}</div>
+        </div>
+      </div>
+      ${divider}
+    `;
+  }
+
+  async function loadOrders() {
+    const loadingEl = document.getElementById('track-loading')!;
+    const emptyEl = document.getElementById('track-empty')!;
+    const ordersEl = document.getElementById('track-orders')!;
+
+    try {
+      const res = await fetch('/api/active-orders');
+      const data = await res.json();
+
+      loadingEl.classList.add('hidden');
+
+      if (!data.orders || data.orders.length === 0) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      ordersEl.classList.remove('hidden');
+      ordersEl.innerHTML = data.orders
+        .map((order: Order, i: number) => renderOrderCard(order, i, data.orders.length))
+        .join('');
+
+    } catch {
+      loadingEl.textContent = 'Failed to load orders.';
+    }
+  }
+
+  loadOrders();
+</script>

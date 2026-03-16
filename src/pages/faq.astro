@@ -48,7 +48,9 @@ const faqs = [
                 </svg>
               </button>
               <div class="accordion-content" id={`faq-${i}`}>
-                <p class="text-sm text-obsidian-muted leading-[1.7]">{faq.a}</p>
+                <div>
+                  <p class="text-sm text-obsidian-muted leading-[1.7] pb-4">{faq.a}</p>
+                </div>
               </div>
             </div>
           ))}
@@ -63,18 +65,15 @@ const faqs = [
 <script>
   document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
-      const targetId = (trigger as HTMLElement).dataset.accordion!;
-      const content = document.getElementById(targetId);
-      const isOpen = trigger.classList.contains('active');
+      const item = trigger.closest('.accordion-item');
+      const isOpen = item?.classList.contains('open');
 
       // Close all
-      document.querySelectorAll('.accordion-trigger').forEach((t) => t.classList.remove('active'));
-      document.querySelectorAll('.accordion-content').forEach((c) => (c as HTMLElement).style.maxHeight = '0');
+      document.querySelectorAll('.accordion-item').forEach((el) => el.classList.remove('open'));
 
       // Toggle current
-      if (!isOpen && content) {
-        trigger.classList.add('active');
-        content.style.maxHeight = content.scrollHeight + 'px';
+      if (!isOpen && item) {
+        item.classList.add('open');
       }
     });
   });

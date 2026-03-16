@@ -45,9 +45,6 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
   <meta name="view-transition" content="same-origin" />
   <title>{product.name} — The Mercantile</title>
   <meta name="description" content={product.description} />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body class="mercantile-page">
   <SensoryNav />
@@ -75,18 +72,20 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
       </div>
 
       {/* ── Product Image ── */}
-      <div class="product-detail-image">
-        <div class="product-image-frame">
-          <Image
-            src={resolveImage(product.image)}
-            alt={product.name}
-            width={800}
-            height={800}
-            class="w-full h-full object-cover animate-fade-in"
-            loading="eager"
-          />
+      {product.image && (
+        <div class="product-detail-image">
+          <div class="product-image-frame">
+            <Image
+              src={resolveImage(product.image)}
+              alt={product.name}
+              width={800}
+              height={800}
+              class="w-full h-full object-cover animate-fade-in"
+              loading="eager"
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* ── Product Info (desktop: right column) ── */}
       <div class="product-detail-info">
@@ -208,9 +207,11 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
             {pairings.map((p, i) => (
               <div class="product-card group stagger-item" style={`animation-delay: ${i * 0.05}s`} data-category={p.category}>
                 <a href={`/supermarket/${p.id}`} class="block">
-                  <div class="card-image-wrap aspect-square w-full">
-                    <Image src={resolveImage(p.image)} alt={p.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
-                  </div>
+                  {p.image && (
+                    <div class="card-image-wrap aspect-square w-full">
+                      <Image src={resolveImage(p.image)} alt={p.name} width={800} height={800} class="w-full h-full object-cover product-image" loading="lazy" />
+                    </div>
+                  )}
                 </a>
                 <div class="pt-3">
                   <p class="text-[10px] font-bold tracking-[0.02em] uppercase text-obsidian-muted">{p.label}</p>
@@ -286,15 +287,13 @@ const categoryLabel = categoryLabels[product.category] ?? product.category;
 
   document.getElementById('add-to-bag')?.addEventListener('click', (e) => {
     const btn = e.currentTarget as HTMLElement;
-    for (let i = 0; i < qty; i++) {
-      addToCart({
-        id: btn.dataset.productId!,
-        name: btn.dataset.productName!,
-        price: parseFloat(btn.dataset.productPrice!),
-        unit: btn.dataset.productUnit!,
-        image: btn.dataset.productImage!,
-      });
-    }
+    addToCart({
+      id: btn.dataset.productId!,
+      name: btn.dataset.productName!,
+      price: parseFloat(btn.dataset.productPrice!),
+      unit: btn.dataset.productUnit!,
+      image: btn.dataset.productImage!,
+    }, qty);
     // Save notes if provided (check both desktop and mobile textareas)
     const notes = notesEl?.value.trim() || notesMobileEl?.value.trim();
     if (notes) {

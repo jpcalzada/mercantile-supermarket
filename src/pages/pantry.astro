@@ -5,6 +5,7 @@ import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
 import { resolveImage } from '../lib/images';
+import pantryCover from '../assets/thepantry-cover.webp';
 
 const pantry = products.filter((p) => p.category === 'pantry');
 ---
@@ -20,9 +21,6 @@ const pantry = products.filter((p) => p.category === 'pantry');
   <meta name="view-transition" content="same-origin" />
   <title>The Pantry — The Mercantile</title>
   <meta name="description" content="Staples and essentials, curated with care. The Pantry at The Mercantile." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body class="mercantile-page">
   <SensoryNav />
@@ -30,8 +28,8 @@ const pantry = products.filter((p) => p.category === 'pantry');
     <section class="px-4 lg:px-6 pt-4">
       <div class="relative aspect-[3/1] overflow-hidden rounded-[12px] bg-surface mb-8">
         <Image
-          src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1600&q=80"
-          alt="The Pantry"
+          src={pantryCover}
+          alt="The Pantry — staples and essentials"
           width={1600} height={533} decoding="async" class="w-full h-full object-cover"
           loading="eager"
         />

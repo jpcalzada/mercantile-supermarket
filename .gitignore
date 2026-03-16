@@ -1,6 +1,15 @@
+# Dependencies
 node_modules/
+
+# Build
 dist/
 .astro/
-.DS_Store
+
+# Secrets
 .env
 .env.*
+
+# System
+.DS_Store
+Thumbs.db
+*.log

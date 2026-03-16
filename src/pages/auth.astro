@@ -1,7 +1,17 @@
 ---
+export const prerender = false;
+
 import '../styles/mercantile.css';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+
+const sessionPhone = Astro.locals.sessionPhone;
+const redirectTo = Astro.url.searchParams.get('redirect') || '/';
+
+// Already authenticated — skip auth
+if (sessionPhone) {
+  return Astro.redirect(redirectTo, 302);
+}
 ---
 
 <html lang="en">
@@ -13,31 +23,536 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Sign In — The Mercantile</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 </head>
 <body class="mercantile-page">
   <SensoryNav />
   <main class="pt-[64px] min-h-[calc(100vh-64px)] flex items-center justify-center px-6">
-    <div class="w-full max-w-md text-center">
-      <h1 class="text-3xl lg:text-4xl font-black tracking-tight text-obsidian leading-tight">
+
+    {/* ── Step 1: Phone Number ── */}
+    <div id="step-phone" class="w-full max-w-md text-center">
+      <h1 class="checkout-heading">
         Enter your<br/>Phone Number
       </h1>
       <p class="text-obsidian-muted mt-4 text-sm">We'll text you a code to sign in or create an account.</p>
-      <form class="mt-8" onsubmit="event.preventDefault()">
-        <input
-          type="tel"
-          placeholder="(555) 000-0000"
-          class="w-full text-center text-2xl font-bold text-obsidian bg-transparent py-4 outline-none"
-          style="border-bottom: 2px solid #1A1A1A;"
-        />
-        <button type="submit" class="btn-primary w-full py-4 mt-8 text-[11px] font-bold tracking-[0.1em] uppercase">
+      <form id="phone-form" class="mt-8">
+        <div class="phone-row">
+          <div class="country-select-wrap" id="country-toggle">
+            <span id="country-flag">🇲🇽</span>
+            <span id="country-code" class="text-lg font-bold text-obsidian">+52</span>
+            <svg class="country-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <input
+            id="phone-input"
+            type="tel"
+            placeholder="55 1234 5678"
+            class="phone-number-input"
+            required
+          />
+        </div>
+        <div id="country-dropdown" class="country-dropdown hidden">
+          <input id="country-search" type="text" placeholder="Search country..." class="country-search-input" />
+          <div id="country-list" class="country-list"></div>
+        </div>
+        <p id="phone-error" class="text-[11px] text-red-600 mt-3 hidden"></p>
+        <button id="phone-btn" type="submit" class="btn-primary w-full py-4 mt-8 text-[11px] font-bold tracking-[0.1em] uppercase">
           Continue
         </button>
       </form>
     </div>
+
+    {/* ── Step 2: Verification Code ── */}
+    <div id="step-code" class="w-full max-w-md text-center hidden">
+      <h1 class="checkout-heading">
+        Enter the Code
+      </h1>
+      <p class="text-obsidian-muted mt-4 text-sm">We sent a 6-digit code to <span id="display-phone" class="font-bold text-obsidian"></span></p>
+      <form id="code-form" class="mt-8">
+        <div class="flex justify-center gap-2" id="code-inputs">
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="code-digit" data-index="0" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="code-digit" data-index="1" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="code-digit" data-index="2" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="code-digit" data-index="3" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="code-digit" data-index="4" />
+          <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]" class="code-digit" data-index="5" />
+        </div>
+        <p id="code-error" class="text-[11px] text-red-600 mt-3 hidden"></p>
+        <button id="code-btn" type="submit" class="btn-primary w-full py-4 mt-8 text-[11px] font-bold tracking-[0.1em] uppercase" disabled>
+          Verify
+        </button>
+      </form>
+      <button id="resend-btn" class="mt-4 text-[11px] tracking-[0.04em] uppercase text-obsidian-muted underline hover:text-obsidian transition-colors" disabled>
+        Resend Code <span id="resend-timer"></span>
+      </button>
+      <button id="change-phone" class="mt-2 block mx-auto text-[11px] tracking-[0.04em] uppercase text-obsidian-muted underline hover:text-obsidian transition-colors">
+        Change Phone Number
+      </button>
+    </div>
+
   </main>
   <MercantileFooter />
 </body>
 </html>
+
+<style>
+  .phone-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 2px solid #1B3022;
+  }
+  .country-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.75rem 0.5rem 0.75rem 0;
+    cursor: pointer;
+    flex-shrink: 0;
+    user-select: none;
+    border-right: 1px solid rgba(27, 48, 34, 0.15);
+    margin-right: 0.75rem;
+  }
+  .country-chevron {
+    color: rgba(27, 48, 34, 0.4);
+    transition: transform 0.2s ease;
+  }
+  .country-select-wrap.open .country-chevron {
+    transform: rotate(180deg);
+  }
+  #country-flag {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+  .phone-number-input {
+    flex: 1;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: "Martian Mono", monospace;
+    color: #1B3022;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0.75rem 0;
+    min-width: 0;
+  }
+  .phone-number-input::placeholder {
+    color: rgba(27, 48, 34, 0.3);
+  }
+  .country-dropdown {
+    position: relative;
+    margin-top: 4px;
+    border: 1px solid rgba(27, 48, 34, 0.15);
+    border-radius: 8px;
+    background: var(--color-surface, #F5F7F5);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 50;
+  }
+  .country-search-input {
+    width: 100%;
+    padding: 0.65rem 0.75rem;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.75rem;
+    color: #1B3022;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(27, 48, 34, 0.1);
+    outline: none;
+  }
+  .country-search-input::placeholder {
+    color: rgba(27, 48, 34, 0.35);
+  }
+  .country-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  .country-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    font-family: "Martian Mono", monospace;
+    font-size: 0.7rem;
+    color: #1B3022;
+    transition: background 0.15s ease;
+  }
+  .country-option:hover {
+    background: rgba(27, 48, 34, 0.06);
+  }
+  .country-option.selected {
+    background: rgba(27, 48, 34, 0.08);
+    font-weight: 700;
+  }
+  .country-option-flag {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .country-option-name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .country-option-code {
+    color: rgba(27, 48, 34, 0.5);
+    flex-shrink: 0;
+  }
+  .code-digit {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: "Martian Mono", monospace;
+    color: #1B3022;
+    background: var(--color-surface, #F5F7F5);
+    border: 2px solid rgba(27, 48, 34, 0.15);
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .code-digit:focus {
+    border-color: #1B3022;
+  }
+  .code-digit.filled {
+    border-color: #1B3022;
+  }
+</style>
+
+<script>
+  const countries = [
+    { name: 'Mexico', code: '+52', flag: '🇲🇽', iso: 'MX' },
+    { name: 'United States', code: '+1', flag: '🇺🇸', iso: 'US' },
+    { name: 'Canada', code: '+1', flag: '🇨🇦', iso: 'CA' },
+    { name: 'United Kingdom', code: '+44', flag: '🇬🇧', iso: 'GB' },
+    { name: 'France', code: '+33', flag: '🇫🇷', iso: 'FR' },
+    { name: 'Germany', code: '+49', flag: '🇩🇪', iso: 'DE' },
+    { name: 'Spain', code: '+34', flag: '🇪🇸', iso: 'ES' },
+    { name: 'Italy', code: '+39', flag: '🇮🇹', iso: 'IT' },
+    { name: 'Portugal', code: '+351', flag: '🇵🇹', iso: 'PT' },
+    { name: 'Netherlands', code: '+31', flag: '🇳🇱', iso: 'NL' },
+    { name: 'Belgium', code: '+32', flag: '🇧🇪', iso: 'BE' },
+    { name: 'Switzerland', code: '+41', flag: '🇨🇭', iso: 'CH' },
+    { name: 'Austria', code: '+43', flag: '🇦🇹', iso: 'AT' },
+    { name: 'Sweden', code: '+46', flag: '🇸🇪', iso: 'SE' },
+    { name: 'Norway', code: '+47', flag: '🇳🇴', iso: 'NO' },
+    { name: 'Denmark', code: '+45', flag: '🇩🇰', iso: 'DK' },
+    { name: 'Finland', code: '+358', flag: '🇫🇮', iso: 'FI' },
+    { name: 'Ireland', code: '+353', flag: '🇮🇪', iso: 'IE' },
+    { name: 'Poland', code: '+48', flag: '🇵🇱', iso: 'PL' },
+    { name: 'Czech Republic', code: '+420', flag: '🇨🇿', iso: 'CZ' },
+    { name: 'Greece', code: '+30', flag: '🇬🇷', iso: 'GR' },
+    { name: 'Turkey', code: '+90', flag: '🇹🇷', iso: 'TR' },
+    { name: 'Russia', code: '+7', flag: '🇷🇺', iso: 'RU' },
+    { name: 'Australia', code: '+61', flag: '🇦🇺', iso: 'AU' },
+    { name: 'New Zealand', code: '+64', flag: '🇳🇿', iso: 'NZ' },
+    { name: 'Japan', code: '+81', flag: '🇯🇵', iso: 'JP' },
+    { name: 'South Korea', code: '+82', flag: '🇰🇷', iso: 'KR' },
+    { name: 'China', code: '+86', flag: '🇨🇳', iso: 'CN' },
+    { name: 'India', code: '+91', flag: '🇮🇳', iso: 'IN' },
+    { name: 'Singapore', code: '+65', flag: '🇸🇬', iso: 'SG' },
+    { name: 'Hong Kong', code: '+852', flag: '🇭🇰', iso: 'HK' },
+    { name: 'Taiwan', code: '+886', flag: '🇹🇼', iso: 'TW' },
+    { name: 'Thailand', code: '+66', flag: '🇹🇭', iso: 'TH' },
+    { name: 'Philippines', code: '+63', flag: '🇵🇭', iso: 'PH' },
+    { name: 'Malaysia', code: '+60', flag: '🇲🇾', iso: 'MY' },
+    { name: 'Indonesia', code: '+62', flag: '🇮🇩', iso: 'ID' },
+    { name: 'Vietnam', code: '+84', flag: '🇻🇳', iso: 'VN' },
+    { name: 'Israel', code: '+972', flag: '🇮🇱', iso: 'IL' },
+    { name: 'UAE', code: '+971', flag: '🇦🇪', iso: 'AE' },
+    { name: 'Saudi Arabia', code: '+966', flag: '🇸🇦', iso: 'SA' },
+    { name: 'South Africa', code: '+27', flag: '🇿🇦', iso: 'ZA' },
+    { name: 'Nigeria', code: '+234', flag: '🇳🇬', iso: 'NG' },
+    { name: 'Egypt', code: '+20', flag: '🇪🇬', iso: 'EG' },
+    { name: 'Brazil', code: '+55', flag: '🇧🇷', iso: 'BR' },
+    { name: 'Argentina', code: '+54', flag: '🇦🇷', iso: 'AR' },
+    { name: 'Colombia', code: '+57', flag: '🇨🇴', iso: 'CO' },
+    { name: 'Chile', code: '+56', flag: '🇨🇱', iso: 'CL' },
+    { name: 'Peru', code: '+51', flag: '🇵🇪', iso: 'PE' },
+    { name: 'Costa Rica', code: '+506', flag: '🇨🇷', iso: 'CR' },
+    { name: 'Panama', code: '+507', flag: '🇵🇦', iso: 'PA' },
+    { name: 'Puerto Rico', code: '+1', flag: '🇵🇷', iso: 'PR' },
+    { name: 'Dominican Republic', code: '+1', flag: '🇩🇴', iso: 'DO' },
+    { name: 'Guatemala', code: '+502', flag: '🇬🇹', iso: 'GT' },
+    { name: 'Ecuador', code: '+593', flag: '🇪🇨', iso: 'EC' },
+    { name: 'Venezuela', code: '+58', flag: '🇻🇪', iso: 'VE' },
+    { name: 'Uruguay', code: '+598', flag: '🇺🇾', iso: 'UY' },
+    { name: 'Paraguay', code: '+595', flag: '🇵🇾', iso: 'PY' },
+    { name: 'Bolivia', code: '+591', flag: '🇧🇴', iso: 'BO' },
+    { name: 'Cuba', code: '+53', flag: '🇨🇺', iso: 'CU' },
+    { name: 'Honduras', code: '+504', flag: '🇭🇳', iso: 'HN' },
+    { name: 'El Salvador', code: '+503', flag: '🇸🇻', iso: 'SV' },
+    { name: 'Nicaragua', code: '+505', flag: '🇳🇮', iso: 'NI' },
+  ];
+
+  let selectedCountry = countries[0]; // Mexico
+
+  const stepPhone = document.getElementById('step-phone')!;
+  const stepCode = document.getElementById('step-code')!;
+
+  const phoneForm = document.getElementById('phone-form')!;
+  const phoneInput = document.getElementById('phone-input') as HTMLInputElement;
+  const phoneBtn = document.getElementById('phone-btn') as HTMLButtonElement;
+  const phoneError = document.getElementById('phone-error')!;
+
+  const codeForm = document.getElementById('code-form')!;
+  const codeBtn = document.getElementById('code-btn') as HTMLButtonElement;
+  const codeError = document.getElementById('code-error')!;
+  const codeDigits = document.querySelectorAll<HTMLInputElement>('.code-digit');
+  const displayPhone = document.getElementById('display-phone')!;
+
+  const resendBtn = document.getElementById('resend-btn') as HTMLButtonElement;
+  const resendTimer = document.getElementById('resend-timer')!;
+  const changePhoneBtn = document.getElementById('change-phone')!;
+
+  const countryToggle = document.getElementById('country-toggle')!;
+  const countryFlag = document.getElementById('country-flag')!;
+  const countryCodeEl = document.getElementById('country-code')!;
+  const countryDropdown = document.getElementById('country-dropdown')!;
+  const countrySearch = document.getElementById('country-search') as HTMLInputElement;
+  const countryList = document.getElementById('country-list')!;
+
+  let currentPhone = '';
+  let resendInterval: ReturnType<typeof setInterval>;
+
+  // ── Redirect target from query string ──
+  const redirectTo = new URLSearchParams(window.location.search).get('redirect') || '/';
+
+  // ── Country dropdown ──
+  function renderCountryList(filter = '') {
+    const q = filter.toLowerCase();
+    const filtered = countries.filter((c) =>
+      c.name.toLowerCase().includes(q) || c.code.includes(q) || c.iso.toLowerCase().includes(q)
+    );
+    countryList.innerHTML = filtered.map((c) => `
+      <div class="country-option ${c.iso === selectedCountry.iso ? 'selected' : ''}" data-iso="${c.iso}">
+        <span class="country-option-flag">${c.flag}</span>
+        <span class="country-option-name">${c.name}</span>
+        <span class="country-option-code">${c.code}</span>
+      </div>
+    `).join('');
+
+    countryList.querySelectorAll('.country-option').forEach((el) => {
+      el.addEventListener('click', () => {
+        const iso = (el as HTMLElement).dataset.iso!;
+        const country = countries.find((c) => c.iso === iso)!;
+        selectedCountry = country;
+        countryFlag.textContent = country.flag;
+        countryCodeEl.textContent = country.code;
+        closeDropdown();
+        phoneInput.focus();
+      });
+    });
+  }
+
+  function openDropdown() {
+    countryDropdown.classList.remove('hidden');
+    countryToggle.classList.add('open');
+    countrySearch.value = '';
+    renderCountryList();
+    countrySearch.focus();
+  }
+
+  function closeDropdown() {
+    countryDropdown.classList.add('hidden');
+    countryToggle.classList.remove('open');
+  }
+
+  countryToggle.addEventListener('click', () => {
+    countryDropdown.classList.contains('hidden') ? openDropdown() : closeDropdown();
+  });
+
+  countrySearch.addEventListener('input', () => renderCountryList(countrySearch.value));
+
+  document.addEventListener('click', (e) => {
+    if (!countryToggle.contains(e.target as Node) && !countryDropdown.contains(e.target as Node)) {
+      closeDropdown();
+    }
+  });
+
+  // ── Phone normalization ──
+  function normalizePhone(phone: string) {
+    const digits = phone.replace(/\D/g, '');
+    return selectedCountry.code + digits;
+  }
+
+  function showError(el: HTMLElement, msg: string) {
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+  function hideError(el: HTMLElement) {
+    el.classList.add('hidden');
+  }
+
+  // ── Step 1: Send Code ──
+  phoneForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError(phoneError);
+    closeDropdown();
+
+    const raw = phoneInput.value.trim();
+    if (!raw) return;
+
+    currentPhone = normalizePhone(raw);
+    phoneBtn.disabled = true;
+    phoneBtn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('/api/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentPhone }),
+      });
+      const data = await res.json();
+
+      if (!res.ok) {
+        showError(phoneError, data.error || 'Failed to send code');
+        phoneBtn.disabled = false;
+        phoneBtn.textContent = 'Continue';
+        return;
+      }
+
+      displayPhone.textContent = `${selectedCountry.flag} ${selectedCountry.code} ${raw}`;
+      stepPhone.classList.add('hidden');
+      stepCode.classList.remove('hidden');
+      (codeDigits[0] as HTMLInputElement).focus();
+      startResendTimer();
+    } catch {
+      showError(phoneError, 'Network error. Please try again.');
+      phoneBtn.disabled = false;
+      phoneBtn.textContent = 'Continue';
+    }
+  });
+
+  // ── Code digit inputs ──
+  codeDigits.forEach((input, i) => {
+    input.addEventListener('input', () => {
+      const val = input.value.replace(/\D/g, '');
+      input.value = val.slice(0, 1);
+      if (val && i < 5) (codeDigits[i + 1] as HTMLInputElement).focus();
+      input.classList.toggle('filled', !!val);
+      updateVerifyButton();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && !input.value && i > 0) {
+        (codeDigits[i - 1] as HTMLInputElement).focus();
+      }
+    });
+
+    input.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const pasted = (e.clipboardData?.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+      pasted.split('').forEach((ch, j) => {
+        if (codeDigits[j]) {
+          (codeDigits[j] as HTMLInputElement).value = ch;
+          codeDigits[j].classList.add('filled');
+        }
+      });
+      if (pasted.length > 0) {
+        const focusIdx = Math.min(pasted.length, 5);
+        (codeDigits[focusIdx] as HTMLInputElement).focus();
+      }
+      updateVerifyButton();
+    });
+  });
+
+  function getCode() {
+    return Array.from(codeDigits).map((d) => d.value).join('');
+  }
+
+  function updateVerifyButton() {
+    codeBtn.disabled = getCode().length < 6;
+  }
+
+  // ── Step 2: Verify Code → redirect on success ──
+  codeForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideError(codeError);
+
+    const code = getCode();
+    if (code.length < 6) return;
+
+    codeBtn.disabled = true;
+    codeBtn.textContent = 'Verifying...';
+
+    try {
+      const res = await fetch('/api/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentPhone, code }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.status !== 'approved') {
+        showError(codeError, data.error || 'Invalid code. Please try again.');
+        codeBtn.disabled = false;
+        codeBtn.textContent = 'Verify';
+        codeDigits.forEach((d) => { d.value = ''; d.classList.remove('filled'); });
+        (codeDigits[0] as HTMLInputElement).focus();
+        return;
+      }
+
+      // Session cookie is set by the server response — redirect
+      window.location.href = redirectTo;
+    } catch {
+      showError(codeError, 'Network error. Please try again.');
+      codeBtn.disabled = false;
+      codeBtn.textContent = 'Verify';
+    }
+  });
+
+  // ── Resend timer ──
+  function startResendTimer() {
+    let seconds = 30;
+    resendBtn.disabled = true;
+    resendTimer.textContent = `(${seconds}s)`;
+
+    clearInterval(resendInterval);
+    resendInterval = setInterval(() => {
+      seconds--;
+      resendTimer.textContent = `(${seconds}s)`;
+      if (seconds <= 0) {
+        clearInterval(resendInterval);
+        resendBtn.disabled = false;
+        resendTimer.textContent = '';
+      }
+    }, 1000);
+  }
+
+  resendBtn.addEventListener('click', async () => {
+    resendBtn.disabled = true;
+    hideError(codeError);
+
+    try {
+      const res = await fetch('/api/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ phone: currentPhone }),
+      });
+      if (res.ok) {
+        startResendTimer();
+      } else {
+        const data = await res.json();
+        showError(codeError, data.error || 'Failed to resend');
+        resendBtn.disabled = false;
+      }
+    } catch {
+      showError(codeError, 'Network error');
+      resendBtn.disabled = false;
+    }
+  });
+
+  // ── Change phone number ──
+  changePhoneBtn.addEventListener('click', () => {
+    clearInterval(resendInterval);
+    stepCode.classList.add('hidden');
+    stepPhone.classList.remove('hidden');
+    phoneBtn.disabled = false;
+    phoneBtn.textContent = 'Continue';
+    codeDigits.forEach((d) => { d.value = ''; d.classList.remove('filled'); });
+    codeBtn.disabled = true;
+    codeBtn.textContent = 'Verify';
+    phoneInput.focus();
+  });
+</script>

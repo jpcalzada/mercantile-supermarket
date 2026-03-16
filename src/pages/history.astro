@@ -1,0 +1,210 @@
+---
+export const prerender = false;
+
+import '../styles/mercantile.css';
+import SensoryNav from '../components/supermarket/SensoryNav.astro';
+import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
+---
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Order Again — The Mercantile</title>
+</head>
+<body class="mercantile-page">
+  <SensoryNav />
+  <main class="pt-[64px] px-4 lg:px-12 py-8">
+    <div class="max-w-3xl mx-auto mt-[60px]">
+      <nav class="breadcrumbs mb-6">
+        <a href="/">Home</a> <span class="mx-2">/</span> <span>Order Again</span>
+      </nav>
+
+      <h1 class="checkout-heading mb-10">Order Again</h1>
+
+      <div id="history-loading" style="font-family: 'Martian Mono', monospace; font-size: 0.75rem; color: rgba(27,48,34,0.5);">
+        Loading orders...
+      </div>
+
+      <div id="history-empty" class="hidden" style="font-family: 'Martian Mono', monospace;">
+        <p style="font-size: 0.8125rem; color: rgba(27,48,34,0.5); margin-bottom: 1.5rem;">No past orders yet.</p>
+        <a href="/" class="btn-primary inline-block px-8 py-3 text-[11px] font-bold tracking-[0.04em] uppercase">Start Shopping</a>
+      </div>
+
+      <div id="history-list" class="hidden" style="font-family: 'Martian Mono', monospace;"></div>
+    </div>
+  </main>
+  <MercantileFooter />
+</body>
+</html>
+
+<script>
+  import { $cartItems, addToCart } from '../lib/cartStore';
+  import { products } from '../lib/products';
+
+  interface OrderItem {
+    name: string;
+    quantity: number;
+    price: number;
+  }
+
+  interface Order {
+    id: string;
+    items: OrderItem[];
+    total: number;
+    status: string;
+    createdAt: string;
+  }
+
+  function escapeHtml(str: string) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function formatDate(iso: string): string {
+    const d = new Date(iso);
+    const dd = String(d.getDate()).padStart(2, '0');
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const yy = String(d.getFullYear()).slice(-2);
+    return `${dd}/${mm}/${yy}`;
+  }
+
+  function showToast(message: string) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  function reorderItems(items: OrderItem[]) {
+    for (const item of items) {
+      const product = products.find(
+        (p) => p.name.toLowerCase() === item.name.toLowerCase()
+      );
+
+      if (product) {
+        addToCart({
+          id: product.id,
+          name: product.name,
+          price: product.price,
+          unit: product.size,
+          image: product.image,
+        }, item.quantity);
+      } else {
+        // Product not in catalog — add with stored data
+        addToCart({
+          id: item.name.toLowerCase().replace(/\s+/g, '-'),
+          name: item.name,
+          price: item.price,
+          unit: '1 item',
+          image: '',
+        }, item.quantity);
+      }
+    }
+
+    showToast('Items added to cart');
+  }
+
+  async function loadHistory() {
+    const loadingEl = document.getElementById('history-loading')!;
+    const emptyEl = document.getElementById('history-empty')!;
+    const listEl = document.getElementById('history-list')!;
+
+    try {
+      const res = await fetch('/api/order-history');
+      const data = await res.json();
+
+      loadingEl.classList.add('hidden');
+
+      if (!data.orders || data.orders.length === 0) {
+        emptyEl.classList.remove('hidden');
+        return;
+      }
+
+      listEl.classList.remove('hidden');
+
+      listEl.innerHTML = data.orders.map((order: Order, index: number) => {
+        const date = formatDate(order.createdAt);
+        const itemsSummary = order.items
+          .map((item) => {
+            const qty = item.quantity > 1 ? ` (x${item.quantity})` : '';
+            return `${escapeHtml(item.name)}${qty}`;
+          })
+          .join(' · ');
+
+        return `
+          <div class="history-row" style="
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 1.25rem 0;
+            ${index > 0 ? 'border-top: 0.5px solid rgba(27,48,34,0.1);' : ''}
+          ">
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 0.375rem;">
+                <span style="font-size: 0.625rem; font-weight: 600; color: rgba(27,48,34,0.4); letter-spacing: 0.04em; flex-shrink: 0;">${date}</span>
+                <span style="font-size: 0.625rem; font-weight: 700; color: rgba(27,48,34,0.35); letter-spacing: 0.04em; flex-shrink: 0;">${escapeHtml(order.id)}</span>
+              </div>
+              <p style="font-size: 0.8125rem; font-weight: 500; color: #1B3022; line-height: 1.6; word-break: break-word;">${itemsSummary}</p>
+              <p style="font-size: 0.75rem; font-weight: 800; color: #1B3022; margin-top: 0.375rem; letter-spacing: 0.02em;">$${order.total.toFixed(2)}</p>
+            </div>
+            <button
+              data-order-index="${index}"
+              class="reorder-btn"
+              style="
+                flex-shrink: 0;
+                margin-top: 0.25rem;
+                padding: 0.5rem 1rem;
+                font-family: 'Martian Mono', monospace;
+                font-size: 0.5625rem;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: #1B3022;
+                background: transparent;
+                border: 0.5px solid rgba(27,48,34,0.2);
+                cursor: pointer;
+                transition: all 0.2s ease;
+              "
+              onmouseover="this.style.background='#1B3022';this.style.color='#F5F7F5';this.style.borderColor='#1B3022'"
+              onmouseout="this.style.background='transparent';this.style.color='#1B3022';this.style.borderColor='rgba(27,48,34,0.2)'"
+            >Add to Cart</button>
+          </div>
+        `;
+      }).join('');
+
+      // Attach reorder handlers
+      const orders: Order[] = data.orders;
+      listEl.querySelectorAll('.reorder-btn').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const idx = parseInt(target.dataset.orderIndex || '0', 10);
+          const order = orders[idx];
+          if (order) {
+            reorderItems(order.items);
+            target.textContent = 'Added ✓';
+            target.style.background = '#1B3022';
+            target.style.color = '#F5F7F5';
+            target.style.borderColor = '#1B3022';
+            setTimeout(() => {
+              target.textContent = 'Add to Cart';
+              target.style.background = 'transparent';
+              target.style.color = '#1B3022';
+              target.style.borderColor = 'rgba(27,48,34,0.2)';
+            }, 2000);
+          }
+        });
+      });
+
+    } catch {
+      loadingEl.textContent = 'Failed to load orders.';
+    }
+  }
+
+  loadHistory();
+</script>

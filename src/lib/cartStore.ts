@@ -30,10 +30,16 @@ function saveCart(items: CartItem[]) {
   }
 }
 
+let saveTimer: ReturnType<typeof setTimeout> | null = null;
+function debouncedSave(items: CartItem[]) {
+  if (saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => saveCart(items), 300);
+}
+
 export const $cartItems = atom<CartItem[]>(loadCart());
 
-// Persist on every change
-$cartItems.listen((items) => saveCart(items));
+// Persist with debounce to avoid excessive writes
+$cartItems.listen((items) => debouncedSave(items));
 
 export const $cartTotal = computed($cartItems, (items) =>
   items.reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -47,7 +53,7 @@ export function addToCart(product: {
   price: number;
   unit: string;
   image: string;
-}) {
+}, qty = 1) {
   const current = $cartItems.get();
   const existing = current.find((item) => item.id === product.id);
 
@@ -55,12 +61,12 @@ export function addToCart(product: {
     $cartItems.set(
       current.map((item) =>
         item.id === product.id
-          ? { ...item, quantity: Math.min(item.quantity + 1, 100) }
+          ? { ...item, quantity: Math.min(item.quantity + qty, 100) }
           : item
       )
     );
   } else {
-    $cartItems.set([...current, { ...product, quantity: 1 }]);
+    $cartItems.set([...current, { ...product, quantity: Math.min(qty, 100) }]);
   }
 }
 
@@ -87,4 +93,8 @@ export function updateNotes(id: string, notes: string) {
       item.id === id ? { ...item, notes } : item
     )
   );
+}
+
+export function clearCart() {
+  $cartItems.set([]);
 }
