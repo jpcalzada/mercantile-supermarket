@@ -10,8 +10,8 @@ import pantyCover from '../assets/thepantry-cover.webp';
 
 const produce = products.filter((p) => p.category === 'produce');
 const bakery = products.filter((p) => p.category === 'bakery');
-const tonicBar = products.filter((p) => p.category === 'juice-bar' && ['vitality-juice', 'matcha-tonic', 'immunity-shot', 'charcoal-cleanse', 'aloe-water'].includes(p.id));
-const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-beans', 'ceremonial-matcha', 'cold-brew', 'oat-latte', 'earl-grey-tea'].includes(p.id));
+const tonicBar = products.filter((p) => p.category === 'juice-bar');
+const cafe = products.filter((p) => p.category === 'cafe');
 const pantry = products.filter((p) => p.category === 'pantry');
 const deli = products.filter((p) => p.category === 'deli');
 const dairyAlt = products.filter((p) => p.category === 'dairy-alt');

@@ -1,0 +1,1539 @@
+[
+  {
+    "id": "G-01",
+    "label": "Organic",
+    "name": "Organic Kale",
+    "size": "1 bunch",
+    "price": 3.5,
+    "category": "The Garden",
+    "description": "Cultivated in the nutrient-dense, loamy soils of the Central Coast, this lacinato kale is hand-harvested before dawn to ensure maximum crispness and structural integrity. Each deeply pigmented, emerald leaf offers a robust, earthy flavor profile with a surprisingly tender bite, making it the perfect foundation for raw salads or gentle braising.",
+    "image": "assets/garden1.webp",
+    "origin": {
+      "region": "Central Coast, CA",
+      "altitude": "50m",
+      "harvest": "Late Summer"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "6g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "G-06",
+      "P-40"
+    ],
+    "logistics": {
+      "freshness": "5 days",
+      "packaging": "Compostable Tie",
+      "carbon": "0.2kg"
+    }
+  },
+  {
+    "id": "G-02",
+    "label": "Organic",
+    "name": "Heirloom Tomato",
+    "size": "1 lb",
+    "price": 4,
+    "category": "The Garden",
+    "description": "Grown from preserved heritage seeds, these tomatoes offer a complex, unparalleled balance of sharp acidity and deep, natural sugars. Their irregular, beautiful shapes and varied hues are a testament to their authentic, unengineered lineage, yielding a fleshy, melt-in-the-mouth texture perfect for crudos or simple salted slices.",
+    "image": "assets/garden2.webp",
+    "origin": {
+      "region": "Oaxaca Valley",
+      "altitude": "1500m",
+      "harvest": "Peak Summer"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "4g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "P-39",
+      "P-40"
+    ],
+    "logistics": {
+      "freshness": "4 days",
+      "packaging": "Naked / Bulk",
+      "carbon": "0.5kg"
+    }
+  },
+  {
+    "id": "G-03",
+    "label": "Organic",
+    "name": "Hass Avocado",
+    "size": "1 piece",
+    "price": 2.5,
+    "category": "The Garden",
+    "description": "Sourced strictly from the mineral-rich volcanic soil regions of Michoacán, these avocados boast an exceptionally high oil content. The result is a profoundly buttery, velvety texture with subtle, nutty undertones that elevate it far beyond standard commercial varieties.",
+    "image": "assets/garden3.webp",
+    "origin": {
+      "region": "Michoacán",
+      "altitude": "2000m",
+      "harvest": "Year-round"
+    },
+    "macros": {
+      "fat": "15g",
+      "carbs": "9g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "G-06",
+      "B-11"
+    ],
+    "logistics": {
+      "freshness": "7 days",
+      "packaging": "Naked / Bulk",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "G-04",
+    "label": "Organic",
+    "name": "Red Apple",
+    "size": "1 lb",
+    "price": 1.5,
+    "category": "The Garden",
+    "description": "A masterful cultivation from the high-altitude orchards of Washington State, presenting a stunning, vibrant pink blush over a crisp, pale yellow flesh. The flavor profile strikes a delicate balance between a bright, sweet-tart snap and a deeply aromatic, honeyed finish.",
+    "image": "assets/garden4.webp",
+    "origin": {
+      "region": "Washington State",
+      "altitude": "300m",
+      "harvest": "Autumn Yield"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "14g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "D-37",
+      "S-49"
+    ],
+    "logistics": {
+      "freshness": "14 days",
+      "packaging": "Naked / Bulk",
+      "carbon": "0.3kg"
+    }
+  },
+  {
+    "id": "G-05",
+    "label": "Organic",
+    "name": "Blueberry",
+    "size": "6 oz",
+    "price": 5,
+    "category": "The Garden",
+    "description": "These are true wild-foraged varieties, significantly smaller than their cultivated cousins but packing a remarkably intense, concentrated burst of flavor. Deeply indigo and rich in native antioxidants, they deliver a tart, floral sweetness that speaks directly to their untamed forest origins.",
+    "image": "assets/garden5.webp",
+    "origin": {
+      "region": "Oregon Forests",
+      "altitude": "100m",
+      "harvest": "Late Summer"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "14g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "A-46",
+      "S-51"
+    ],
+    "logistics": {
+      "freshness": "6 days",
+      "packaging": "Pulp Berry Box",
+      "carbon": "0.4kg"
+    }
+  },
+  {
+    "id": "G-06",
+    "label": "Organic",
+    "name": "Meyer Lemon",
+    "size": "1 piece",
+    "price": 1.25,
+    "category": "The Garden",
+    "description": "A brilliant natural crossbreed between a traditional citron and a mandarin orange, cultivated in the warm coastal breezes of Ventura County. They feature a remarkably thin, fragrant skin and yield a juice that is exceptionally sweet, floral, and entirely devoid of harsh, biting acidity.",
+    "image": "assets/garden6.webp",
+    "origin": {
+      "region": "Ventura County",
+      "altitude": "200m",
+      "harvest": "Winter Harvest"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "9g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "G-01",
+      "S-21"
+    ],
+    "logistics": {
+      "freshness": "10 days",
+      "packaging": "Naked / Bulk",
+      "carbon": "0.2kg"
+    }
+  },
+  {
+    "id": "G-07",
+    "label": "Organic",
+    "name": "Fresh Mint",
+    "size": "1 oz",
+    "price": 2,
+    "category": "The Garden",
+    "description": "Grown in highly controlled, bespoke greenhouse environments and cut daily to ensure absolute peak vitality. The leaves are deeply aromatic, offering a sharp, cooling menthol clarity that acts as an essential, lifting element for craft tonics, savory infusions, and delicate garnishes.",
+    "image": "assets/garden7.webp",
+    "origin": {
+      "region": "Local Greenhouse",
+      "altitude": "10m",
+      "harvest": "Daily Cut"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "1g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "T-27",
+      "T-26"
+    ],
+    "logistics": {
+      "freshness": "3 days",
+      "packaging": "Damp Paper Wrap",
+      "carbon": "0.1kg"
+    }
+  },
+  {
+    "id": "G-08",
+    "label": "Organic",
+    "name": "English Cucumber",
+    "size": "1 piece",
+    "price": 2,
+    "category": "The Garden",
+    "description": "Cultivated in advanced, climate-controlled hydroponic environments, ensuring a perfectly uniform, seedless interior and a remarkably thin, edible skin. They offer a pure, highly hydrating crunch with a clean, slightly sweet melon-like finish that is never bitter.",
+    "image": "assets/garden8.webp",
+    "origin": {
+      "region": "Local Hydroponic",
+      "altitude": "0m",
+      "harvest": "Year-round"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "4g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "D-38",
+      "G-06"
+    ],
+    "logistics": {
+      "freshness": "5 days",
+      "packaging": "Naked / Bulk",
+      "carbon": "0.3kg"
+    }
+  },
+  {
+    "id": "G-09",
+    "label": "Organic",
+    "name": "Orange Carrot",
+    "size": "1 lb",
+    "price": 4.5,
+    "category": "The Garden",
+    "description": "Pulled from heritage farms dedicated to preserving ancient root profiles, these carrots are densely textured and radiantly colored. They provide a spectrum of deep earthiness combined with a concentrated, woody sweetness that intensifies beautifully when slow-roasted or shaved raw into ribbons.",
+    "image": "assets/garden9.webp",
+    "origin": {
+      "region": "Heritage Farm",
+      "altitude": "150m",
+      "harvest": "Winter Dig"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "10g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "P-39",
+      "G-07"
+    ],
+    "logistics": {
+      "freshness": "10 days",
+      "packaging": "Naked / Bulk",
+      "carbon": "0.2kg"
+    }
+  },
+  {
+    "id": "G-10",
+    "label": "Organic",
+    "name": "Arugula",
+    "size": "5 oz",
+    "price": 4,
+    "category": "The Garden",
+    "description": "True wild-harvested roquette, characterized by its deeply lobed, jagged leaves and an intensely sharp, sophisticated flavor profile. It delivers a pronounced peppery kick with subtle, mustard-like undertones, demanding nothing more than high-grade olive oil and finishing salt to shine.",
+    "image": "assets/garden10.webp",
+    "origin": {
+      "region": "Wild Foraged",
+      "altitude": "500m",
+      "harvest": "Spring Flush"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "4g",
+      "protein": "3g"
+    },
+    "pairingIds": [
+      "D-36",
+      "P-39"
+    ],
+    "logistics": {
+      "freshness": "4 days",
+      "packaging": "Recycled Clam",
+      "carbon": "0.3kg"
+    }
+  },
+  {
+    "id": "B-11",
+    "label": "Gourmet",
+    "name": "Sourdough Boule",
+    "size": "800g",
+    "price": 9,
+    "category": "The Bakery",
+    "description": "This signature boule is the culmination of a 15-year-old wild yeast starter, naturally fermented over an exhaustive 36-hour period to develop its profound, complex tang. Baked on fire-heated baking stones, it achieves a blistered, mahogany crust that shatters audibly upon cutting, revealing a highly hydrated, pearlescent honeycomb crumb within.",
+    "image": "assets/bakery1.webp",
+    "origin": {
+      "region": "In-House Hearth",
+      "altitude": "0m",
+      "harvest": "Dawn Bake"
+    },
+    "macros": {
+      "fat": "1g",
+      "carbs": "50g",
+      "protein": "8g"
+    },
+    "pairingIds": [
+      "P-39",
+      "D-37"
+    ],
+    "logistics": {
+      "freshness": "3 days",
+      "packaging": "Breathable Linen",
+      "carbon": "0.8kg"
+    }
+  },
+  {
+    "id": "B-12",
+    "label": "Gourmet",
+    "name": "Plain Croissant",
+    "size": "1 piece",
+    "price": 4,
+    "category": "The Bakery",
+    "description": "A masterclass in traditional French lamination, featuring exactly 81 microscopic layers of dough and premium cultured Normandy butter. The exterior shatters into delicate, golden shards upon the first bite, giving way to a rich, cavernous interior that is both feather-light and deeply, unapologetically buttery.",
+    "image": "assets/bakery2.webp",
+    "origin": {
+      "region": "In-House Oven",
+      "altitude": "0m",
+      "harvest": "Morning Bake"
+    },
+    "macros": {
+      "fat": "12g",
+      "carbs": "28g",
+      "protein": "5g"
+    },
+    "pairingIds": [
+      "C-34",
+      "S-52"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Kraft Sleeve",
+      "carbon": "0.9kg"
+    }
+  },
+  {
+    "id": "B-13",
+    "label": "Gourmet",
+    "name": "Baguette",
+    "size": "1 loaf",
+    "price": 4.5,
+    "category": "The Bakery",
+    "description": "Crafted in the uncompromising, classic Parisian tradition, relying on a pre-fermented poolish for superior depth of flavor. It boasts a distinctively thin, shatteringly crisp crust with caramelized notes, protecting a chewy, open-crumbed interior that serves as the ultimate vehicle for artisanal cheeses and cured meats.",
+    "image": "assets/bakery3.webp",
+    "origin": {
+      "region": "In-House Hearth",
+      "altitude": "0m",
+      "harvest": "Morning Bake"
+    },
+    "macros": {
+      "fat": "1g",
+      "carbs": "45g",
+      "protein": "7g"
+    },
+    "pairingIds": [
+      "D-36",
+      "D-37"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Open Paper",
+      "carbon": "0.7kg"
+    }
+  },
+  {
+    "id": "B-14",
+    "label": "Gourmet",
+    "name": "Pain au Chocolat",
+    "size": "1 piece",
+    "price": 5,
+    "category": "The Bakery",
+    "description": "An exquisite marriage of our signature 81-layer laminated pastry dough and twin batons of 70% dark Valrhona chocolate. Baked until the pastry reaches a deep, golden amber, the dark chocolate melts into a rich, semi-sweet ganache-like center that contrasts perfectly with the crisp, buttery exterior flakes.",
+    "image": "assets/bakery4.webp",
+    "origin": {
+      "region": "In-House Oven",
+      "altitude": "0m",
+      "harvest": "Morning Bake"
+    },
+    "macros": {
+      "fat": "14g",
+      "carbs": "30g",
+      "protein": "6g"
+    },
+    "pairingIds": [
+      "C-33",
+      "C-31"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Kraft Sleeve",
+      "carbon": "1.0kg"
+    }
+  },
+  {
+    "id": "B-15",
+    "label": "Gourmet",
+    "name": "Rye Bread",
+    "size": "800g",
+    "price": 8.5,
+    "category": "The Bakery",
+    "description": "A tribute to old-world European baking, this dense, nutrient-heavy loaf is built upon a foundation of stone-ground dark rye flour. It is studded with toasted caraway seeds that provide a fragrant, aromatic lift to the deep, malty, and slightly sour finish that defines a truly authentic rye.",
+    "image": "assets/bakery5.webp",
+    "origin": {
+      "region": "In-House Hearth",
+      "altitude": "0m",
+      "harvest": "Dawn Bake"
+    },
+    "macros": {
+      "fat": "2g",
+      "carbs": "40g",
+      "protein": "6g"
+    },
+    "pairingIds": [
+      "D-38",
+      "P-39"
+    ],
+    "logistics": {
+      "freshness": "4 days",
+      "packaging": "Paper Wrap",
+      "carbon": "0.7kg"
+    }
+  },
+  {
+    "id": "B-16",
+    "label": "Gourmet",
+    "name": "Brioche Bun",
+    "size": "1 piece",
+    "price": 2,
+    "category": "The Bakery",
+    "description": "A profoundly enriched dough, heavily fortified with organic egg yolks and high-fat cultured butter. It is baked to a soft, pillowy perfection and finished with a delicate egg wash, resulting in a lacquered, golden-brown crown that yields to a rich, tender, and subtly sweet interior.",
+    "image": "assets/bakery6.webp",
+    "origin": {
+      "region": "In-House Oven",
+      "altitude": "0m",
+      "harvest": "Morning Bake"
+    },
+    "macros": {
+      "fat": "8g",
+      "carbs": "25g",
+      "protein": "5g"
+    },
+    "pairingIds": [
+      "D-36",
+      "D-38"
+    ],
+    "logistics": {
+      "freshness": "2 days",
+      "packaging": "Paper Wrap",
+      "carbon": "0.8kg"
+    }
+  },
+  {
+    "id": "B-17",
+    "label": "Gourmet",
+    "name": "Focaccia Slice",
+    "size": "1 slice",
+    "price": 5,
+    "category": "The Bakery",
+    "description": "A high-hydration, dimpled masterpiece that is generously saturated with single-estate, cold-pressed olive oil before baking. Finished simply with coarse Maldon sea salt flakes, the resulting bread features a satisfyingly crisp, fried-like bottom crust and an incredibly airy, aromatic center.",
+    "image": "assets/bakery7.webp",
+    "origin": {
+      "region": "In-House Oven",
+      "altitude": "0m",
+      "harvest": "Noon Bake"
+    },
+    "macros": {
+      "fat": "10g",
+      "carbs": "35g",
+      "protein": "6g"
+    },
+    "pairingIds": [
+      "P-39",
+      "D-38"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Greaseproof",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "B-18",
+    "label": "Gourmet",
+    "name": "Ciabatta",
+    "size": "1 loaf",
+    "price": 6,
+    "category": "The Bakery",
+    "description": "Translated literally as 'slipper' for its distinctive shape, this Italian classic utilizes an exceptionally wet dough and extended proofing times. The result is a rustic, flour-dusted exterior crust that breaks cleanly, revealing a remarkably light, translucent, honeycomb interior perfect for absorbing premium oils and vinegars.",
+    "image": "assets/bakery8.webp",
+    "origin": {
+      "region": "In-House Hearth",
+      "altitude": "0m",
+      "harvest": "Morning Bake"
+    },
+    "macros": {
+      "fat": "2g",
+      "carbs": "48g",
+      "protein": "7g"
+    },
+    "pairingIds": [
+      "P-39",
+      "D-36"
+    ],
+    "logistics": {
+      "freshness": "2 days",
+      "packaging": "Paper Wrap",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "B-19",
+    "label": "Gourmet",
+    "name": "Almond Croissant",
+    "size": "1 piece",
+    "price": 6,
+    "category": "The Bakery",
+    "description": "Our day-old butter croissants are given a decadent second life, split and generously soaked in a fragrant, light rum syrup. They are then filled and encrusted with a rich, velvety frangipane (almond cream) and covered in thinly sliced, toasted almonds before being double-baked to a caramelized crunch.",
+    "image": "assets/bakery9.webp",
+    "origin": {
+      "region": "In-House Oven",
+      "altitude": "0m",
+      "harvest": "Morning Bake"
+    },
+    "macros": {
+      "fat": "18g",
+      "carbs": "32g",
+      "protein": "8g"
+    },
+    "pairingIds": [
+      "C-32",
+      "C-35"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Kraft Sleeve",
+      "carbon": "1.1kg"
+    }
+  },
+  {
+    "id": "B-20",
+    "label": "Gourmet",
+    "name": "Multigrain Loaf",
+    "size": "800g",
+    "price": 8,
+    "category": "The Bakery",
+    "description": "A robust, sustaining loaf packed densely with a carefully curated blend of ancient grains, golden flax seeds, and toasted sunflower kernels. The varied seeds provide an incredible textural contrast and a deep, nutty flavor profile that permeates the moist, tightly woven crumb.",
+    "image": "assets/bakery10.webp",
+    "origin": {
+      "region": "In-House Hearth",
+      "altitude": "0m",
+      "harvest": "Dawn Bake"
+    },
+    "macros": {
+      "fat": "4g",
+      "carbs": "42g",
+      "protein": "9g"
+    },
+    "pairingIds": [
+      "P-41",
+      "A-47"
+    ],
+    "logistics": {
+      "freshness": "4 days",
+      "packaging": "Paper Wrap",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "B-21",
+    "label": "Gourmet",
+    "name": "Olive Rosemary",
+    "size": "800g",
+    "price": 9.5,
+    "category": "The Bakery",
+    "description": "This rustic, stone-baked loaf transports you directly to the Mediterranean coast, studded generously with briny, oil-cured Ligurian black olives. The dough is infused with fresh, wild-foraged rosemary, yielding a deeply fragrant, savory crumb that is an experience in itself, requiring no butter or accompaniments.",
+    "image": "assets/bakery11.webp",
+    "origin": {
+      "region": "In-House Hearth",
+      "altitude": "0m",
+      "harvest": "Dawn Bake"
+    },
+    "macros": {
+      "fat": "6g",
+      "carbs": "44g",
+      "protein": "8g"
+    },
+    "pairingIds": [
+      "P-39",
+      "D-37"
+    ],
+    "logistics": {
+      "freshness": "3 days",
+      "packaging": "Paper Wrap",
+      "carbon": "0.7kg"
+    }
+  },
+  {
+    "id": "S-21",
+    "label": "Premium",
+    "name": "Salmon Nigiri",
+    "size": "2 pieces",
+    "price": 14,
+    "category": "Sushi",
+    "description": "Sourced from highly regulated, sustainable deep-water farms, this King Salmon boasts an extraordinary fat-to-meat ratio. It is masterfully sliced and draped over body-temperature, hand-pressed Koshihikari rice, creating a luxurious, melt-in-the-mouth sensation that represents the pinnacle of Edomae-style simplicity.",
+    "image": "assets/sushi1.webp",
+    "origin": {
+      "region": "Hokkaido Coast",
+      "altitude": "0m",
+      "harvest": "Morning Catch"
+    },
+    "macros": {
+      "fat": "4g",
+      "carbs": "12g",
+      "protein": "6g"
+    },
+    "pairingIds": [
+      "S-25",
+      "C-32"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Balsa Box",
+      "carbon": "1.2kg"
+    }
+  },
+  {
+    "id": "S-22",
+    "label": "Premium",
+    "name": "Tuna Sashimi",
+    "size": "3 pieces",
+    "price": 18,
+    "category": "Sushi",
+    "description": "Featuring exclusively the Akami (lean ruby-red meat) of line-caught Bluefin tuna, prized for its clean, firm, and meaty texture. Sliced with absolute precision to ensure a silky mouthfeel, it offers a deep, umami-rich flavor profile with a subtle, metallic sweetness unique to top-tier pelagic fish.",
+    "image": "assets/sushi2.webp",
+    "origin": {
+      "region": "Deep Pacific",
+      "altitude": "0m",
+      "harvest": "Line Caught"
+    },
+    "macros": {
+      "fat": "1g",
+      "carbs": "0g",
+      "protein": "15g"
+    },
+    "pairingIds": [
+      "S-25",
+      "T-27"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Balsa Box",
+      "carbon": "1.5kg"
+    }
+  },
+  {
+    "id": "S-23",
+    "label": "Premium",
+    "name": "Yellowtail Nigiri",
+    "size": "2 pieces",
+    "price": 16,
+    "category": "Sushi",
+    "description": "Exceptional Hamachi, celebrated for its pale, pearlescent flesh and an astonishingly buttery, rich texture. It is prepared with minimal intervention, accented only by an imperceptible brush of aged soy and a microscopic hidden touch of freshly grated wasabi between the fish and the seasoned rice.",
+    "image": "assets/sushi3.webp",
+    "origin": {
+      "region": "Kyushu Waters",
+      "altitude": "0m",
+      "harvest": "Morning Catch"
+    },
+    "macros": {
+      "fat": "5g",
+      "carbs": "12g",
+      "protein": "5g"
+    },
+    "pairingIds": [
+      "G-06",
+      "S-25"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Balsa Box",
+      "carbon": "1.4kg"
+    }
+  },
+  {
+    "id": "S-24",
+    "label": "Premium",
+    "name": "Maki Roll",
+    "size": "6 pieces",
+    "price": 12,
+    "category": "Sushi",
+    "description": "A study in minimalist perfection, this roll focuses on the precise harmony of textures. Crisp, high-grade, first-harvest Nori envelops perfectly seasoned, vinegared rice and your choice of ultra-fresh, single-ingredient fillings, ensuring a clean, snapping bite and unadulterated flavor.",
+    "image": "assets/sushi4.webp",
+    "origin": {
+      "region": "Local Prep",
+      "altitude": "0m",
+      "harvest": "Made to Order"
+    },
+    "macros": {
+      "fat": "2g",
+      "carbs": "20g",
+      "protein": "4g"
+    },
+    "pairingIds": [
+      "S-25",
+      "T-27"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Balsa Box",
+      "carbon": "0.9kg"
+    }
+  },
+  {
+    "id": "S-25",
+    "label": "Premium",
+    "name": "Wasabi Root",
+    "size": "10g",
+    "price": 25,
+    "category": "Sushi",
+    "description": "True, unadulterated Hon-Wasabi, grown in the cold, flowing mountain streams of Shizuoka prefecture. When grated fresh on traditional sharkskin, it yields a complex, floral, and herbaceous heat that quickly dissipates, serving to elevate the delicate flavors of raw fish rather than overwhelm them.",
+    "image": "assets/sushi5.webp",
+    "origin": {
+      "region": "Shizuoka Streams",
+      "altitude": "800m",
+      "harvest": "Seasonal Pull"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "2g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "S-21",
+      "S-22"
+    ],
+    "logistics": {
+      "freshness": "7 days",
+      "packaging": "Damp Bamboo",
+      "carbon": "0.5kg"
+    }
+  },
+  {
+    "id": "T-26",
+    "label": "Vitality",
+    "name": "Vitality Juice",
+    "size": "250ml",
+    "price": 11,
+    "category": "Tonic Bar",
+    "description": "An uncompromising, cold-pressed elixir designed to awaken the system. It features a concentrated, anti-inflammatory blend of raw Hawaiian turmeric and Peruvian ginger, aggressively balanced by the bright, floral acidity of freshly squeezed Meyer lemon, delivering a profound, warming kick to the palate.",
+    "image": "assets/tonicbar1.webp",
+    "origin": {
+      "region": "California Juicery",
+      "altitude": "100m",
+      "harvest": "Pressed Daily"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "12g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "T-28",
+      "G-07"
+    ],
+    "logistics": {
+      "freshness": "3 days",
+      "packaging": "UV Glass",
+      "carbon": "0.4kg"
+    }
+  },
+  {
+    "id": "T-27",
+    "label": "Zen",
+    "name": "Matcha Tonic",
+    "size": "250ml",
+    "price": 8,
+    "category": "Tonic Bar",
+    "description": "A modern, effervescent interpretation of ancient tradition. We whisk ultra-premium, first-harvest ceremonial grade Uji matcha into a state of micro-foamed suspension, then slowly fold it into highly filtered, sparkling alkaline water to create a crisp, energizing, and deeply grassy botanical refreshment.",
+    "image": "assets/tonicbar2.webp",
+    "origin": {
+      "region": "Uji, Japan",
+      "altitude": "100m",
+      "harvest": "First Flush"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "1g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "S-24",
+      "S-50"
+    ],
+    "logistics": {
+      "freshness": "1 day",
+      "packaging": "Clear Glass",
+      "carbon": "0.3kg"
+    }
+  },
+  {
+    "id": "T-28",
+    "label": "Potent",
+    "name": "Immunity Shot",
+    "size": "60ml",
+    "price": 5,
+    "category": "Tonic Bar",
+    "description": "A highly concentrated, uncompromising 2-ounce dose of absolute wellness. Potent, cold-pressed ginger root provides an intense, immediate heat, synergistically combined with a therapeutic-grade oil of wild oregano to create a fiery, functional shot designed to aggressively support the immune system.",
+    "image": "assets/tonicbar3.webp",
+    "origin": {
+      "region": "In-House Prep",
+      "altitude": "0m",
+      "harvest": "Pressed Daily"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "4g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "T-26",
+      "P-41"
+    ],
+    "logistics": {
+      "freshness": "5 days",
+      "packaging": "Glass Vial",
+      "carbon": "0.2kg"
+    }
+  },
+  {
+    "id": "T-29",
+    "label": "Purifying",
+    "name": "Charcoal Cleanse",
+    "size": "250ml",
+    "price": 9,
+    "category": "Tonic Bar",
+    "description": "A striking, jet-black detoxifying tonic formulated for systemic balance. Fine-milled, highly porous activated coconut charcoal is suspended in a base of alkaline water, brightened with organic, cold-pressed lemon juice, and lightly softened with a trace of raw blue agave for a smooth, surprisingly refreshing finish.",
+    "image": "assets/tonicbar4.webp",
+    "origin": {
+      "region": "In-House Prep",
+      "altitude": "0m",
+      "harvest": "Pressed Daily"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "15g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "T-30",
+      "G-07"
+    ],
+    "logistics": {
+      "freshness": "2 days",
+      "packaging": "Clear Glass",
+      "carbon": "0.4kg"
+    }
+  },
+  {
+    "id": "T-30",
+    "label": "Soothing",
+    "name": "Aloe Water",
+    "size": "250ml",
+    "price": 7,
+    "category": "Tonic Bar",
+    "description": "Extracted strictly from the inner leaf fillet of mature Barbadensis Miller aloe plants, ensuring zero bitterness or aloin residue. This pure, viscous botanical water is mildly earthy and profoundly hydrating, designed specifically to soothe the digestive tract and promote internal cellular hydration.",
+    "image": "assets/tonicbar5.webp",
+    "origin": {
+      "region": "Baja California",
+      "altitude": "50m",
+      "harvest": "Year-round"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "2g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "T-29",
+      "G-06"
+    ],
+    "logistics": {
+      "freshness": "5 days",
+      "packaging": "Clear Glass",
+      "carbon": "0.5kg"
+    }
+  },
+  {
+    "id": "C-31",
+    "label": "Refined",
+    "name": "Ethiopian Beans",
+    "size": "250g",
+    "price": 24,
+    "category": "Cafe",
+    "description": "A spectacular representation of East African terroir, sourced from high-elevation micro-lots in the Sidamo region. These lightly roasted, heirloom varietals yield an extraordinarily bright, tea-like cup, characterized by intoxicating aromatics of night-blooming jasmine, bergamot, and a vibrant, lingering citrus acidity.",
+    "image": "assets/cafe1.webp",
+    "origin": {
+      "region": "Sidamo Region",
+      "altitude": "1900m",
+      "harvest": "Recent Harvest"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "0g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "B-14",
+      "S-49"
+    ],
+    "logistics": {
+      "freshness": "3 months",
+      "packaging": "Valve Bag",
+      "carbon": "1.1kg"
+    }
+  },
+  {
+    "id": "C-32",
+    "label": "Refined",
+    "name": "Ceremonial Matcha",
+    "size": "30g",
+    "price": 35,
+    "category": "Cafe",
+    "description": "The absolute highest echelon of Japanese green tea, shade-grown for 30 days prior to the first spring harvest to maximize chlorophyll and L-theanine. Stone-milled at a glacial pace to prevent heat degradation, it produces a mesmerizingly vibrant, jade-green bowl with a thick, umami-rich, and entirely sweet flavor profile.",
+    "image": "assets/cafe2.webp",
+    "origin": {
+      "region": "Kyoto Prefecture",
+      "altitude": "100m",
+      "harvest": "Spring Flush"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "1g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "A-44",
+      "B-19"
+    ],
+    "logistics": {
+      "freshness": "6 months",
+      "packaging": "Airtight Tin",
+      "carbon": "0.3kg"
+    }
+  },
+  {
+    "id": "C-33",
+    "label": "Refined",
+    "name": "Cold Brew",
+    "size": "12 oz",
+    "price": 6,
+    "category": "Cafe",
+    "description": "A meticulous, low-temperature extraction process spanning a full 14 hours. By substituting time for heat, we eliminate the astringent, bitter compounds typically found in iced coffee, resulting in a profoundly smooth, heavy-bodied elixir with pronounced notes of dark cocoa and malt.",
+    "image": "assets/cafe3.webp",
+    "origin": {
+      "region": "In-House Brew",
+      "altitude": "0m",
+      "harvest": "Daily Batch"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "0g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "B-14",
+      "S-51"
+    ],
+    "logistics": {
+      "freshness": "3 days",
+      "packaging": "Amber Glass",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "C-34",
+    "label": "Refined",
+    "name": "Oat Latte",
+    "size": "12 oz",
+    "price": 6.5,
+    "category": "Cafe",
+    "description": "A flawless execution of the modern cafe staple. We pull a concentrated, syrupy double ristretto shot of our seasonal espresso blend, and seamlessly integrate it with our house-pressed, micro-foamed oat milk. The result is a luxuriously creamy, perfectly temperature-controlled beverage with exceptional latte art definition.",
+    "image": "assets/cafe4.webp",
+    "origin": {
+      "region": "Espresso Bar",
+      "altitude": "0m",
+      "harvest": "Made to Order"
+    },
+    "macros": {
+      "fat": "4g",
+      "carbs": "15g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "B-12",
+      "B-19"
+    ],
+    "logistics": {
+      "freshness": "Immediate",
+      "packaging": "Compost Cup",
+      "carbon": "0.7kg"
+    }
+  },
+  {
+    "id": "C-35",
+    "label": "Refined",
+    "name": "Earl Grey Tea",
+    "size": "50g",
+    "price": 5,
+    "category": "Cafe",
+    "description": "A highly sophisticated interpretation of the British classic. We utilize a robust, malty base of large-leaf Assam black tea, which is then generously infused with the pure, cold-pressed essential oil of Calabrian bergamot oranges, delivering a deeply aromatic, citrus-forward, and elegantly astringent cup.",
+    "image": "assets/cafe5.webp",
+    "origin": {
+      "region": "Assam Estates",
+      "altitude": "500m",
+      "harvest": "Summer Flush"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "0g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "S-51",
+      "B-19"
+    ],
+    "logistics": {
+      "freshness": "1 year",
+      "packaging": "Airtight Tin",
+      "carbon": "0.4kg"
+    }
+  },
+  {
+    "id": "D-36",
+    "label": "Aged",
+    "name": "Prosciutto",
+    "size": "100g",
+    "price": 18,
+    "category": "The Deli",
+    "description": "Imported strictly from the Emilia-Romagna region, this authentic Prosciutto di Parma undergoes a rigorous, heavily monitored 24-month dry-aging process. Sliced tissue-paper thin to order, the meat practically dissolves on the tongue, offering a profound, sweet-salty complexity that only extended maturation can achieve.",
+    "image": "assets/deli1.webp",
+    "origin": {
+      "region": "Parma",
+      "altitude": "200m",
+      "harvest": "24-Month Aged"
+    },
+    "macros": {
+      "fat": "12g",
+      "carbs": "0g",
+      "protein": "20g"
+    },
+    "pairingIds": [
+      "B-13",
+      "B-18"
+    ],
+    "logistics": {
+      "freshness": "7 days",
+      "packaging": "Wax Paper",
+      "carbon": "2.5kg"
+    }
+  },
+  {
+    "id": "D-37",
+    "label": "Aged",
+    "name": "Manchego",
+    "size": "150g",
+    "price": 14,
+    "category": "The Deli",
+    "description": "An authentic, PDO-certified Spanish masterpiece, crafted exclusively from the whole milk of the Manchega sheep breed. Aged for a minimum of 12 months in climate-controlled caves, it develops a firm, beautifully crystalline texture and a complex, grassy, and intensely nutty flavor profile with a piquant finish.",
+    "image": "assets/deli2.webp",
+    "origin": {
+      "region": "La Mancha",
+      "altitude": "700m",
+      "harvest": "12-Month Aged"
+    },
+    "macros": {
+      "fat": "14g",
+      "carbs": "1g",
+      "protein": "12g"
+    },
+    "pairingIds": [
+      "B-11",
+      "G-04"
+    ],
+    "logistics": {
+      "freshness": "14 days",
+      "packaging": "Cheese Paper",
+      "carbon": "1.8kg"
+    }
+  },
+  {
+    "id": "D-38",
+    "label": "Aged",
+    "name": "Green Olives",
+    "size": "200g",
+    "price": 9,
+    "category": "The Deli",
+    "description": "The undisputed jewel of Sicilian table olives, the Castelvetrano variety is famous for its vibrant, emerald-green hue and unusually meaty, firm texture. They are cured lightly in a low-sodium brine, preserving their exceptionally mild, sweet, and predominantly buttery flavor profile that is devoid of harsh bitterness.",
+    "image": "assets/deli3.webp",
+    "origin": {
+      "region": "Sicily",
+      "altitude": "50m",
+      "harvest": "Autumn Pick"
+    },
+    "macros": {
+      "fat": "10g",
+      "carbs": "2g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "B-15",
+      "B-17"
+    ],
+    "logistics": {
+      "freshness": "30 days",
+      "packaging": "Glass Jar",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "P-39",
+    "label": "Reserve",
+    "name": "Olive Oil",
+    "size": "500ml",
+    "price": 30,
+    "category": "The Pantry",
+    "description": "An extraordinary, limited-production EVOO pressed exclusively from hand-picked Nocellara del Belice olives within hours of the autumn harvest. Extracted entirely by mechanical, cold-press means, it boasts a luminous, viscous green color and a robust, intensely grassy flavor profile that finishes with a signature peppery bite.",
+    "image": "assets/pantry1.webp",
+    "origin": {
+      "region": "Sicily",
+      "altitude": "300m",
+      "harvest": "Autumn Harvest"
+    },
+    "macros": {
+      "fat": "14g",
+      "carbs": "0g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "B-11",
+      "G-02"
+    ],
+    "logistics": {
+      "freshness": "1 year",
+      "packaging": "Dark UV Glass",
+      "carbon": "1.5kg"
+    }
+  },
+  {
+    "id": "P-40",
+    "label": "Reserve",
+    "name": "Sea Salt",
+    "size": "250g",
+    "price": 8,
+    "category": "The Pantry",
+    "description": "The quintessential finishing element for any high-end culinary application. Harvested meticulously using traditional methods off the coast of Essex, these distinctive, soft-peaked pyramidal crystals provide a brilliant, clean salinity and a deeply satisfying, shatter-crisp textural contrast when scattered over finished dishes.",
+    "image": "assets/pantry2.webp",
+    "origin": {
+      "region": "Essex Coast",
+      "altitude": "0m",
+      "harvest": "Evaporated"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "0g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "G-01",
+      "S-51"
+    ],
+    "logistics": {
+      "freshness": "Indefinite",
+      "packaging": "Cardboard Box",
+      "carbon": "0.2kg"
+    }
+  },
+  {
+    "id": "P-41",
+    "label": "Reserve",
+    "name": "Raw Honey",
+    "size": "300g",
+    "price": 25,
+    "category": "The Pantry",
+    "description": "Sourced from isolated, high-altitude apiaries, this polyfloral honey is extracted using cold-spin techniques, completely bypassing commercial pasteurization. This process preserves the vital, naturally occurring enzymes, pollen, and complex, shifting floral notes that reflect the specific micro-season of the wild bloom.",
+    "image": "assets/pantry3.webp",
+    "origin": {
+      "region": "Local Apiary",
+      "altitude": "400m",
+      "harvest": "Spring Nectar"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "17g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "T-28",
+      "B-20"
+    ],
+    "logistics": {
+      "freshness": "Indefinite",
+      "packaging": "Glass Jar",
+      "carbon": "0.5kg"
+    }
+  },
+  {
+    "id": "P-42",
+    "label": "Reserve",
+    "name": "Balsamic",
+    "size": "250ml",
+    "price": 45,
+    "category": "The Pantry",
+    "description": "A true, artisanal Aceto Balsamico Tradizionale, subjected to a painstaking 15-year maturation process in a cascading series of progressively smaller wooden barrels (oak, cherry, juniper). The result is an incredibly dense, syrupy elixir with a mesmerizing, dark mahogany color and a perfect, sweet-sour complexity.",
+    "image": "assets/pantry4.webp",
+    "origin": {
+      "region": "Modena",
+      "altitude": "50m",
+      "harvest": "15-Year Barrel"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "15g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "P-39",
+      "G-02"
+    ],
+    "logistics": {
+      "freshness": "Indefinite",
+      "packaging": "Wax-Sealed Glass",
+      "carbon": "1.2kg"
+    }
+  },
+  {
+    "id": "P-43",
+    "label": "Reserve",
+    "name": "Dijon Mustard",
+    "size": "200g",
+    "price": 7,
+    "category": "The Pantry",
+    "description": "Manufactured in true French tradition, utilizing whole brown mustard seeds that are coarsely crushed using antique stone mills, rather than modern steel blades. Blended with a high-quality white wine, it delivers a deeply rustic texture and a sharp, sophisticated, nose-clearing pungency that elevates any charcuterie board.",
+    "image": "assets/pantry5.webp",
+    "origin": {
+      "region": "Dijon",
+      "altitude": "200m",
+      "harvest": "Summer Seed"
+    },
+    "macros": {
+      "fat": "2g",
+      "carbs": "1g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "D-36",
+      "B-13"
+    ],
+    "logistics": {
+      "freshness": "6 months",
+      "packaging": "Glass Jar",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "A-44",
+    "label": "Local",
+    "name": "Oat Milk",
+    "size": "1L",
+    "price": 8,
+    "category": "Dairy Alt",
+    "description": "A revelation in plant-based dairy, crafted daily in our kitchens from certified organic, gluten-free rolled oats and filtered alkaline water. We absolutely refuse the use of industrial gums, emulsifiers, or seed oils, resulting in a pure, exceptionally clean-tasting milk with a natural, delicate sweetness and a silky mouthfeel.",
+    "image": "assets/dairyalt1.webp",
+    "origin": {
+      "region": "In-House Kitchen",
+      "altitude": "0m",
+      "harvest": "Pressed Daily"
+    },
+    "macros": {
+      "fat": "3g",
+      "carbs": "12g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "C-32",
+      "S-51"
+    ],
+    "logistics": {
+      "freshness": "4 days",
+      "packaging": "Glass Bottle",
+      "carbon": "0.5kg"
+    }
+  },
+  {
+    "id": "A-45",
+    "label": "Local",
+    "name": "Almond Milk",
+    "size": "1L",
+    "price": 8,
+    "category": "Dairy Alt",
+    "description": "Setting a new standard for luxury alternatives, this milk boasts a remarkable 25% raw almond content—drastically higher than commercial watered-down equivalents. The nuts are soaked overnight, cold-pressed, and lightly seasoned with a single pinch of sea salt, yielding an incredibly rich, decadent, and intensely nutty profile.",
+    "image": "assets/dairyalt2.webp",
+    "origin": {
+      "region": "In-House Kitchen",
+      "altitude": "0m",
+      "harvest": "Pressed Daily"
+    },
+    "macros": {
+      "fat": "6g",
+      "carbs": "2g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "C-34",
+      "B-20"
+    ],
+    "logistics": {
+      "freshness": "4 days",
+      "packaging": "Glass Bottle",
+      "carbon": "0.8kg"
+    }
+  },
+  {
+    "id": "A-46",
+    "label": "Local",
+    "name": "Cashew Yogurt",
+    "size": "250g",
+    "price": 6,
+    "category": "Dairy Alt",
+    "description": "A masterful application of traditional dairy fermentation techniques to a purely plant-based medium. A luxuriously thick, high-fat cashew cream base is inoculated with live, active, and clinically backed probiotic cultures, creating a dense, spoonable yogurt with a genuine, sophisticated tangy profile.",
+    "image": "assets/dairyalt3.webp",
+    "origin": {
+      "region": "In-House Kitchen",
+      "altitude": "0m",
+      "harvest": "Cultured Weekly"
+    },
+    "macros": {
+      "fat": "8g",
+      "carbs": "10g",
+      "protein": "4g"
+    },
+    "pairingIds": [
+      "G-05",
+      "P-41"
+    ],
+    "logistics": {
+      "freshness": "7 days",
+      "packaging": "Glass Jar",
+      "carbon": "0.4kg"
+    }
+  },
+  {
+    "id": "A-47",
+    "label": "Whipped",
+    "name": "Vegan Butter",
+    "size": "250g",
+    "price": 7,
+    "category": "Dairy Alt",
+    "description": "A triumph of modern culinary engineering, this artisanal block flawlessly replicates the performance and mouthfeel of premium European dairy butter. By carefully culturing a proprietary blend of organic coconut and cashew fats, we achieve a complex, rich, and distinctly tangy profile that melts beautifully and browns evenly.",
+    "image": "assets/dairyalt4.webp",
+    "origin": {
+      "region": "In-House Kitchen",
+      "altitude": "0m",
+      "harvest": "Churned Weekly"
+    },
+    "macros": {
+      "fat": "12g",
+      "carbs": "0g",
+      "protein": "0g"
+    },
+    "pairingIds": [
+      "B-20",
+      "B-11"
+    ],
+    "logistics": {
+      "freshness": "14 days",
+      "packaging": "Wax Paper",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "A-48",
+    "label": "Local",
+    "name": "Coconut Cream",
+    "size": "400ml",
+    "price": 5,
+    "category": "Dairy Alt",
+    "description": "Sourced from mature, sustainably grown Thai coconuts, this is an unadulterated, ultra-high-fat cream extracted from the first pressing of the white meat. Incredibly dense and naturally sweet, it acts as a flawless, luxurious foundational ingredient for elevated raw desserts, rich curries, and plant-based baking.",
+    "image": "assets/dairyalt5.webp",
+    "origin": {
+      "region": "Thailand",
+      "altitude": "10m",
+      "harvest": "Seasonal"
+    },
+    "macros": {
+      "fat": "22g",
+      "carbs": "3g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "S-49",
+      "S-52"
+    ],
+    "logistics": {
+      "freshness": "1 year",
+      "packaging": "BPA-Free Can",
+      "carbon": "1.3kg"
+    }
+  },
+  {
+    "id": "S-49",
+    "label": "Cacao",
+    "name": "Dark Chocolate",
+    "size": "1 bar",
+    "price": 9,
+    "category": "Sweet Treats",
+    "description": "An uncompromising, single-origin experience crafted from rare Arriba Nacional cacao beans. This 70% dark chocolate bar is minimally processed to retain its deep, complex character, presenting an intense initial wave of dark cocoa that gently gives way to sophisticated, lingering notes of aged leather, dried stone fruit, and tobacco.",
+    "image": "assets/sweet1.webp",
+    "origin": {
+      "region": "Ecuador",
+      "altitude": "800m",
+      "harvest": "Winter Harvest"
+    },
+    "macros": {
+      "fat": "12g",
+      "carbs": "14g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "C-31",
+      "D-37"
+    ],
+    "logistics": {
+      "freshness": "1 year",
+      "packaging": "Foil & Paper",
+      "carbon": "0.8kg"
+    }
+  },
+  {
+    "id": "S-50",
+    "label": "Artisanal",
+    "name": "Dark Truffle",
+    "size": "1 piece",
+    "price": 15,
+    "category": "Sweet Treats",
+    "description": "A raw, incredibly dense, and highly nutritional confection that sacrifices nothing in terms of pure indulgence. We blend unroasted, antioxidant-rich raw cacao powder with the caramel-like sweetness of Medjool dates, rolling the resulting ganache-like center in coarse cacao nibs and a stark, brilliant flake of finishing salt.",
+    "image": "assets/sweet2.webp",
+    "origin": {
+      "region": "In-House Kitchen",
+      "altitude": "0m",
+      "harvest": "Rolled Daily"
+    },
+    "macros": {
+      "fat": "6g",
+      "carbs": "12g",
+      "protein": "2g"
+    },
+    "pairingIds": [
+      "T-27",
+      "C-33"
+    ],
+    "logistics": {
+      "freshness": "14 days",
+      "packaging": "Paper Box",
+      "carbon": "0.3kg"
+    }
+  },
+  {
+    "id": "S-51",
+    "label": "Classic",
+    "name": "Shortbread",
+    "size": "200g",
+    "price": 10,
+    "category": "Sweet Treats",
+    "description": "Baked according to an uncompromising, centuries-old Highland recipe that mandates only three ingredients: premium flour, fine sugar, and an extraordinary amount of high-fat, cultured European butter. The resulting biscuit is intensely rich, boasting an incredibly delicate, sandy texture that dissolves instantly upon the palate.",
+    "image": "assets/sweet3.webp",
+    "origin": {
+      "region": "Scottish Recipe",
+      "altitude": "100m",
+      "harvest": "Baked Weekly"
+    },
+    "macros": {
+      "fat": "14g",
+      "carbs": "28g",
+      "protein": "3g"
+    },
+    "pairingIds": [
+      "C-35",
+      "A-44"
+    ],
+    "logistics": {
+      "freshness": "30 days",
+      "packaging": "Tin Box",
+      "carbon": "0.6kg"
+    }
+  },
+  {
+    "id": "S-52",
+    "label": "Preserved",
+    "name": "Dried Mango",
+    "size": "150g",
+    "price": 8,
+    "category": "Sweet Treats",
+    "description": "Harvested at the absolute peak of solar ripeness, these Carabao mangoes are slowly, gently sun-dried to preserve their radiant color and intense, tropical aromatics. We strictly prohibit the use of added sugars, syrups, or sulfur dioxide preservatives, resulting in a pure, chewy, and electrifyingly sweet-tart fruit experience.",
+    "image": "assets/sweet4.webp",
+    "origin": {
+      "region": "Philippines",
+      "altitude": "50m",
+      "harvest": "Dry Season"
+    },
+    "macros": {
+      "fat": "0g",
+      "carbs": "35g",
+      "protein": "1g"
+    },
+    "pairingIds": [
+      "A-48",
+      "S-49"
+    ],
+    "logistics": {
+      "freshness": "6 months",
+      "packaging": "Kraft Pouch",
+      "carbon": "0.4kg"
+    }
+  }
+]

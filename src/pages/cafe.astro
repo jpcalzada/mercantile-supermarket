@@ -6,7 +6,7 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
 import { resolveImage } from '../lib/images';
 
-const cafe = products.filter((p) => p.category === 'juice-bar' && ['ethiopian-beans', 'ceremonial-matcha', 'cold-brew', 'oat-latte', 'earl-grey-tea'].includes(p.id));
+const cafe = products.filter((p) => p.category === 'cafe');
 ---
 
 <html lang="en">

@@ -91,7 +91,7 @@ const sessionPhone = Astro.locals.sessionPhone!;
 
   function renderOrderCard(order: Order, index: number, total: number): string {
     const itemsHtml = order.items.map((item) => `
-      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 0.5px solid rgba(27,48,34,0.08); font-family: 'Martian Mono', monospace;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.625rem 0; border-bottom: 0.5px solid rgba(27,48,34,0.08);">
         <div style="flex: 1;">
           <span style="font-size: 0.8125rem; font-weight: 600; color: #1B3022;">${escapeHtml(item.name)}</span>
           <span style="font-size: 0.625rem; color: rgba(27,48,34,0.4); margin-left: 0.5rem;">x${item.quantity}</span>
@@ -106,27 +106,17 @@ const sessionPhone = Astro.locals.sessionPhone!;
 
     return `
       <div style="font-family: 'Martian Mono', monospace;">
-        {/* Order Header */}
-        <div style="margin-bottom: 2rem;">
-          <p style="font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(27,48,34,0.4); margin-bottom: 0.375rem;">Active Order</p>
-          <p style="font-size: 1.125rem; font-weight: 800; color: #1B3022; letter-spacing: 0.04em;">${escapeHtml(order.id)}</p>
-        </div>
+        <p style="font-size: 1.125rem; font-weight: 800; color: #1B3022; letter-spacing: 0.04em; margin-bottom: 2rem;">${escapeHtml(order.id)}</p>
 
-        {/* Items */}
-        <div style="margin-bottom: 2rem;">
-          <p style="font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(27,48,34,0.4); margin-bottom: 0.75rem;">Items</p>
-          <div style="border-top: 0.5px solid rgba(27,48,34,0.12);">
-            ${itemsHtml}
-          </div>
+        <div style="border-top: 0.5px solid rgba(27,48,34,0.12); margin-bottom: 2rem;">
+          ${itemsHtml}
           <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; font-size: 0.875rem; font-weight: 800; color: #1B3022; text-transform: uppercase; letter-spacing: 0.04em;">
             <span>Total</span>
             <span>$${order.total.toFixed(2)}</span>
           </div>
         </div>
 
-        {/* Status */}
         <div style="margin-bottom: 1rem;">
-          <p style="font-size: 0.5625rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: rgba(27,48,34,0.4); margin-bottom: 1rem;">Status</p>
           <div>${renderStatusBar(order, index)}</div>
         </div>
       </div>

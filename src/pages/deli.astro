@@ -6,7 +6,7 @@ import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
 import { resolveImage } from '../lib/images';
 
-const deli = products.filter((p) => p.category === 'deli');
+const deli = products.filter((p) => p.category === 'deli' || p.category === 'sushi');
 ---
 
 <html lang="en">
