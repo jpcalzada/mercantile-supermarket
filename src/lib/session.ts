@@ -4,7 +4,7 @@ export const SESSION_COOKIE_NAME = 'mercantile_session';
 const MAX_AGE = 86400; // 24 hours
 
 function getSecret(): string {
-  const secret = import.meta.env.SESSION_SECRET;
+  const secret = import.meta.env.SESSION_SECRET || process.env.SESSION_SECRET;
   if (!secret) throw new Error('SESSION_SECRET env var is required');
   return secret;
 }

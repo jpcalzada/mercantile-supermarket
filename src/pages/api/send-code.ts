@@ -13,9 +13,9 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  const accountSid = import.meta.env.TWILIO_ACCOUNT_SID;
-  const authToken = import.meta.env.TWILIO_AUTH_TOKEN;
-  const verifySid = import.meta.env.TWILIO_VERIFY_SERVICE_SID;
+  const accountSid = import.meta.env.TWILIO_ACCOUNT_SID || process.env.TWILIO_ACCOUNT_SID;
+  const authToken = import.meta.env.TWILIO_AUTH_TOKEN || process.env.TWILIO_AUTH_TOKEN;
+  const verifySid = import.meta.env.TWILIO_VERIFY_SERVICE_SID || process.env.TWILIO_VERIFY_SERVICE_SID;
 
   if (!accountSid || !authToken || !verifySid) {
     return new Response(JSON.stringify({ error: 'Twilio not configured' }), {
