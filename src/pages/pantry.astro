@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/mercantile.css';
+import BaseHead from '../components/BaseHead.astro';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
@@ -12,15 +13,11 @@ const pantry = products.filter((p) => p.category === 'pantry');
 
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="view-transition" content="same-origin" />
-  <title>The Pantry — The Mercantile</title>
-  <meta name="description" content="Staples and essentials, curated with care. The Pantry at The Mercantile." />
+  <BaseHead 
+    title="The Pantry — The Mercantile" 
+    description="Staples and essentials, curated with care. The Pantry at The Mercantile."
+    enableViewTransitions={true}
+  />
 </head>
 <body class="mercantile-page">
   <SensoryNav />

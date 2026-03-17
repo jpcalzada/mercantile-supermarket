@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import '../styles/mercantile.css';
+import BaseHead from '../components/BaseHead.astro';
 import SensoryNav from '../components/supermarket/SensoryNav.astro';
 import MercantileFooter from '../components/supermarket/MercantileFooter.astro';
 import { products } from '../lib/products';
@@ -12,15 +13,11 @@ const tonicBar = products.filter((p) => p.category === 'juice-bar');
 
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="view-transition" content="same-origin" />
-  <title>Tonic Bar — The Mercantile</title>
-  <meta name="description" content="Cold-pressed juices and wellness tonics. The Tonic Bar at The Mercantile." />
+  <BaseHead 
+    title="Tonic Bar — The Mercantile" 
+    description="Cold-pressed juices and wellness tonics. The Tonic Bar at The Mercantile."
+    enableViewTransitions={true}
+  />
 </head>
 <body class="mercantile-page">
   <SensoryNav />
