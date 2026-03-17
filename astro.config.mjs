@@ -5,7 +5,11 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://mercantile.example.com',
   output: 'static',
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
   image: {
     domains: ['images.unsplash.com'],
   },
